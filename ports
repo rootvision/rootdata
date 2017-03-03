@@ -1,0 +1,53 @@
+Commonly Used Port Numbers
+
+This is a list of commonly used ports, 
+and does not include all possible ports that may be opened on a server.
+
+======================================================================================
+
+cPanel
+
+ 	 
+ 	cPanel			2082
+ 	cPanel - SSL		2083
+ 	WHM			2086
+ 	WHM - SSL		2087
+ 	Webmail			2095
+ 	Webmail - SSL		2096
+Email
+
+ 	 
+ 	POP3			110
+ 	POP3 - SSL		995
+ 	IMAP			143
+ 	IMAP - SSL		993
+ 	SMTP			25
+ 	SMTP Alternate		26
+ 	SMTP Alternate		587
+ 	SMTP - SSL		465
+Web
+
+ 	 
+ 	HTTP				80
+ 	SSL				443
+ 	FTP				21
+ 	FTPs				990
+ 	SFTP				22
+ 	SFTP Shared/Reseller Servers	2222
+ 	Webdisk				2077
+ 	Webdisk - SSL			2078
+ 	MySQL				3306
+ 	MSSQL				1433
+ 	SSH				22
+ 	SSH Shared/Reseller Servers	2222
+Other
+
+ 	 
+ 	Plesk Control Panel		8880
+ 	Plesk Control Panel - SSL	8443
+ 	Plesk Linux Webmail	N/A*
+ 	Plesk Windows Webmail (SmarterMail)	9998**
+ 	Virtuozzo			4643
+ 	DotNet Panel			9001
+ 	DotNet Panel Login		80
+ 	RDP (Remote Desktop Protocol)	4489
