@@ -1,0 +1,11 @@
+mysqldump --opt -u [uname] -p[pass] [dbname] > [backupfile.sql]
+•	[uname] Your database username 
+•	[pass] The password for your database (note there is no space between -p and the password) 
+•	[dbname] The name of your database 
+•	[backupfile.sql] The filename for your database backup 
+•	[--opt] The mysqldump option 
+
+$ mysqldump -u root -p --all-databases > alldb_backup.sql 
+The mysqldump command has also some other useful options:
+--add-drop-table: Tells MySQL to add a DROP TABLE statement before each CREATE TABLE in the dump.
+--no-data: Dumps only the database structure, not the contents. 
