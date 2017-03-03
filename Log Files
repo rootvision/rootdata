@@ -1,0 +1,186 @@
+https://documentation.cpanel.net/display/CKB/The+cPanel+Log+Files
+
+The cPanel Log Files
+=============================
+
+FilePath												Description
+=========											============================
+
+General
+==========
+
+/var/log/messages									This directory contains the login attempts and general error messages for the following services.
+											            FTP,The nameserver daemons (named or nsd), MyDNS, The SSH daemon (sshd), The Courier mail server.
+
+=====================
+cPanel & WHM services
+=====================
+
+/usr/local/cpanel/logs/access_log							      This file contains records of when a cPanel & WHM user accesses their account.
+
+/usr/local/cpanel/addbandwidth.log							    This file contains records of when a user adds bandwidth to a cPanel account.
+
+/usr/local/cpanel/build/locale_database_log					This file contains information about when a user edits a locale.
+
+/usr/local/cpanel/logs/cpdavd_error_log							This file contains WebDisk's error logs.
+
+/usr/local/cpanel/logs/cpdavd_session_log						This file contains WebDisk's activity logs.	
+
+/usr/local/cpanel/logs/cpgreylistd.log							This file contains the Greylisting daemon's (cpgreylistd) activity logs.
+
+/usr/local/cpanel/logs/cphulkd_errors.log						This file contains the Brute Force Protection daemon's (cphulkd) error logs.
+
+/usr/local/cpanel/logs/cphulkd.log							  This file contains the cphulkd daemon's activity logs.
+
+/usr/local/cpanel/logs/cpwrapd_log							  This file contains the cPanel & WHM service manager daemon's (cpsrvd) activity logs.	
+
+/usr/local/cpanel/logs/dnsadmin.log						  	This file contains dnsadmin request logs.
+
+/usr/local/cpanel/logs/error_log							    This file contains the cPanel account's error logs.
+
+/usr/local/cpanel/logs/incoming_http_requests.log					This file contains the logs of connection requests to the cPanel account's server.
+
+/usr/local/cpanel/logs/license_log							      This file contains the cPanel account's license update logs and license errors.
+
+/usr/local/cpanel/logs/login_log						    	This file contains the login attempts to the cpsrvd daemon.
+
+/usr/local/cpanel/logs/queueprocd.log							This file contains the cPanel TaskQueue Processing daemon's (queueprocd) logs.
+
+/usr/local/cpanel/logs/safeapacherestart_log				This file contains information about each time that Apache restarted on the server.
+
+/usr/local/cpanel/logs/session_log							This file contains logs of a user's activities while they are logged into the cPanel account.
+
+/usr/local/cpanel/logs/setupdbmap_log							This file contains the cPanel account's database-related activities.
+
+/usr/local/cpanel/logs/stats_log							This file contains the bandwidth statistics for all of the server's cPanel accounts.
+
+/usr/local/cpanel/logs/tailwatchd_log							This file contains the Tailwatch Driver's (tailwatchd) logs.
+
+/usr/local/cpanel/logs/panic_log							This file contains a cPanel account's severe error logs.
+
+/usr/local/cpanel/logs/php-fpm/error.log						This file contains the PHP-FPM implementation's errors. These errors include errors for the cpsrvd and cpdavd services.
+
+/var/cpanel/php-fpm/USER/logs/slow.log							This file contains scripts that run unusually slow for a user.
+
+/var/cpanel/php-fpm/USER/logs/error.log							This file contains the user's error logs.
+
+/var/cpanel.bandwidth.cache								This file contains the cached bandwidth history for each cPanel account on your server.
+
+/var/cpanel/accounting.log								This file contains records of cPanel account actions, such as creation and deletion.
+
+/var/log/chkservd.log									This file contains the service status logs.
+
+/var/log/cpanel-install.log								This file contains the cPanel & WHM installation logs.
+
+
+============
+Directories
+============
+
+/usr/local/cpanel/logs/cpbackup								This directory contains the cPanel backup log files.
+
+/usr/local/cpanel/logs/cpbackup_transporter						This directory contains the cPanel Backup Transporter's log files.
+
+/usr/local/cpanel/logs/easy/apache							This directory contains the EasyApache build log files.
+
+/usr/local/cpanel/logs/update_analysis							This directory contains the update process's .tar files.
+
+/var/cpanel/bandwidth/username								This directory contains each account's bandwidth usage logs, where username represents your username.
+
+/var/cpanel/logs									        This directory contains account transfer log files and other, miscellaneous log files.
+
+/var/cpanel/updatelogs									This directory contains the system's update log files.
+
+/var/cpanel/logs/mysql_upgrade.log							This directory contains the account's MySQL upgrade logs.
+
+/var/cpanel/horde/log									This directory contains the log files for Horde.
+
+/var/cpanel/squirrelmail								This directory contains the log files for SquirrelMail.
+
+/var/cpanel/roundcube/log								This directory contains the log files for Roundcube Webmail.	
+
+
+=======
+FTP
+=======
+
+/usr/local/apache/domlogs/ftpxferlog							This directory contains the FTP transaction logs for all of the cPanel account's users.
+
+
+===========
+Directory
+===========
+
+/usr/local/apache/domlogs								This directory contains the FTP transaction logs for all of the cPanel account's domains.
+
+=====
+Mail
+=====
+
+/var/log/exim_mainlog									  This file contains Exim's mail receipt and delivery logs for the cPanel account's domains.
+
+/var/log/exim_rejectlog									This file contains a log of messages that the system rejected due to ACLs.
+
+/var/log/exim_paniclog									This file contains Exim's severe error logs.
+
+/var/log/maillog									    	This file contains IMAP and POP3 login attempts, transactions, fatal errors, and Apache 	SpamAssassin scores.
+
+
+============
+Directories
+============
+
+/var/spool/exim/input									This directory contains a log of queued incoming email messages.For more information, read our Mail Queue Manager documentation.
+														          The system separates these logs in to subdirectories that correspond to the number or letter with which the sender's name begins.
+						
+/usr/local/cpanel/3rdparty/mailman/logs					This directory contains the account's Mailman logs.
+
+
+
+=============
+Memory usage
+=============
+
+/var/log/dcpumon/YYYY/MMM/DD					This file contains information about the processes that consume the most CPU and memory.
+												              YYYY represents a subdirectory that contains a process's logs by month.
+												              MMM represents a subdirectory within the YYYY directory that contains a process's logs for each day of a month.
+												              DD represents a subdirectory that contains a process's log for a specific day of the month.
+						
+/var/log/munin									      This file contains the account's Munin logs.	
+											        	      Munin is a cPanel plugin that displays information about CPU, Exim, Apache, MySQL usage, and other information with the rrdtool utility.
+
+======
+MySQL												
+======
+
+/var/lib/mysql/HOSTNAME.err						This file contains information about the cPanel account's MySQL databases and errors.
+
+
+============
+Web servers
+============
+
+/usr/local/cpanel/logs/safeapacherestart.log	This file contains information about each time that Apache restarts via cPanel & WHM, and how much time the system required for each restart.
+
+/usr/local/apache/domlogs/DOMAIN				    This file contains information about when a visitor accessed a domain, where DOMAIN represents a domain on the cPanel account.
+
+/usr/local/apache/logs/modsec_audit.log			This file contains the log information for ModSecurity™.
+
+/usr/local/apache/logs/suexec_log				      This file contains information about suExec audit logs. This is useful, for example, to diagnose internal server errors that do not produce relevant information in the error log.
+  
+/usr/local/apache/logs/suphp_log				      This file contains information about the suPHP Apache module audit logs. This is useful, for example, to diagnose internal server errors that do not produce relevant information in the error log.
+
+/usr/local/apache/logs/mod_jk.log				    This file contains the Tomcat connection logs.
+
+/usr/local/apache/logs/error_log				    This file contains the error logs for Web Servers and CGI Applications.
+
+
+=======
+Tomcat	
+=======
+
+/var/log/easy-tomcat7/localhost-access_log		This file contains the Tomcat access logs.
+
+/var/log/easy-tomcat7/catalina.err				This file contain the Tomcat7 error logs.
+
+/var/log/easy-tomcat7/catalina.out				This file contain the Tomcat7 output logs.
