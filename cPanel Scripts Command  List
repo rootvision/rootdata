@@ -1,0 +1,131 @@
+cPanel Scripts Command  List (/scripts/*)
+================================
+
+Install Zend Optimizer /scripts/installzendopt
+
+Hostname A Entry Missing! /scripts/fixndc then restart bind and apache
+
+Install Cron on New Server /scripts/installrpm anacron vixie-cron ; /etc/rc.d/init.d/crond start
+
+Bandwidth issues /scripts/cleanbw
+
+/scripts/fixwebalizer (To fix problem in webalizer that stop updating stats)
+
+/scripts/fixcommonproblems
+
+/scripts/fixeverything
+
+Fixing Mail List MailMan /usr/local/cpanel/bin/convertmailman2
+
+Reinstall MailMan /scripts/reinstallmailman
+
+Fix Permissions on accounts: /scripts/fixhome
+
+Edit mySQL conf file: pico /etc/my.cnf
+
+Edit php.ini: pico /usr/local/lib/php.ini
+
+Edit Apache Conf: pico /etc/httpd/conf/httpd.conf
+
+Checking Real Time Top Processes Login to SSH and run: top
+
+Run cpanel backup /scripts/cpbackup
+
+To try and fix domain controller: /scripts/fixndc
+
+Quotas /scripts/initquotas – takes a while to run
+
+/scripts/resetquotas
+
+/scripts/fixquotas – takes a while to run
+
+
+/scripts/adddns Add a Dns Entry
+
+/scripts/addfpmail Install Frontpage Mail Exts
+
+/scripts/addservlets Add JavaServlets to an account (jsp plugin required)
+
+/scripts/adduser Add a User
+
+/scripts/admin Run WHM Lite
+
+/scripts/apachelimits Add Rlimits (cpu and mem limits) to apache.
+
+/scripts/dnstransfer Resync with a master DNS Server
+
+/scripts/editquota Edit A User’s Quota
+
+/scripts/finddev Search For Trojans in /dev
+
+/scripts/findtrojans Locate Trojan Horses
+
+Suggest Usage
+
+/scripts/findtrojans > /var/log/trojans
+
+/scripts/fixtrojans /var/log/trojans
+
+/scripts/fixcartwithsuexec Make Interchange work with suexec
+
+/scripts/fixinterchange Fix Most Problems with Interchange
+
+/scripts/fixtrojans Run on a trojans horse file created by findtrojans to remove them
+
+/scripts/fixwebalizer Run this if a user’s stats stop working
+
+/scripts/fixvaliases Fix a broken valias file
+
+/scripts/hdparamify Turn on DMA and 32bit IDE hard drive access (once per boot)
+
+/scripts/initquotas Re-scan quotas. Usually fixes Disk space display problems
+
+/scripts/initsuexec Turn on SUEXEC (probably a bad idea)
+
+/scripts/installzendopt Fetch + Install Zend Optimizer
+
+/scripts/ipusage Display Ipusage Report
+
+/scripts/killacct Terminate an Account
+
+/scripts/killbadrpms Delete “Security Problem Infested RPMS”
+
+/scripts/mailperm Fix Various Mail Permission Problems
+
+/scripts/mailtroubleshoot Attempt to Troubleshoot a Mail Problem
+
+/scripts/mysqlpasswd Change a Mysql Password
+
+/scripts/quicksecure Kill Potential Security Problem Services
+
+/scripts/rebuildippool Rebuild Ip Address Pool
+
+/scripts/remdefssl Delete Nasty SSL entry in apache default httpd.conf
+
+/scripts/restartsrv Restart a Service (valid services: httpd,proftpd,exim,sshd,cppop,bind,mysql)
+
+/scripts/rpmup Syncup Security Updates from RedHat/Mandrake
+
+/scripts/runlogsnow Force a webalizer/analog update.
+
+/scripts/secureit Remove non-important suid binaries
+
+/scripts/setupfp4 Install Frontpage 4+ on an account.
+
+/scripts/simpleps Return a Simple process list. Useful for finding where cgi scripts are running from.
+
+/scripts/suspendacct Suspend an account
+
+/scripts/sysup Syncup Cpanel RPM Updates
+
+/scripts/unblockip Unblock an IP
+
+/scripts/unsuspendacct UnSuspend an account
+
+/scripts/upcp Update Cpanel
+
+/scripts/updatenow Update /scripts
+
+/scripts/wwwacct Create a New Account
+
+/scripts/runweblogs account username for awstats to run manually
