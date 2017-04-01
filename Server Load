@@ -1,0 +1,311 @@
+*/5 * * * * uptime >> /home/uptime.log
+*/5 * * * * ps -eo pcpu,pmem,pid,user,args | sort -k 1 -r | head -10 >> /home/uptime.log
+*/5 * * * * date >> /home/uptime.log
+
+Netstat
+----------
+netstat -an | grep :80 | grep "TIME_WAIT" |awk '{print $5}' | cut -d":" -f4 | sort | uniq -c | sort -n
+netstat -an | grep "TIME_WAIT" |awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n
+
+
+netstat -an | grep :80 | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n | awk '{if($1>10)print $1,$2}'
+netstat -an | grep :25 | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n | awk '{if($1>10)print $1,$2}'
+netstat -an | grep :110 | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n | awk '{if($1>10)print $1,$2}'
+netstat -an | grep SYN | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n | awk '{if($1>10)print $1,$2}'
+netstat -an | grep :FYN | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n  | awk '{if($1>10)print $1,$2}'
+netstat -an | grep tcp | awk '{print $5}' | cut -f1 -d":" | sort | uniq -c | sort -n | awk '{if($1>10)print $1,$2}'
+netstat -apn | grep tcp | awk '{print $6,"\t"$5}' | sort | cut -d":" -f1 |grep -v "0.0.0.0" |sort | uniq -c | sort -n | awk '{if($1>9)print $1,$2,$3}'
+
+
+Use below command to get top cpu consuming processes:
+CPU utilization : http://www.cyberciti.biz/tips/how-do-i-find-out-linux-cpu-utilization.html
+
+ps -eo pcpu,pmem,pid,user,args | sort -k 1 -r | head -10
+ps -eo pmem,pcpu,pid,user,args | sort -k 1 -r | head -10
+
+-------------
+
+Use below mentioned command to get top memory consuming processes"
+
+ps aux | head -1;ps aux --no-headers| sort -rn -k 3 | head
+
+ps aux | head -1;ps aux --no-headers | sort -rn -k 2
+
+netstat -n | grep :80 |wc -l
+netstat -n | grep :80 | grep SYN |wc -l
+grep "load average" /var/log/dcpumon/top*
+
+netstat -an|grep ":80"|awk '/tcp/ {print $6}'|sort -nr| uniq -c
+
+---------------------------------------------------------------------------------------
+To see what Ips are connecting to server and how many connections exist from each IP:
+
+netstat -anp |grep 'tcp\|udp' | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n
+netstat -an|grep ":80"|awk '/tcp/ {print $6}'|sort -nr| uniq -c
+
+To see how many connections each IP on the server is receiving: 
+
+netstat -plan |grep :80 | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -n
+
+Get the count of current Active connections to Apache:
+
+netstat -apn | grep :80 | wc -l
+
+Get Apache status update from command line to see which domain is receiving maximum hits:
+
+
+root@ATTN [/var/log/dcpumon]# cat toplog.1274017* |  grep "load average"
+top - 08:40:01 up 14 min,  0 users,  load average: 2.69, 2.57, 1.92
+top - 08:40:03 up 14 min,  0 users,  load average: 2.47, 2.53, 1.91
+top - 08:45:02 up 19 min,  1 user,  load average: 3.01, 2.11, 1.81
+top - 08:45:04 up 19 min,  1 user,  load average: 3.01, 2.11, 1.81
+root@ATTN [/var/log/dcpumon]#
+
+<IfModule prefork.c>
+Timeout 150
+KeepAlive On
+MaxKeepAliveRequests 100
+StartServers 8
+MinSpareServers 5
+MaxSpareServers 20
+ServerLimit 256
+MaxClients 256
+MaxRequestsPerChild 4000
+</IfModule>
+
+
+--
+I see the following number of current connections to the server as well as the following associated services: 
+
+root@condor [~]# netstat -tulnap | awk '{print $7}' | sed -n -e '/[/]/p' | cut -s -d'/' -f2 | sort | uniq -c | sort -nk 1 
+4 dovecot 
+4 imap-login 
+6 cpsrvd 
+8 named 
+8 spamd 
+14 exim 
+41 http 
+
+--
+
+Marko,
+
+I have scanned logs and found that there was high apache hits on your server before it went down. Also the lots of php processes of user 'hondaown' were running on server.
+
+Currently the apache hits and server load both are normal. For now I would suggest you to install apache module mod_evassive on the server. 
+Frank
+Technical Support
+
+
+While checking I found Mysql is utilizing CPU resources of your server. Further, I also see that you have not optimized the Mysql server. If you want we can set the Mysql parameters that will improve overall performance. Also, we would suggest you to enable the slow query logging with a low threshold so you'll be able to identify what queries causing the problems. 
+
+
+==
+While checking I found Mysql is utilizing CPU resources of your server. Currently lots of mysql databases present on the server, which are utilizing significant amount of CPU resources. Further I found that mysql is not properly optimized on the server. I would suggest you to optimize mysql on the server. Please let me know if you wish to proceed.
+
+===================
+
+Server Load
+
+1. If server load is normal when you received ticket, then do not update ticket instantly. 
+Wait for 25-30 minutes, run 'w' command and collect the out of 'average load' for minimum 30 minutes and then update ticket with proof.
+
+Normal load = Averate 0 to 3% depend on activity running on server
+
+#Sample output
+root@pluto [/]# w
+ 09:49:39 up 26 days,  4:29,  1 user,  load average: 0.30, 0.44, 0.57
+ 09:55:12 up 26 days,  4:29,  1 user,  load average: 0.43, 0.41, 0.50
+ 09:60:12 up 26 days,  4:29,  1 user,  load average: 0.23, 0.51, 0.58
+
+
+#Sample Reply
+
+I have been watching the load from last 30 minutes and it's been around 1 so far which is fine based on the amount of activity. I also have checkd old logs but didn't find user/process which were using high cpu/memory resources.
+Please get back to us if server load spikes again so that we can check and assit you further.
+
+We have been monitoring your server for some time now and the load has been normal and stable. We need to check the processes when the server load is high in order to find the cause. Please let us know if this happens again. 
+
+* If previously there were load on server then you can check whm >> cpu/memoy usage. If you find any user/service/process were utilizing high (Above 8 to 10%)  cpu/memory resources then provide those logs and updated accordingly
+
+Forget the load upto 3% and update ticket with one of above reply. 
+
+* If client insist for reason when load is normal then tell him current load is normal [ paste o/p of w command] and so and so user/process utilizing cpu resources.
+
+I have been watching the load and it's been around 3 so far which is fine based on the amount of activity. I also found a lot of scripts and processes from user/service which are using resources 
+
+===============================
+
+#Mysql
+
+3. If mysql causing load then collect enough logs and ask to optimize mysql. ( make sure mysql is not optimized already )
+
+4. If Mysql causing load and it is already optimized then try to find 'data_base' on which various mysql queries are running, collect the enough logs and update that so and so databse causing the load. 
+( You can combine the output of multiple 'mysqladmin proc' command to show that particular DB causing load)
+
+
+5. if mysql causing load and it is already optimized and still you unable to find any particular DB then update as follows.
+
+While checking I found that mysql is causing the load on server. As the Mysql is already optimized, I would like to suggest that you enable the slow query logging with a low threshold (like 1 second) and you'll be able to identify what queries causing the problems. [ Provide proof that mysql is already optimized ]
+
+
+# Php
+
+If php causes load on server then ask to install any php optimizer/Accelerator on server
+
+If any particular user's php script causing the load then provide logs and update accordingly
+
+Note - You can collect the logs from  'top d2' command or from whm >> cpu/mysql usage option
+
+
+#Sample Logs
+user	domain.com	3.93	0.30	0.1
+Top Process	%CPU 45.0	[php5]
+Top Process	%CPU 42.0	php5
+Top Process	%CPU 18.0	[php5]
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+ 3436 user       19   4 79032  48m 4016 S 24.8  1.4   0:00.87 php
+ 2214 user       20   4 71352  41m 4188 S 20.8  1.2   0:02.82 php
+ 3053 user       20   4 78948  48m 4188 S 18.8  1.4   0:02.49 php
+ 4450 user       20   4 70072  39m 3680 S 18.8  1.2   0:04.00 php
+
+* if spamd, exim  utilizing cpu resources then you suppose to find the user who using those services. If you find then let client know that exim/spamd usage of  'user' causing load.
+You also can check if user is sending or receving mails in /var/log/exim_maillog
+
+--------------------------------------------------------------------------------------------------------
+
+#Command to check/manage load
+
+
+Use below mentioned command to get top memory consuming processes"
+
+ps aux | head -1;ps aux --no-headers| sort -rn +3 | head
+
+Use below command to get top cpu consuming processes:
+
+ps aux | head -1;ps aux --no-headers | sort -rn +2
+
+
+
+#1: top - Process Activity Command
+
+The top program provides a dynamic real-time view of a running system i.e. actual process activity. By default, it displays the most CPU-intensive tasks running on the server and updates the list every five seconds.
+Commonly Used Hot Keys
+
+The top command provides several useful hot keys:
+Hot Key 	Usage
+t 	Displays summary information off and on.
+m 	Displays memory information off and on.
+A 	Sorts the display by top consumers of various system resources. Useful for quick identification of performance-hungry tasks on a system.
+f 	Enters an interactive configuration screen for top. Helpful for setting up top for a specific task.
+o 	Enables you to interactively select the ordering within top.
+r 	Issues renice command.
+k 	Issues kill command.
+z 	Turn on or off color/mono
+
+
+#: ps - Displays The Processes
+
+ps command will report a snapshot of the current processes. To select all processes use the -A or -e option:
+# ps -A
+
+ps is just like top but provides more information.
+Show Long Format Output
+
+# ps -Al
+To turn on extra full mode (it will show command line arguments passed to process):
+# ps -AlF
+To See Threads ( LWP and NLWP)
+
+# ps -AlFH
+To See Threads After Processes
+
+# ps -AlLm
+Print All Process On The Server
+
+# ps ax
+# ps axu
+Print A Process Tree
+
+# ps -ejH
+# ps axjf
+# pstree
+Print Security Information
+
+# ps -eo euser,ruser,suser,fuser,f,comm,label
+# ps axZ
+# ps -eM
+
+Set Output In a User-Defined Format
+
+# ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm
+# ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm
+# ps -eopid,tt,user,fname,tmout,f,wchan
+Display The Name of PID 55977
+
+# ps -p 55977 -o comm=
+Find Out The Top 10 Memory Consuming Process
+
+# ps -auxf | sort -nr -k 4 | head -10
+Find Out top 10 CPU Consuming Process
+
+# ps -auxf | sort -nr -k 3 | head -10
+
+#: free - Memory Usage
+
+The command free displays the total amount of free and used physical and swap memory in the system, as well as the buffers used by the kernel.
+# free
+Sample Output:
+
+            total       used       free     shared    buffers     cached
+Mem:      12302896    9739664    2563232          0     523124    5154740
+-/+ buffers/cache:    4061800    8241096
+Swap:      1052248          0    1052248
+
+
+#!/bin/bash
+pattern='r0nin|m0rtix|upl0ad|r57shell|c99shell|shellbot|phpshell|void\.ru|phpremoteview|directmail|bash_history|\.ru/|brute *force|multiviews|cwings|bitchx|eggdrop|guardservices|psybnc|dalnet|undernet|vulnscan|spymeta|raslan58|deface|defacing|defacer|MSRml'
+searchpath=/home/virtual/brendale.com.au
+echo -e "\033[1;34m Sacnning $1\033[0m"
+find $searchpath \( -regex '.*\.php$' -o -regex '.*\.cgi$' -o -regex '.*\.inc$' -o -regex '.*\.pl' \) -print0 | xargs -0  egrep -il "$pattern" /dev/null | sort >> report.$$
+cat report.$$
+ 
+----------------------------------------------------------------------------------
+I have investigated your issue and found that there is large number of apache connections for the domain "toonzone.net" from different IP's due to which server load is spiking up. I would suggest you to optimize apache on the server and install apache module mod_evasive on the server. This apache module will help protect against people sending too many requests to the webserver in an attempt to flood it. If it detects too many connections the offending IP will be blocked from the accessing apache for, this is especially useful when the server is continuously getting attacked.
+----------------------------------------------------------------------------------
+Find apache hits for the domain using following command
+httpd fullstatus | awk '{print $12}'| sort | uniq -c | sort -n
+
+
+
+Mitu,
+
+I have reviewed the logs and found that there are many connections on apache but TIME_WAIT connections are high as compared to ESTABLISHED connections. 
+
+I would suggest you to install apache module mod_evasive on the server. This apache module will help protect against people sending too many requests to the web server in an attempt to flood it. Also suggest you to optimize Apache on the server. 
+
+Further I have seen that the exim service is also causing high load on the server. The mail queue is too high. Currently 14916 emails are in the queue. I suggest you to make mail queue empty or delete it.
+
+Please let me know if you wish to proceed. 
+
+.Thank you,.
+.Frank.
+.Technical Support.
+----------------------------------------------------------------------------------
+ lynx http://127.0.0.1/whm-server-status
+
+
+I have checked your server and found that there are high numbers of Apache hits on domain “domainname.com”. I also found that there are too many TIME_WAIT connections on your server. If the number of TIME_WAIT sockets gets too large, server address space will be exhausted, causing a interruption of TCP traffic. I would suggest installing mod_evasive on the server to overcome this issue and enable the 'tcp_tw_recycle' on the server. Please check and let us know how you wish to proceed. 
+----------------------------------------------------------------------------------
+
+=====
+Sorry for delay in responding.
+I have investigated your issue and found that the Apache/PHP is taking all the memory resources on the server. You can check the below logs for it. Further, I have reviewed and found that the Apache/PHP has been upgraded on Mar 10 2012 and this seems to be an issue with handler. Apache shouldn't be using such high levels of memory on a machine for each process.
+Could I try temporarily switching to DSO to see if the memory usage drops significantly for these processes? I simply want to see if this is a PHP handler issue or Apache in general on the system, if that would help with the memory consumption. Otherwise, a PHP recompile/downgrade is needed.
+=====
+
+-------
+I have checked your server logs but nothing suspicious could be found on the server logs. Actually Php is very insecure by default. We can make a hosting environment more secure by disabling php functions in your php.ini. You should also update/patch your applications (Wordpress/Joomla) to overcome any vulnerability. 
+Further I will strongly recommend you to change your FTP password, and the new password should contain at least one alphabet, number and a special character.
+-------
