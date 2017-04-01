@@ -1,0 +1,19 @@
+vzlist -a		-->> To list the VPS and its current status 
+
+vzctl enter ID  -->> To enter the VPS
+
+arch		-->> To check OS bits 
+
+cat /usr/local/cpanel/version  -->> To check the current version of cPanel      
+
+screen   -->> To enter the screen
+
+/scripts/upcp --force  -->> To update the cPanel force-fully
+
+screen Press fastly   ctl+ "a" "d"  -->> To enter the screen again
+
+ps -aufx | grep upcp  -->>  To check either the update process as finish or not 
+
+screen -x		-->>   To enter the screen again 
+
+vzlist -o hostname,laverage,veid    -->> To check the VPS which high load
