@@ -1,0 +1,264 @@
+https://codex.wordpress.org/htaccess
+
+Default .htaccess source code
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+
+To redirect to suspend page---out below in the .htaccess of the account.
++==============+
+RedirectMatch .* /cgi-sys/suspendedpage.cgi
++===============+
+
+htpasswd generator
+=================
+http://www.htpasswdgenerator.net/ -------- to create new .htpasswd as well as .htaccess
+http://www.rapidtables.com/web/tools/redirect-generator.htm------------site redirect code generator.
+=================
+
+
+==================
+Request exceeded the limit of 10 internal redirects Error
+==================================
+in .htaccess file insert below codeand insert the below wordpress default code :-
+
+—————————-
+
+# BEGIN WordPress
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+================================
+Also, refer this URL: http://www.bestdesigns.co.in/blog/request-exceeded-the-limit-of-10-internal-redirects
+===============
+
+To apply all changes made in php.ini file to all public_html directory, add below code in the .htaccess file.
+==================================
+<IfModule mod_suphp.c>
+  suPHP_ConfigPath  	/home/username/public_html
+  <Files php.ini>
+    order allow,deny
+    deny from all
+  </Files>
+</IfModule>
+==================================
+
+============================================
+How to Protect Your WordPress wp-config.php File and Your .htaccess File
+============================================
+1) To protect wp-config.php file, put below code in .htaccess file providing both this files are placed in the same directory.
+
+<Files wp-config.php>
+order allow,deny
+deny from all
+</Files>
+
+2)To protect .htaccess file, put below code in .htaccess file:
+
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+==========================================
+
+To apply changes recursively of php.ini file, put below code in .htaccess file
+==========================
+<IfModule mod_suphp.c>
+  suPHP_ConfigPath /home/cozcomul/public_html
+  <Files php.ini>
+    order allow,deny
+    deny from all
+  </Files>
+</IfModule>
+===========================
+
+.htaccess code to give authorisation particular directory, create .htaccess file in that directory with below code.
+============
+AuthType Basic
+AuthName "admin"
+AuthUserFile "/home/username/.htpasswds/public_html/admin/passwd"
+require valid-user
+===========
+
+***Put this code in .htaccess to redirect your any page to 404 page
+========================================
+
+Options -Indexes
+ErrorDocument 404 /404.php
+<IfModule mod_rewrite.c>
+RewriteEngine On 
+RewriteBase / 
+#RewriteCond %{REMOTE_ADDR} !^68\.112\.67\.230$
+RewriteRule ^wp\-admin\/$ "http\:\/\/www\.freeguardian\.com\/404\.php" [R=301,L]
+RewriteRule ^wp\-login\.php$ "http\:\/\/www\.freeguardian\.com\/404\.php" [R=301,L]
+RewriteRule ^wp\-admin\/$ - [L,R=404]
+RewriteRule ^(.*)wp-(.*)$ - [L,R=404]
+RewriteRule ^(.*)feed(.*)$ - [L,R=404]
+RewriteRule ^(.*)feed\/(.*)$ - [L,R=404]
+RewriteRule ^(.*)[0-9]{4}\/[0-9]{2}(.*)$ - [L,R=404]
+RewriteRule ^(.*)\.htaccess(.*)$ - [L,R=404]
+RewriteRule ^(.*)xmlrpc\.php(.*)$ - [L,R=404]
+RewriteRule ^(.*)style\.css(.*)$ - [L,R=404]
+RewriteRule ^(.*)license\.txt(.*)$ - [L,R=404]
+RewriteRule ^(.*)readme\.html(.*)$ - [L,R=404]
+</IfModule>
+RewriteCond %{HTTP_HOST} ^freeguardian\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.freeguardian\.com$
++==========================================+
+make 404.php in root directory( public_html)
+
+404 not found: (password protected direcotry in .htaccess)
+==============
+AuthType Basic
+AuthName "staging"
+AuthUserFile /home/rachelwa/.htpasswds/public_html/staging/passwd
+Require valid-user
+
+ErrorDocument 401 default
+==============
+
+To block entire country IP address in the .htaccess file
+==========
+http://incredibill.me/htaccess-block-country-ips
+==========
+
+#301 Redirects for .htaccess
+
+#Redirect a single page:
+Redirect 301 /pagename.php http://www.domain.com/pagename.html
+
+#Redirect an entire site:
+Redirect 301 / http://www.domain.com/
+
+#Redirect an entire site to a sub folder
+Redirect 301 / http://www.domain.com/subfolder/
+
+#Redirect a sub folder to another site
+Redirect 301 /subfolder http://www.domain.com/
+
+#This will redirect any file with the .html extension to use the same filename but use the .php extension instead.
+RedirectMatch 301 (.*)\.html$ http://www.domain.com$1.php
+
+##
+#You can also perform 301 redirects using rewriting via .htaccess.
+##
+
+#Redirect from old domain to new domain
+RewriteEngine on
+RewriteBase /
+RewriteRule (.*) http://www.newdomain.com/$1 [R=301,L]
+
+#Redirect to www location
+RewriteEngine on
+RewriteBase /
+rewritecond %{http_host} ^domain.com [nc]
+rewriterule ^(.*)$ http://www.domain.com/$1 [r=301,nc]
+
+#Redirect to www location with subdirectory
+RewriteEngine on
+RewriteBase /
+RewriteCond %{HTTP_HOST} domain.com [NC]
+RewriteRule ^(.*)$ http://www.domain.com/directory/index.html [R=301,NC]
+
+#Redirect from old domain to new domain with full path and query string:
+Options +FollowSymLinks
+RewriteEngine On
+RewriteRule ^(.*) http://www.newdomain.com%{REQUEST_URI} [R=302,NC]
+
+#Redirect from old domain with subdirectory to new domain w/o subdirectory including full path and query string:
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/subdirname/(.*)$
+RewriteRule ^(.*) http://www.katcode.com/%1 [R=302,NC]
+
+Rewrite and redirect URLs with query parameters (files placed in root directory)
+
+Original URL:
+
+http://www.example.com/index.php?id=1
+Desired destination URL:
+
+http://www.example.com/path-to-new-location/
+.htaccess syntax:
+
+RewriteEngine on
+RewriteCond %{QUERY_STRING} id=1
+RewriteRule ^index\.php$ /path-to-new-location/? [L,R=301]
+Redirect URLs with query parameters (files placed in subdirectory)
+
+Original URL:
+
+http://www.example.com/sub-dir/index.php?id=1
+Desired destination URL:
+
+http://www.example.com/path-to-new-location/
+.htaccess syntax:
+
+RewriteEngine on
+RewriteCond %{QUERY_STRING} id=1
+RewriteRule ^sub-dir/index\.php$ /path-to-new-location/? [L,R=301]
+Redirect one clean URL to a new clean URL
+
+Original URL:
+
+http://www.example.com/old-page/
+Desired destination URL:
+http://www.example.com/new-page/
+.htaccess syntax:
+
+RewriteEngine On
+RewriteRule ^old-page/?$ $1/new-page$2 [R=301,L]
+Rewrite and redirect URLs with query parameter to directory based structure, retaining query string in URL root level
+
+Original URL:
+
+http://www.example.com/index.php?id=100
+Desired destination URL:
+
+http://www.example.com/100/
+.htaccess syntax:
+
+RewriteEngine On
+RewriteRule ^([^/d]+)/?$ index.php?id=$1 [QSA]
+Rewrite URLs with query parameter to directory based structure, retaining query string parameter in URL subdirectory
+
+Original URL:
+http://www.example.com/index.php?category=fish
+Desired destination URL:
+http://www.example.com/category/fish/
+.htaccess syntax:
+
+RewriteEngine On
+RewriteRule ^/?category/([^/d]+)/?$ index.php?category=$1 [L,QSA]
+Domain change – redirect all incoming request from old to new domain (retain path)
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^example-old\.com$ [NC]
+RewriteRule ^(.*)$ http://www.example-new.com/$1 [R=301,L]
+If you do not want to pass the path in the request to the new domain, change the last row to:
+
+RewriteRule ^(.*)$ http://www.example-new.com/ [R=301,L]
+
+#From blog.oldsite.com -> www.somewhere.com/blog/
+retains path and query, and eliminates xtra blog path if domain is blog.oldsite.com/blog/
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{REQUEST_URI}/ blog
+RewriteRule ^(.*) http://www.somewhere.com/%{REQUEST_URI} [R=302,NC]
+RewriteRule ^(.*) http://www.somewhere.com/blog/%{REQUEST_URI} [R=302,NC]
