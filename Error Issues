@@ -1,0 +1,197 @@
+----------------------------------------------------------------------
+**  FTP window promths in wordpress
+----------------------------------------------------------------------
+
+Apache handlers control how the Apache web server software manages certain file types and extensions for your site. Apache comes configured to handle CGI scripts and server-parsed files. You can configure Apache to handle a new file type with an existing handler by manually adding the handler and extension below. For example, to have the server treat files with the extension .example as CGI files, you would type “cgi-script” under Handler and “.example” under Extension(s).
+
+
+PHP runs as the Apache user on this server. On your end you could have just placed the following in wp-config:
+
+define('FTP_HOST', 'ftp.my-site.example.com');
+define('FTP_USER', 'my-ftp-username');
+define('FTP_PASS', 'my-ftp-password');
+define('FS_METHOD', 'direct');
+
+On our end I just changed ownership of those files to the apache user
+----------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+**  Website Under Construction (Code) 
+--------------------------------------------------------------------------
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Under Construction</title>
+</head>
+<body>
+<br><br><br><br><br><br><br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr>
+<td align="center">
+<h1 style="margin:0;padding:0;font-family: trebuchet ms;">This Website is Under Construction.
+<br><small style="color: #888;" align="center">Come Back Soon.</small>
+</h1>
+</td>
+</tr>
+</table>
+</body>
+</html>
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+***		To reset all users password
+--------------------------------------------------------------------------
+Create the file /root/passch.sh 
+
+#! /bin/bash
+ls -1 /var/cpanel/users | while read user; do
+pass=`strings /dev/urandom | tr -dc .~?_A-Z-a-z-0-9 | head -c16 | xargs`
+echo “$user $pass” >> new-pass.txt
+/scripts/realchpass $user $pass
+/scripts/ftpupdate
+done
+! /bin/bash
+
+Run the below command as a root user
+
+# sh /root/passch.sh
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+*** Steps to follow, if /tmp is full after removing the content.
+--------------------------------------------------------------------------
+
++-----------------+
+/scripts/restartsrv_mysql --stop
+umount -l /tmp
+umount -l /var/tmp
+rm -fv /usr/tmpDSK
+/scripts/securetmp
+/scripts/restartsrv_mysql --start
++-----------------+
+
++-----------------+
+/scripts/restartsrv_httpd --stop
+/scripts/restartsrv_mysql --stop
+umount -l /tmp
+umount -l /var/tmp
+rm -fv /usr/tmpDSK
+/scripts/securetmp
+/scripts/restartsrv_mysql --start
+/scripts/restartsrv_httpd --start
++-----------------+
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+** .htaccess <code>	-->> Timeout error on lightspeed
+--------------------------------------------------------------------------
+
+RewriteEngine On
+RewriteRule .* - [E=noabort:1]
+RewriteRule .* - [E=noconntimeout:1]
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+** Change nameserver IP address via SSH
+--------------------------------------------------------------------------
+
+To change nameserver IP address from below location on shell
+vim /etc/nameserverips	
+
+If you nameserver zone is empty, just run below given command.
+To update the nameserver in WHM -->> Run command on shell  #/usr/local/cpanel/scripts/updatenameserverips
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+Error ***  " How to solve Google Chrome v53 ERR_SSL_OBSOLETE_CIPHER issue"  ***
+--------------------------------------------------------------------------
+https://saifcse.wordpress.com/2016/09/29/how-to-solve-google-chrome-v53-err_ssl_obsolete_cipher-issue/
+https://documentation.cpanel.net/display/EA/Advanced+Apache+Configuration
+
+How to solve this for Apache on a Linux box: For CentOS edit your /etc/httpd/conf.d/ssl.conf file. Also if you have VirtualHost and want to get this effective for all your websites, edit your /etc/httpd/conf/httpd.conf file and add the followings outside of <VirtualHost> tag.
+
+SSLProtocol all -SSLv2 -SSLv3
+SSLHonorCipherOrder On
+SSLCipherSuite EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5
+
+Restart apache after saving the config file.
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+**  Apache 2.4: Block access to xmlrpc.php of all domains
+--------------------------------------------------------------------------
+created a file in
+
+/etc/apache2/conf.d/block.conf
+
+and added the following content:
+
+<FilesMatch "(^\.|wp-config\.php|xmlrpc\.php|(?<!robots)\.txt|(liesmich|readme)\.*)"> 
+Require all denied
+</FilesMatch>
+
+Restart apache and check, it should be work
+
+If I try any domain on the server I'm still getting access: example.com/xmlrpc.php
+
+I would have expected an "Forbidden"-error.
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+** Block WordPress xmlrpc.php requests with .htaccess
+--------------------------------------------------------------------------
+# Block WordPress xmlrpc.php requests
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+allow from 123.123.123.123
+</Files>
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+**  htaccess file: allow access to xmlrpc.php
+--------------------------------------------------------------------------
+<Files xmlrpc.php>
+order allow,deny
+allow from all
+</Files>
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+** How to reset Litespeed admin password:
+--------------------------------------------------------------------------.
+https://iserversupport.com/reset-litespeed-admin-password/
+
+Reset Litespeed admin password
+
+Step 1.
+Log into the server via SSH
+
+Step 2.
+Go to the directory that you have installed litespeed. The default directory is,
+# cd /usr/local/lsws/admin/misc
+
+Step 3.
+# sh ./admpass.sh
+
+Step 4.
+Then, it will asks for the username to log into the administration web interface. This should be admin. Then, you need to enter the password
+
+Step 5.
+# /etc/init.d/restart lsws
+--------------------------------------------------------------------------
