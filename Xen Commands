@@ -1,1 +1,24 @@
+Xen Command
+===========
 
+cat /sys/hypervisor/properties/capabilities				-->>   To check hypervisor properties installed on OS.
+
+xm list           # List all domains
+xm list vm1       # List status of a single VM
+xm list vm1 -l    # Details for a VM 
+xm create vm1     # Starts/Creates a VM
+xm reboot vm1     
+xm shutdown vm1
+xm destroy vm1
+
+xm network-list vm1
+
+xm console vm1     # Open console to VM (escape like telnet)
+
+xm info            # HV infos
+xm top             # Monitor HV and domains
+xm log             # View HV log
+
+xm dominfo
+xm vcpuinfo
+xm nodeinfo
