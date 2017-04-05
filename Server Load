@@ -309,3 +309,5 @@ Could I try temporarily switching to DSO to see if the memory usage drops signif
 I have checked your server logs but nothing suspicious could be found on the server logs. Actually Php is very insecure by default. We can make a hosting environment more secure by disabling php functions in your php.ini. You should also update/patch your applications (Wordpress/Joomla) to overcome any vulnerability. 
 Further I will strongly recommend you to change your FTP password, and the new password should contain at least one alphabet, number and a special character.
 -------
+
+# kill -9 $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }')			--->> TO kill zombies process
