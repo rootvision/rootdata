@@ -17,3 +17,5 @@ ps -aufx | grep upcp  -->>  To check either the update process as finish or not
 screen -x		-->>   To enter the screen again 
 
 vzlist -o hostname,laverage,veid    -->> To check the VPS which high load
+
+
