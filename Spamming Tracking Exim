@@ -1,52 +1,52 @@
 Spam tracking in Exim¶
 
-#grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n  -->> Gets a list of account
+# grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n  -->> Gets a list of account
 
 1) Find the mailqueue count
 
-#exim -bpc
-#exim -bpc
+# exim -bpc
+# exim -bpc
 
 2) The following script will give the summary of mails in the mail queue.
 
-#exim -bpr | exiqsumm -c | head
+# exim -bpr | exiqsumm -c | head
 
-#exiqgrep -i -f user@domain.com > gives the mailID of mails send from user@domain.com
+# exiqgrep -i -f user@domain.com > gives the mailID of mails send from user@domain.com
 
-#exiqgrep -i -r user@domain.com > gives the mailID of mails send to user@domain.com
+# exiqgrep -i -r user@domain.com > gives the mailID of mails send to user@domain.com
 
 3) See the headers of the mail to see whether it is spam or not.
 
-#exim -Mvh mail-id
+# exim -Mvh mail-id
 
 And to see the message body
 
-#exim -Mvb mail-id
+# exim -Mvb mail-id
 
 4) Run the following command to pull the most used mailing script's location from the Exim mail log:
 
-#grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
+# grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
 
 5) Now go through the scripts in that directory and find the script from mails are generating.
 
 We can see what IP addresses are accessing this script using the following command:
 
-#grep "script.php" /home/user/access-logs/example.com | awk '{print $1}' | sort -n | uniq -c | sort -n
+# grep "script.php" /home/user/access-logs/example.com | awk '{print $1}' | sort -n | uniq -c | sort -n
 
 6)You can use the following command to get the dovecot logins to the email accounts in the server(attempts via email client)
 
-#egrep -o 'dovecot_login[^ ]+' /var/log/exim_mainlog | sort|uniq -c|sort -nk 1
+# egrep -o 'dovecot_login[^ ]+' /var/log/exim_mainlog | sort|uniq -c|sort -nk 1
 
 If the count is high, the account may be compromised.
 
 7) To get a sorted list of email sender in exim mail queue. It will show the number of mails send by each one.
 
-exim -bpr | grep "<" | awk {'print $4'} | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -n | uniq -c | sort -n
+# exim -bpr | grep "<" | awk {'print $4'} | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -n | uniq -c | sort -n
 8) To remove all mails in queue from a specific sender.
 
-exiqgrep -i -f user@domain.com | xargs exim -Mrm
+# exiqgrep -i -f user@domain.com | xargs exim -Mrm
 
-exigrep @ /var/log/exim_mainlog | grep _login | sed -n 's/.*_login:\(.*\)S=.*/\1/p' | sort | uniq -c | sort -nr -k1 		-->> to list the specific spammer email address
+# exigrep @ /var/log/exim_mainlog | grep _login | sed -n 's/.*_login:\(.*\)S=.*/\1/p' | sort | uniq -c | sort -nr -k1 		-->> to list the specific spammer email address
 
-exigrep @ /var/log/exim_mainlog | grep U= | sed -n 's/.*U=\(.*\)S=.*/\1/p' | sort | uniq -c | sort -nr -k1			-->>  to list the specific spammer user
+# exigrep @ /var/log/exim_mainlog | grep U= | sed -n 's/.*U=\(.*\)S=.*/\1/p' | sort | uniq -c | sort -nr -k1			-->>  to list the specific spammer user
 
