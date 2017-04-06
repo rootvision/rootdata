@@ -1,5 +1,7 @@
 Spam tracking in Exim¶
 
+#grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n  -->> Gets a list of account
+
 1) Find the mailqueue count
 
 #exim -bpc
