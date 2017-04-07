@@ -90,6 +90,8 @@ rm -fv /usr/tmpDSK
 
 
 --------------------------------------------------------------------------
+https://www.panthur.com.au/members/knowledgebase/348/LiteSpeed-and-max-execution-time.html
+
 ** .htaccess <code>	-->> Timeout error on lightspeed
 --------------------------------------------------------------------------
 
@@ -242,6 +244,66 @@ add_filter( 'wp_image_editors', 'ms_image_editor_default_to_gd' );
 +-----------------------+
 
 --------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+** How to Fix: The Domain already exists in Apache Configuration **
+--------------------------------------------------------------------------
+
+grep mydomain.com /etc/userdomains  		-->> To Verify Ownership of the Domain
+
+ls –ld /var/named/mydomain.com.db		-->> To Verify if a DNS Zone exists for the Domain
+
+/scripts/killdns mydomain.com			-->> To Kill the DNS Zone for the domain
+
+grep mydomain.com /var/cpanel/users/*   -->> To make sure no cPanel Users are showing existing traces of the domain
+
+grep mydomain.com /var/cpanel/userdata/*/*     -->> To make sure no enter is been enter in the { main, main.cache } files.
+
+/scripts/updateuserdomains		-->>  To update users domain 
+
+/scripts/rebuildhttpdconf		-->>  To rebuild httpd conf file
+
+service httpd restart			-->> To restart the service
+
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+** A DNS entry for “xxx.com” already exists. You must remove this DNS entry from all servers in the DNS cluster to proceed
+--------------------------------------------------------------------------
+
+cp -rp /var/named/domain.com.db /var/named/domain.com.db_back
+
+/scripts/killdns domain.com
+
+cat /var/cpanel/userdata/$user_name/main
+
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+**  Dirtycow virus
+--------------------------------------------------------------------------
+
+Script file to be download --->>  https://access.redhat.com/sites/default/files/rh-cve-2016-5195_5.sh
+
+And then you will need to update the kernel version.
+
+--------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+**  Plesk error
+--------------------------------------------------------------------------
+
+Unable to repair database -->> Follow the steps.
+https://support.managed.com/kb/a447/how-to-shrink-your-mssql-database-log-file-truncate-transaction-log.aspx
+
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+
 
 
 
