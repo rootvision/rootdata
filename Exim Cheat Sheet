@@ -1,0 +1,42 @@
+http://bradthemad.org/tech/notes/exim_cheatsheet.php
+
+#/usr/sbin/exim   -M   email-id        									 => Force delivery of one message
+
+#/usr/sbin/exim -qf                  									 => Force another queue run
+
+#/usr/sbin/exim -qff                									 => Force another queue run and attempt to flush the frozen message
+
+#/usr/sbin/exim  -Mvl   messageID  										 => View the log for the message
+
+#/usr/sbin/exim  -Mvb   messageID  										 => View the body of the message
+
+#/usr/sbin/exim  -Mvh   messageID  										 => View the header of the message
+
+#/usr/sbin/exim -Mrm    messageID  										 =>  Remove message without sending any error message
+
+#/usr/sbin/exim  -Mg    messageID   									 =>  Giveup and fail message to bounce the message to the Sender
+
+#/usr/sbin/exim -bpr | grep “<” | wc -l    								 =>Number of emails in the que
+
+#/usr/sbin/exim -bpr | grep frozen | wc -l   							 => How many Frozen mails on the queue
+
+#/usr/sbin/exim -bpr | grep frozen | awk {‘print $3’} | xargs exim -Mrm  =>  Deleteing Frozen Messages
+
+#exim -qff		-->>  To flush the exim queue
+
+
+===========================================================================
+*** To remove all queue from pending (remove all messages from the queue)
+============================================================================
+
+# exim -bp | awk '/^ *[0-9]+[mhd]/{print "exim -Mrm " $3}' | bash
+
+
+===========================================================================
+http://www.inmotionhosting.com/support/email/exim/find-spam-script-location-with-exim
+===========================================================================
+grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
+===========================================================================
+
+
+
