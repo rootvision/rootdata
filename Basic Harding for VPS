@@ -165,3 +165,41 @@ yum -y install letsencrypt-cpanel
 chmod 0400 letsencrypt-cpanel.licence
 /scripts/install_lets_encrypt_autossl_provider
 le-cp self-test
+
+
+================================================================================================================================================
+Refer URL:  https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/2/html/Getting_Started_Guide/ch02s03.html
+================================================================================================================================================
+*** Create SUDO user 
+================================================================================================================================================
+
+# useradd admin
+passwd admin
+
+Set this password
+
+9ky74zsR+Mig52@
+
+nano /etc/sudoers
+
+OR
+
+# visudo
+
+**  Find the lines in the file that grant sudo access to users in the group wheel when enabled.
+## Allows people in group wheel to run all commands
+# %wheel        ALL=(ALL)       ALL
+
+
+** Remove the comment character (#) at the start of the second line. This enables the configuration option.
+** Save your changes and exit the editor.
+
+** Add the user you created to the wheel group using the usermod command.
+
+# usermod -aG wheel admin
+
+** Manually edit /etc/ssh/sshd_config and change PermitRootLogin to “no”, then restart SSH in the “Restart SSH” area
+
+================================================================================================================================================
+
+
