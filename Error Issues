@@ -301,7 +301,36 @@ https://support.managed.com/kb/a447/how-to-shrink-your-mssql-database-log-file-t
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
+*** Showing Soucre code on browser
 --------------------------------------------------------------------------
+
+History
+
+  857  2017-01-30 15:44:46 ls
+  858  2017-01-30 15:44:49 ll
+  859  2017-01-30 15:46:19 top
+  860  2017-01-30 21:58:49 killall -9 lshttpd
+  861  2017-01-30 21:58:56 mv -f /usr/sbin/httpd_ls_bak /usr/sbin/httpd
+  862  2017-01-30 21:59:02 service httpd restart
+  863  2017-01-30 22:02:17  rebuild_phpconf
+  864  2017-01-30 22:02:24 /scripts/rebuild_phpconf
+  865  2017-01-30 22:02:57 /usr/local/cpanel/bin/rebuild_phpconf
+  866  2017-01-30 22:03:09 /usr/local/cpanel/bin/rebuild_phpconf --available
+  867  2017-01-30 22:03:27 /scripts/rebuildhttpdconf 
+  868  2017-01-30 22:03:55 nano /etc/apache2/conf/httpd.conf
+  869  2017-01-30 22:06:33 /scripts/rebuildhttpdconf 
+  870  2017-01-30 22:06:52 nano /etc/apache2/conf/httpd.conf
+  871  2017-01-30 22:07:31 /scripts/rebuildhttpdconf 
+  872  2017-01-30 22:07:49 cp -ar /etc/apache2/conf/httpd.conf  /etc/apache2/conf/httpd.conf-working31Jan2017
+  873  2017-01-30 22:08:02 /scripts/rebuildhttpdconf 
+  874  2017-01-30 22:09:13 service httpd restart
+  875  2017-01-30 22:09:58 cat /etc/apache2/conf.d/ php.conf
+  876  2017-01-30 22:10:03 cat /etc/apache2/conf.d/php.conf
+  877  2017-01-30 22:13:04 ll /home2/southsea/fedsecinc.com/.htaccess 
+  878  2017-01-30 22:13:12 chmod 644 /home2/southsea/fedsecinc.com/.htaccess
+  879  2017-01-30 22:17:07 /scripts/rebuildhttpdconf 
+  880  2017-01-30 22:17:21 w
+  
 --------------------------------------------------------------------------
 
 
