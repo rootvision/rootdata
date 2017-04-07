@@ -72,3 +72,14 @@ Command	Extended Command	Description	Example
 
 # csf -e	–enable	Enable csf and lfd if previously disabled
 
+
+==============================================================================================
+***  CSF configuration Command (Score)
+==============================================================================================
+
+# cd /opt/cpanel grep -lr "disable_functions =" * | xargs sed -i 's/disable_functions =/disable_functions = show_source, system, shell_exec, passthru, exec, phpinfo, popen, proc_open, ini_set/g'
+
+#  cd  /opt/alt =grep -lr "enable_dl = On" * | xargs sed -i 's/enable_dl = On/enable_dl = Off/g'
+
+==============================================================================================
+
