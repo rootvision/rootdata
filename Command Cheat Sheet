@@ -3183,3 +3183,15 @@ i) # lvextend /dev/volgroup/LogVol /dev/newdisk1 (lv name usually /dev/volgroup/
 6. Boot the VM
 7. Login to the VM
 8. Now to expand disk go to Administrative Tools » Computer Management » Disk Managment » right click on allocated space » click on expand » complete the steps » Finish.
+
+# grep 'addondomain.com' /var/cpanel/users/*	-->> to find a addon domain through cmd
+
+# /usr/local/cpanel/bin/update-roundcube --force	-->> to update roundcube
+
+# echo "<message>" | mail -s <subject> <Email address>		-->> To send a mail
+
+# cat /var/log/lfd.log | grep <IP address> 		-->>  To check IP blocked in CPHULK
+
+# cat /var/log/maillog | grep <IP address> 		-->> MOre details of IP blocked relating mails
+
+
