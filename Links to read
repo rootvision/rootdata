@@ -6,7 +6,7 @@ http://unhackable.org/
 https://www.netnea.com/cms/
 http://erikimh.com/
 http://serverguru.blogspot.in/2008/
-
+https://www.cyberciti.biz/tips/linux-unix-bsd-nginx-webserver-security.html   -->>  Nginx WebServer
 
 
 
@@ -16,6 +16,7 @@ Wordpress Links
 https://hostingfixes.wordpress.com/  -->> WORDPRESS Error
 https://codex.wordpress.org/Using_Permalinks      -->>  Permalink Types
 https://codex.wordpress.org/Changing_The_Site_URL#Changing_the_URL_directly_in_the_database    -->>  Changing The Site URL
+https://codex.wordpress.org/Common_WordPress_Errors           -->> Common error 
 
 
 Hosting related Links
@@ -28,4 +29,14 @@ https://vpsie.com/knowledge-base
 http://wiki.centos-webpanel.com/
 https://www.hostinginindia.com/clients/knowledgebase.php
 https://www.123-reg.co.uk/support/
+https://documentation.cpanel.net/display/CKB/How+to+Configure+Your+Firewall+for+cPanel+Services  -->>  Configure Your Firewall for cPanel Services
+
+
+Error issue links
+==================
+
+https://www.hivelocity.net/kb/how-to-fix-cpanel-error-sorry-the-domain-is-already-set-up-3/     -->>  The Domain already exists in Apache Configuration
+http://websterz.info/configuring-whmcpanel-tweak-settings-from-ssh/     -->>  Configuring WHM/cPanel tweak settings from SSH
+https://billing.assetict.com/knowledgebase/article/45/config-file--cannot-read--etc-cl-selector-selector-conf---errno-2--no-such-file-or-directory----etc-cl-selector-selector-conf---/  -->>  Cannot read /etc/cl.selector/selector.conf
+
 
