@@ -3,4 +3,50 @@
 
 # cat /etc/wwwacct.conf  -->>   file contains the most basic setup instructions for cPanel & WHM
 
+# cat /etc/localdomains | grep < abc > 		-->>  this will show the domain name relateding abc 
+
+# /usr/local/cpanel/cpkeyclt	-->> to update the licnence key of cpanel or whm 
+
+# netstat -tap  	-->>	Active Internet connections (servers and established)
+
+# netstat -l		-->>  	Active Internet connections (only servers)
+
+# mysqlcheck -r cphulkd	-->> to repair database tables
+			     <databasetable>
+
+# /scripts/cphulkdwhitelist	<IP address> 	-->> to white list the IP address from CPhulk 
+
+# grep -lr "<word>" *		-->> to fine the particular word from a directory
+
+# php -i | grep "Loaded Configuration File"		-->> to check php.ini file location on the server.
+
+# netstat | grep http | wc -l		-->> to check the number of connection | through http 
+
+# netstat -na			-->>  to display active connection to the server 
+
+# netstat -an | grep :80 | sort		-->> to show active connection through port 80
+
+# netstat -n -p | grep SYN_REC | sort -u	-->> To display the list of the all IP addresses involved instead of just count.
+
+# netstat -tap  	-->>	Active Internet connections (servers and established)
+
+# netstat -l		-->>  	Active Internet connections (only servers)
+
+# cat /etc/localdomains | grep < abc > 		-->>  this will show the domain name relateding abc 
+
+# /usr/local/cpanel/cpkeyclt	-->> to update the licnence key of cpanel or whm
+
+# curl -I -L http://kaitness.net		-->> to check on what the domain is working (litespeed,apache,nija)
+
+# /scripts/cphulkdwhitelist	<IP address> 	-->> to white list the IP address from CPhulk 
+
+# grep -lr "<word>" *		-->> to fine the pparticular word from a directory
+
+
+*** To correct the files/directory permissions inside public_html directory
+============================================================================
+
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
 
