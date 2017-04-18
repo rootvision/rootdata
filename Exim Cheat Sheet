@@ -1,3 +1,153 @@
+***  Log line flags – details
+=============================
+
+<=     message arrival 
+=>     normal message delivery
+->     additional address in same delivery
+*>     delivery suppressed by -N
+**     delivery failed; address bounced
+==     delivery deferred; temporary problem
+
+=============================
+
+***  A summary of the field identifiers that are used in log lines is shown in the following table:
+=========================================================================
+
+A           authenticator name (and optional id)
+C           SMTP confirmation on delivery
+            command list for “no mail in SMTP session”
+CV          certificate verification status
+D           duration of “no mail in SMTP session”
+DN          distinguished name from peer certificate
+DT          on => lines: time taken for a delivery
+F           sender address (on delivery lines)
+H           host name and IP address
+I           local interface used
+id          message id for incoming message
+P           on <= lines: protocol used                          on => and ** lines: return path
+QT          on => lines: time spent on queue so far
+            on “Completed” lines: time spent on queue
+R           on <= lines: reference for local bounce                          on =>  ** and == lines: router name
+S           size of message
+ST          shadow transport name
+T           on <= lines: message subject (topic)                          on => ** and == lines: transport name
+U           local user or RFC 1413 identity
+X           TLS cipher suite
+
+
+=========================================================================
+
+
+***  To check spamming on server which has Exim as MTA
+=======================================================
+
+** Count emails in queue
+-------------------------
+
+# exim -bpc
+52
+
+** List emails with more details
+-------------------------
+
+# exim -bp
+44h 763 1VGaIo-0002ec-RM <sender@sender.com>
+recipient@gmail.com
+
+10h 5.9K 1VH6AW-0001Um-Rz <> *** frozen ***
+no-reply@facebook.com
+
+-------------------------
+# 1st field: Age (Eg : 44h)
+# 2nd field: Size (Eg : 5.9K)
+# 3rd field: Message ID (Eg : 1VGaIo-0002ec-RM)
+# 4th field: Sender (Eg : sender@sender.com)
+# 5th field: Recipient (Eg : recipient@gmail.com)
+-------------------------
+
+***  By using the ID we can analyse the header, body and the log informations of emails in the queue
+=====================================================================================================
+
+# exim -Mvh <Message-ID>
+
+
+***  Displays the message body
+===============================
+
+# exim -Mvb ID
+
+
+***  Displays the log of email. From this log get the original user details logged in for sending email and so
+===============================================================================================================
+
+# exim -Mvl ID
+
+
+***  Analysing email count with sender  ( We can analyse which email address is send large number of mails)
+===========================================================================================================
+
+#  exim -bpr|grep "<"|awk {'print $4'}|cut -d"<" -f2|cut -d">" -f1|sort -n|uniq -c|sort -n
+
+Output
+======
+      2 erdmuth_ilma@fbads.co.place
+      2 theinte1@forever002.mysecureservers.com
+      6 tconradc@forever002.mysecureservers.com
+      9 sally_fisher@audio-books4u.com
+======
+
+
+***  To remove all frozen emails from the mail queue
+====================================================
+
+# exim -bp|grep frozen|awk '{print $3}' |xargs exim -Mrm
+
+# exiqgrep -zi|xargs exim -Mrm
+
+
+***  To delete all emails from queue for a particular sender
+=============================================================================
+
+#  exim -bpr| grep sendername| awk '{print $3}'|xargs exim -Mrm
+
+
+***  To force another queue run again
+=====================================
+
+#  /usr/sbin/exim -qf 
+
+#  exim -qf
+
+***  To force another queue run and attempt to flush the frozen message
+========================================================================
+
+#  /usr/sbin/exim -qff
+
+#  exim -qff
+
+
+***  The command below will find out scripts which are sending emails most recently!
+====================================================================================
+
+# grep cwd /var/log/exim_mainlog  | grep $(date +%Y-%m-%d) | grep sendmail | grep public_html | awk '{print $3}' | sort | uniq -c | sort -n
+
+Output
+======
+
+      8 cwd=/home2/emnvcjpr/public_html/GoodNewsLab.com
+     10 cwd=/home2/createw1/public_html
+     10 cwd=/home2/imxtalco/public_html
+     11 cwd=/home2/touchfoi/public_html
+     11 cwd=/home2/windowag/public_html
+     11 cwd=/home2/windowma/public_html
+     34 cwd=/home2/telesemi/public_html
+     38 cwd=/home2/tconradc/public_html
+   7686 cwd=/home2/fbadscop/public_html/billing/mmv-framework/vendor/phpspec
+   
+======
+
+
+
 http://bradthemad.org/tech/notes/exim_cheatsheet.php
 
 #/usr/sbin/exim   -M   email-id        									 => Force delivery of one message
@@ -37,6 +187,9 @@ http://www.inmotionhosting.com/support/email/exim/find-spam-script-location-with
 ===========================================================================
 grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
 ===========================================================================
+
+
+
 
 
 
