@@ -146,6 +146,19 @@ Output
    
 ======
 
+***  From the email queue, we can analyse the log details of an email by using the command 
+======================================================================
+
+# exim -Mvl <Message-ID>
+
+Output Sample
+=============
+# exim -Mvl 1VlxUy-0001ka-9V
+
+2013-11-28 02:03:00 Received from sfsffsfr@cfsfost6.vfsfsflehfsfting.com U=swfsfcar P=local S=1349 T="Welcome to Swift Carders-The Carders' Home"
+2013-11-28 02:03:00 SMTP error from remote mail server after RCPT TO:<j.xd.9.4.3.7.yhn.uj.m.1.4.5.i.k1.1@gmail.com>: host gmail-smtp-in.l.google.com [17.xxx.xxx27]: 450-4.2.1 The user you are trying to contact is receiving mail too quickly.\n450-4.2.1 Please resend your message at a later time. If the user is able to\n450-4.2.1 receive mail at that time, your message will be delivered. For more\n450-4.2.1 information, please visit\n450 4.2.1 http://support.google.com/mail/bin/answer.py?answer=6592 sn7si36197219pab.341 - gsmtp
+=============
+
 
 
 http://bradthemad.org/tech/notes/exim_cheatsheet.php
