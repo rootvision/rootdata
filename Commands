@@ -50,3 +50,12 @@ find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
 
 
+*** Chattr command
++===========+
+lsattr ---- to check list of currently locked directoires.
+chattr +ir <Directory/file>   ----- to chattr <Directory/file> directory/file
+chattr -ir <Directory/file>   ----- to remove chattr from <Directory/file> directory/file
++===========+
+
+
+
