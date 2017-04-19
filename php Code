@@ -1,0 +1,12 @@
+
+php.ini (code to increase the value)
+==============
+
+upload_max_filesize = 1000M
+post_max_size = 2000M
+memory_limit = 3000M
+file_uploads = On
+max_execution_time = 180
+max_input_vars = 3000
+
+
