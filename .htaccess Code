@@ -262,3 +262,15 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI}/ blog
 RewriteRule ^(.*) http://www.somewhere.com/%{REQUEST_URI} [R=302,NC]
 RewriteRule ^(.*) http://www.somewhere.com/blog/%{REQUEST_URI} [R=302,NC]
+
+
+.htaccess (code to increase the value)
+================
+
+php_value upload_max_filesize 1000M
+php_value post_max_size 2000M
+php_value memory_limit 3000M
+php_value max_execution_time 180
+php_value max_input_time 180
+
+
