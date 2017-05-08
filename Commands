@@ -43,6 +43,18 @@
 # grep -lr "<word>" *		-->> to fine the pparticular word from a directory
 
 
+#  /usr/sbin/csf -p     -->>   Listening ports of external connections
+
+#  chkconfig --list	-->>   Running services
+
+#  netstat -a		-->>  Network stataics 
+
+#  /usr/sbin/csf -l 	-->>  Display IPtable rules 
+
+#  systemctl status lfd.service		-->>  Check LFD status
+
+
+
 *** To correct the files/directory permissions inside public_html directory
 ============================================================================
 
