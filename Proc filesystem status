@@ -1,0 +1,63 @@
+
+***  Files proc filesystem, which gives access to kernel status information via the following files
+====================================================================================================
+
+
+#  cat /etc/services -- The services translation file
+
+
+#  cat /proc -- Mount point for the proc filesystem, which gives access to kernel status information via the following files.
+
+
+#  cat /proc/net/dev -- device information
+
+
+#  cat /proc/net/raw -- raw socket information
+
+
+#  cat /proc/net/tcp -- TCP socket information
+
+
+#  cat /proc/net/udp -- UDP socket information
+
+
+#  cat /proc/net/igmp -- IGMP multicast information
+
+
+#  cat /proc/net/unix -- Unix domain socket information
+
+
+#  cat /proc/net/ipx -- IPX socket information
+
+
+#  cat /proc/net/ax25 -- AX25 socket information
+
+
+#  cat /proc/net/appletalk -- DDP (appletalk) socket information
+
+
+#  cat /proc/net/nr -- NET/ROM socket information
+
+
+#  cat /proc/net/route -- IP routing information
+
+
+#  cat /proc/net/ax25_route -- AX25 routing information
+
+
+#  cat /proc/net/ipx_route -- IPX routing information
+
+
+#  cat /proc/net/nr_nodes -- NET/ROM nodelist
+
+
+#  cat /proc/net/nr_neigh -- NET/ROM neighbours
+
+
+#  cat /proc/net/ip_masquerade -- masqueraded connections
+
+
+#  cat /proc/net/snmp -- statistics
+
+
+
