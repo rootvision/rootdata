@@ -1,0 +1,312 @@
+
+http://thelinuxfaq.com/140-mysql-mysqladmin-commands-for-database-administrator-in-linux
+
+
+***  Run this command out the MySql console  ***
++-----------------------------------------------+
+
+
+
+
+***  mysqladmin Commands for Database Administrator in Linux
+============================================================
+
+
+
+1. Get Database Status:
+=======================
+
+# mysqladmin status
+
+Uptime: 2275  Threads: 7  Questions: 18548  Slow queries: 0  Opens: 298  Flush tables: 1  Open tables: 274  Queries per second avg: 8.152
+
+
+
+
+2. Flush host cache and Logs:
+=============================
+
+# mysqladmin flush-hosts
+
+Flush all cached hosts
+ 
+
+
+# mysqladmin flush-logs  
+      
+Flush all logs
+
+
+
+
+3. Set MySQL root Password:
+===========================
+
+#  mysqladmin -u root password 'mypassword'
+
+
+
+4. Change MySQL root Password:
+==============================
+
+(old password : mypassword and new password :  mypass)
+
+# mysqladmin -u root -pmypassword password 'mypass'
+
+
+
+
+5.Remove MySQL root password  :
+===============================
+
+# mysqladmin -u root -pCURRENTPASSWORD password ''
+
+
+
+
+6.How to check database is running:
+===================================
+
+# mysqladmin -u root ping
+ 
+
+mysqld is alive
+
+
+
+
+
+7. Database current process list:
+=================================
+
+Processlist command show current processing database status like id, user, host name, database name, commands, time duration of execution database, and information.
+
+# mysqladmin processlist
+ 
++-----+--------------+-----------+--------------------+----------------+------+--------------------+------------------+
+| Id  | User         | Host      | db                 | Command        | Time | State              | Info             |
++-----+--------------+-----------+--------------------+----------------+------+--------------------+------------------+
+| 3   | eximstats    | localhost | eximstats          | Sleep          | 58   |                    |                  |
+| 4   | DELAYED      | localhost | eximstats          | Delayed insert | 58   | Waiting for INSERT |                  |
+| 5   | root         | localhost | information_schema | Sleep          | 50   |                    |                  |
+| 262 | leechprotect | localhost | leechprotect       | Sleep          | 1037 |                    |                  |
+| 703 | DELAYED      | localhost | eximstats          | Delayed insert | 58   | Waiting for INSERT |                  |
+| 704 | DELAYED      | localhost | eximstats          | Delayed insert | 58   | Waiting for INSERT |                  |
+| 712 | root         | localhost |                    | Query          | 0    |                    | show processlist |
++-----+--------------+-----------+--------------------+----------------+------+--------------------+------------------+
+
+
+
+
+8. How to create a Database:
+============================
+
+(Create option for create a new database and i have created database name is newdb)
+
+#  mysqladmin create newdb
+
+
+
+
+9. How to drop a Database:
+==========================
+
+# mysqladmin drop newdb
+ 
+Dropping the database is potentially a very bad thing to do.
+Any data stored in the database will be destroyed.
+ 
+Do you really want to drop the 'newdb' database [y/N] y
+Database "newdb" dropped
+
+
+
+
+10. Server is alive?
+====================
+
+(You can check whether the server is alive)
+
+
+# mysqladmin ping      
+ 
+mysqld is alive
+
+
+
+
+
+11. All MySQL server Variables and Values:
+==========================================
+
+(The variable option is to get server system variables and their values)
+
+# mysqladmin  variables
+ 
++-----------------------------------------+-------------------------------------------------------------------------------------------+
+| Variable_name                           | Value                                                                                     |
++-----------------------------------------+-------------------------------------------------------------------------------------------+
+| auto_increment_increment                | 1                                                                                         |
+| auto_increment_offset                   | 1                                                                                         |
+| autocommit                              | ON                                                                                        |
+| automatic_sp_privileges                 | ON                                                                                        |
+| back_log                                | 50                                                                                        |
+| basedir                                 | /                                                                                         |
+| big_tables                              | OFF                                                                                       |
+| binlog_cache_size                       | 32768                                                                                     |
+
+
+
+
+
+
+12.Get Database Open Files Limit:
+=================================
+
+(Displays information about innodb open files, how many number of open file limit on server)
+
+
+# mysqladmin  variables | grep -i open
+
+| have_openssl                                      | DISABLED                                                                                                               
+| innodb_open_files                                 | 300                                                                                                                    
+| open_files_limit                                  | 50000                                                                                                                  
+| table_open_cache                                  | 400                                                                                                                    
+
+
+
+
+
+13. Status of all MySQL Server Variable’s and value’s:
+======================================================
+
+(extended-status is to get server status variables and their values)
+
+# mysqladmin -u root extended-status
+ 
++-----------------------------------+-------------+
+| Variable_name                     | Value       |
++-----------------------------------+-------------+
+| Aborted_clients                   | 235         |
+| Aborted_connects                  | 617430      |
+| Binlog_cache_disk_use             | 0           |
+| Binlog_cache_use                  | 0           |
+| Bytes_received                    | 1927904174  |
+| Bytes_sent                        | 35004212373 |
+| Com_admin_commands                | 119250      |
+
+
+
+
+
+
+14. How to reload/refresh MySQL Privileges?
+===========================================
+
+(The reload command tells the server to reload the grant tables. The refresh command flushes all tables and reopens the log files)
+
+# mysqladmin -u root -p reload
+
+
+# mysqladmin -u root -p refresh
+
+
+
+
+
+15. How to shutdown MySQL server Safely?
+========================================
+
+# mysqladmin -u root -p shutdown
+
+
+
+
+
+16 : How to kill Sleeping MySQL Client Process?
+================================================
+
+# mysqladmin -u root -p processlist
+
+
+# mysqladmin -u root -p kill 5
+
+(If you like to kill multiple process, then pass the process ID‘s with comma separated as shown below)
+
+# mysqladmin -u root -p kill 5,10
+
+
+
+
+
+17. Find more information:
+==========================
+
+# mysqladmin --help
+
+
+
+
+
+18. How to Connect remote mysql:
+================================
+
+# mysqladmin  -h 172.16.25.126 -u root -p
+
+
+
+
+
+19. How to execute command on remote MySQL server
+=================================================
+
+# mysqladmin  -h 172.16.25.126 -u root -p status
+
+
+
+
+
+20. shortened to any unique prefix:
+===================================
+
+(Proc stat option can be shortened to any unique prefix)
+
+
+#  mysqladmin proc stat
+
+
++--------+------------------+-----------+--------------------+----------------+-------+--------------------+------------------+
+| Id     | User             | Host      | db                 | Command        | Time  | State              | Info             |
++--------+------------------+-----------+--------------------+----------------+-------+--------------------+------------------+
+| 24     | eximstats        | localhost | eximstats          | Sleep          | 32    |                    |                  |
+| 31     | root             | localhost | information_schema | Sleep          | 54    |                    |                  |
+| 329586 | DELAYED          | localhost | eximstats          | Delayed insert | 32    | Waiting for INSERT |                  |
+| 341595 | DELAYED          | localhost | eximstats          | Delayed insert | 126   | Waiting for INSERT |                  |
+| 389582 | leechprotect     | localhost | leechprotect       | Sleep          | 17732 |                    |                  |
+| 423338 | DELAYED          | localhost | eximstats          | Delayed insert | 261   | Waiting for INSERT |                  |
+| 423776 | fuikgf4f_bleeqer | localhost | fuikgf4f_bleeqer    | Sleep          | 2     |                    |                  |
+| 423779 | drobmhkt_rtt3   | localhost | drobmhkt_rtt3     | Sleep          | 1     |                    |                  |
+| 423780 | root             | localhost |                    | Query          | 0     |                    | show processlist |
++--------+------------------+-----------+--------------------+----------------+-------+--------------------+------------------+
+Uptime: 273393  Threads: 9  Questions: 19039062  Slow queries: 1121  Opens: 1039692  Flush tables: 1  Open tables: 400  Queries per second avg: 69.639
+
+
+
+
+
+
+21. To Know Total Threads Connected and Running:
+================================================
+
+#  mysqladmin  extended-status | grep -wi 'threads_connected\|threads_running' | awk '{ print $2,$4}'
+ 
+
+Threads_connected 7
+Threads_running 2
+
+
+
+*********************************************************************************************************************************************************************
+
+
+
