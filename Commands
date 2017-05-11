@@ -71,3 +71,199 @@ chattr -ir <Directory/file>   ----- to remove chattr from <Directory/file> direc
 
 
 
+***  [NOTE: Remember all commands are lower-case]
+=================================================
+
+
+***  In this case
+=================
+
+
+cp = command -iv = options file = source
+
+/var/tmp = destination
+
+
+
+
+***  Linux Basic Commands
+=========================
+
+clear  		-->>    clear the terminal
+
+reset         	-->>    To reset  the terminal
+
+pwd		-->> 	To show current working directory
+
+logname		-->>	To show login user name
+
+history		-->>	To show command history
+
+history -c	-->> 	To clear
+
+
+***  command history
+====================
+
+history -r  	-->>	To recover command history
+
+history -w	-->>	To write (save) command history
+
+history -a	-->>	To update the history file (.bash_history) 
+
+init		-->>	To change runlevel
+
+telinit		-->>	To change runlevel
+
+reboot		-->>	Restart the system
+
+poweroff	-->>	Shutdown the system
+
+info		-->>	To show command information
+
+man		-->>	To show command information
+
+pinfo		-->>	To show command information
+
+date		-->>	To show and to set date & time
+
+hwclock		-->> 	To show hardware date & time
+
+cal		-->>	To show calendar
+
+tzselect	-->>	To set time zone
+
+bc		-->>	Basic calculator
+
+ln		-->>	To create linking
+
+unlink		-->>	To remove the link
+
+mkdir		-->>	To create a directory
+
+touch		-->>	To create empty file
+
+ls		-->>	List directory contents
+
+lsof		-->>	list open file
+
+cp		-->>	copy files
+
+mv		-->>	move (cut) files
+
+cat		-->>	To read a file
+
+tac		-->>	To read a file reverse
+
+nl		-->>	number lines of files
+
+rm		-->>	Remove files or directories
+
+
+
+tty		-->>	 To show terminal type
+
+chvt		-->>	To change the virtual terminal
+
+rmdir		-->>	Remove empty directories
+
+
+
+
+***   Linux Administrative Commands
+===================================
+
+
+
+mail		-->>	Send and receive mail
+
+grep		-->> 	print lines matching a pattern
+
+updatedb	-->>	Updates a database used by locate
+
+locate		-->>	Find files by name
+
+find		-->>	Search for files in a directory hierarchy
+
+free		-->>	To show memory size and swap partition size
+
+lsmod		-->>	Show the status of modules in the Linux Kernel
+
+modinfo		-->>	To show information about a Linux Kernel module
+
+modprobe	-->> 	To add and remove modules from the Linux Kernel
+
+dmidecode	-->>	To show hardware components
+
+uptime		-->>	To show system uptime and system load
+
+pinky		-->>	Print user login information
+
+finger		-->>	Displays information about the system users
+
+chfn		-->>	To change the finger information
+
+uname		-->>	To display system information
+
+ps		-->>	To show process status
+
+top		-->>	Display Linux tasks
+
+pidof		-->>	Find the process ID of a running program.
+
+kill		-->>	Terminate a process
+
+pkill		-->>	Terminate a process by process name
+
+w		-->>	Show who is logged on and what they are doing
+
+last		-->>	To show last logged in users
+
+lastb		-->>	To show fail attempt users
+
+lastlog		-->>	Reports the most recent login
+
+du		-->>	Summarize disk usage of each FILE
+
+df		-->>	Report file system disk space usage
+
+sort		-->>	Sort lines of text files
+
+head		-->>	Print the first 10 lines of each FILE
+
+tail		-->>	Print the last 10 lines of each FILE
+
+wall		-->>	Send a message to everybody terminal
+
+chmod		-->>	To change file permission
+
+chown		-->>	To change file owner and group
+
+chgrp		-->>	To change group ownership
+
+getfacl		-->> 	Get file access control list
+
+setfacl		-->>	Set file access control list
+
+wc		-->>	Print newline, word, and byte counts for each file
+
+useradd		-->>	To create a new user
+
+userdel		-->>	To delete a user
+
+usermod		-->>	To modify a user account
+
+groupadd	-->>	To create a new group
+
+groupdel	-->>	To delete a group
+
+groupmod	-->>	To modify a group account
+
+su		-->>	Switch user password
+
+passwd		-->>	To set user 
+
+chage		-->>	Change user password expiry information
+
+
+
