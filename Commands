@@ -265,5 +265,102 @@ passwd		-->>	To set user
 
 chage		-->>	Change user password expiry information
 
+who		-->>	Show who is logged on
+
+lsusb	 	-->>	To show list USB port
+
+lscpu		-->>	To show CPU information
+
+nice		-->>	Run a program with modified scheduling priority
+
+renice		-->>	To change priority of running processes
+
+ifconfig	-->>	To show system IP address
+
+ss		-->> 	ss is used to dump socket statistics
+
+netstat		-->>	Print network connections, interface statistics
+
+ping		-->>	To check machine connectivity
+
+nmap		-->>	Port Scanner (Network Mapper)
+
+wireshark	-->>	Analyze network traffic
+
+hostname	-->>	To show or to set machine name
+
+domainname	-->>	To show domain name OR to set domain name
+
+tar		-->>	To archive files
+
+zip		-->>	To compress files
+
+scp		-->>	Secure copy (remote file copy)
+
+rsync		-->>	Remote file copy
+
+sftp		-->>	Secure file transfer program
+
+rpm		-->>	RPM Package Manager
+
+yum		-->>	Yellow-dog Updater Modified
+
+crontab		-->> 	Executes commands at a specified time.
+
+getenforce	-->>	Get the current mode of SE-Linux
+
+setenforce	-->>	Modify the mode SE-Linux is running in.
+
+sestatus	-->>	SE-Linux status tool
+
+restorecon	-->>	Restore file(s) default SE-Linux security contexts.
+
+fixfiles	-->>	Fix file SE-Linux security contexts
+
+chcon		-->>	Change file SE-Linux security context
+
+getsebool	-->>	Get SE-Linux Boolean value
+
+setsebool	-->> 	Set SE-Linux Boolean value
+
+partx		-->>	To update the partition table
+
+blkid		-->>	To print block device attributes
+
+badblocks	-->>	Search a device for bad blocks
+
+mkfs		-->>	To format the Linux partition
+
+e2lable		-->>	To set and Change the label
+
+swapon		-->>	To enable swap partition
+
+swapoff		-->>	To disable swap partition
+
+mkswap		-->>	To format swap partition
+
+pvcreate	-->>	To create physical volume
+
+pvdisplay	-->>	To show physical volume status
+
+pvremove	-->>	To remove physical volume
+
+vgcreate	-->>	To create volume group
+
+vgdisplay	-->>	To show volume group status
+
+vgremove	-->>	To remove volume group
+
+lvcreate	-->>	To create logical volume
+
+lvdisplay	-->>	To show logical volume status
+
+lvremove	-->>	To remove logical volume
+
+smbstatus	-->>	The smbstatus tool provides access to information about the current connections to smbd
+
+testparm	-->> The testparm utility is a simple syntax checker for SambaÂ ´s smb.conf configuration file.
+
+
 
 
