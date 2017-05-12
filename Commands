@@ -64,9 +64,9 @@ find . -type f -exec chmod 644 {} \;
 
 *** Chattr command
 +===========+
-lsattr ---- to check list of currently locked directoires.
-chattr +ir <Directory/file>   ----- to chattr <Directory/file> directory/file
-chattr -ir <Directory/file>   ----- to remove chattr from <Directory/file> directory/file
+# lsattr ---- to check list of currently locked directoires.
+# chattr +ir <Directory/file>   ----- to chattr <Directory/file> directory/file
+# chattr -ir <Directory/file>   ----- to remove chattr from <Directory/file> directory/file
 +===========+
 
 
@@ -89,83 +89,81 @@ cp = command -iv = options file = source
 ***  Linux Basic Commands
 =========================
 
-clear  		-->>    clear the terminal
+# clear  		-->>    clear the terminal
 
-reset         	-->>    To reset  the terminal
+# reset         	-->>    To reset  the terminal
 
-pwd		-->> 	To show current working directory
+# pwd		-->> 	To show current working directory
 
-logname		-->>	To show login user name
+# logname		-->>	To show login user name
 
-history		-->>	To show command history
+# history		-->>	To show command history
 
-history -c	-->> 	To clear
+# history -c	-->> 	To clear
 
 
 ***  command history
 ====================
 
-history -r  	-->>	To recover command history
+# history -r  	-->>	To recover command history
 
-history -w	-->>	To write (save) command history
+# history -w	-->>	To write (save) command history
 
-history -a	-->>	To update the history file (.bash_history) 
+# history -a	-->>	To update the history file (.bash_history) 
 
-init		-->>	To change runlevel
+# init		-->>	To change runlevel
 
-telinit		-->>	To change runlevel
+# telinit		-->>	To change runlevel
 
-reboot		-->>	Restart the system
+# reboot		-->>	Restart the system
 
-poweroff	-->>	Shutdown the system
+# poweroff	-->>	Shutdown the system
 
-info		-->>	To show command information
+# info		-->>	To show command information
 
-man		-->>	To show command information
+# man		-->>	To show command information
 
-pinfo		-->>	To show command information
+# pinfo		-->>	To show command information
 
-date		-->>	To show and to set date & time
+# date		-->>	To show and to set date & time
 
-hwclock		-->> 	To show hardware date & time
+# hwclock		-->> 	To show hardware date & time
 
-cal		-->>	To show calendar
+# cal		-->>	To show calendar
 
-tzselect	-->>	To set time zone
+# tzselect	-->>	To set time zone
 
-bc		-->>	Basic calculator
+# bc		-->>	Basic calculator
 
-ln		-->>	To create linking
+# ln		-->>	To create linking
 
-unlink		-->>	To remove the link
+# unlink		-->>	To remove the link
 
-mkdir		-->>	To create a directory
+# mkdir		-->>	To create a directory
 
-touch		-->>	To create empty file
+# touch		-->>	To create empty file
 
-ls		-->>	List directory contents
+# ls		-->>	List directory contents
 
-lsof		-->>	list open file
+# lsof		-->>	list open file
 
-cp		-->>	copy files
+# cp		-->>	copy files
 
-mv		-->>	move (cut) files
+# mv		-->>	move (cut) files
 
-cat		-->>	To read a file
+# cat		-->>	To read a file
 
-tac		-->>	To read a file reverse
+# tac		-->>	To read a file reverse
 
-nl		-->>	number lines of files
+# nl		-->>	number lines of files
 
-rm		-->>	Remove files or directories
+# rm		-->>	Remove files or directories
 
+# tty		-->>	 To show terminal type
 
+# chvt		-->>	To change the virtual terminal
 
-tty		-->>	 To show terminal type
-
-chvt		-->>	To change the virtual terminal
-
-rmdir		-->>	Remove empty directories
+# rmdir		-->>	Remove empty directories
 
 
 
@@ -175,191 +173,962 @@ rmdir		-->>	Remove empty directories
 
 
 
-mail		-->>	Send and receive mail
+# mail		-->>	Send and receive mail
 
-grep		-->> 	print lines matching a pattern
+# grep		-->> 	print lines matching a pattern
 
-updatedb	-->>	Updates a database used by locate
+# updatedb	-->>	Updates a database used by locate
 
-locate		-->>	Find files by name
+# locate		-->>	Find files by name
 
-find		-->>	Search for files in a directory hierarchy
+# find		-->>	Search for files in a directory hierarchy
 
-free		-->>	To show memory size and swap partition size
+# free		-->>	To show memory size and swap partition size
 
-lsmod		-->>	Show the status of modules in the Linux Kernel
+# lsmod		-->>	Show the status of modules in the Linux Kernel
 
-modinfo		-->>	To show information about a Linux Kernel module
+# modinfo		-->>	To show information about a Linux Kernel module
 
-modprobe	-->> 	To add and remove modules from the Linux Kernel
+# modprobe	-->> 	To add and remove modules from the Linux Kernel
 
-dmidecode	-->>	To show hardware components
+# dmidecode	-->>	To show hardware components
 
-uptime		-->>	To show system uptime and system load
+# uptime		-->>	To show system uptime and system load
 
-pinky		-->>	Print user login information
+# pinky		-->>	Print user login information
 
-finger		-->>	Displays information about the system users
+# finger		-->>	Displays information about the system users
 
-chfn		-->>	To change the finger information
+# chfn		-->>	To change the finger information
 
-uname		-->>	To display system information
+# uname		-->>	To display system information
 
-ps		-->>	To show process status
+# ps		-->>	To show process status
 
-top		-->>	Display Linux tasks
+# top		-->>	Display Linux tasks
 
-pidof		-->>	Find the process ID of a running program.
+# pidof		-->>	Find the process ID of a running program.
 
-kill		-->>	Terminate a process
+# kill		-->>	Terminate a process
 
-pkill		-->>	Terminate a process by process name
+# pkill		-->>	Terminate a process by process name
 
-w		-->>	Show who is logged on and what they are doing
+# w		-->>	Show who is logged on and what they are doing
 
-last		-->>	To show last logged in users
+# last		-->>	To show last logged in users
 
-lastb		-->>	To show fail attempt users
+# lastb		-->>	To show fail attempt users
 
-lastlog		-->>	Reports the most recent login
+# lastlog		-->>	Reports the most recent login
 
-du		-->>	Summarize disk usage of each FILE
+# du		-->>	Summarize disk usage of each FILE
 
-df		-->>	Report file system disk space usage
+# df		-->>	Report file system disk space usage
 
-sort		-->>	Sort lines of text files
+# sort		-->>	Sort lines of text files
 
-head		-->>	Print the first 10 lines of each FILE
+# head		-->>	Print the first 10 lines of each FILE
 
-tail		-->>	Print the last 10 lines of each FILE
+# tail		-->>	Print the last 10 lines of each FILE
 
-wall		-->>	Send a message to everybody terminal
+# wall		-->>	Send a message to everybody terminal
 
-chmod		-->>	To change file permission
+# chmod		-->>	To change file permission
 
-chown		-->>	To change file owner and group
+# chown		-->>	To change file owner and group
 
-chgrp		-->>	To change group ownership
+# chgrp		-->>	To change group ownership
 
-getfacl		-->> 	Get file access control list
+# getfacl		-->> 	Get file access control list
 
-setfacl		-->>	Set file access control list
+# setfacl		-->>	Set file access control list
 
-wc		-->>	Print newline, word, and byte counts for each file
+# wc		-->>	Print newline, word, and byte counts for each file
 
-useradd		-->>	To create a new user
+# useradd		-->>	To create a new user
 
-userdel		-->>	To delete a user
+# userdel		-->>	To delete a user
 
-usermod		-->>	To modify a user account
+# usermod		-->>	To modify a user account
 
-groupadd	-->>	To create a new group
+# groupadd	-->>	To create a new group
 
-groupdel	-->>	To delete a group
+# groupdel	-->>	To delete a group
 
-groupmod	-->>	To modify a group account
+# groupmod	-->>	To modify a group account
 
-su		-->>	Switch user password
+# su		-->>	Switch user password
 
-passwd		-->>	To set user 
+# passwd		-->>	To set user 
 
-chage		-->>	Change user password expiry information
+# chage		-->>	Change user password expiry information
 
-who		-->>	Show who is logged on
+# who		-->>	Show who is logged on
 
-lsusb	 	-->>	To show list USB port
+# lsusb	 	-->>	To show list USB port
 
-lscpu		-->>	To show CPU information
+# lscpu		-->>	To show CPU information
 
-nice		-->>	Run a program with modified scheduling priority
+# nice		-->>	Run a program with modified scheduling priority
 
-renice		-->>	To change priority of running processes
+# renice		-->>	To change priority of running processes
 
-ifconfig	-->>	To show system IP address
+# ifconfig	-->>	To show system IP address
 
-ss		-->> 	ss is used to dump socket statistics
+# ss		-->> 	ss is used to dump socket statistics
 
-netstat		-->>	Print network connections, interface statistics
+# netstat		-->>	Print network connections, interface statistics
 
-ping		-->>	To check machine connectivity
+# ping		-->>	To check machine connectivity
 
-nmap		-->>	Port Scanner (Network Mapper)
+# nmap		-->>	Port Scanner (Network Mapper)
 
-wireshark	-->>	Analyze network traffic
+# wireshark	-->>	Analyze network traffic
 
-hostname	-->>	To show or to set machine name
+# hostname	-->>	To show or to set machine name
 
-domainname	-->>	To show domain name OR to set domain name
+# domainname	-->>	To show domain name OR to set domain name
 
-tar		-->>	To archive files
+# tar		-->>	To archive files
 
-zip		-->>	To compress files
+# zip		-->>	To compress files
 
-scp		-->>	Secure copy (remote file copy)
+# scp		-->>	Secure copy (remote file copy)
 
-rsync		-->>	Remote file copy
+# rsync		-->>	Remote file copy
 
-sftp		-->>	Secure file transfer program
+# sftp		-->>	Secure file transfer program
 
-rpm		-->>	RPM Package Manager
+# rpm		-->>	RPM Package Manager
 
-yum		-->>	Yellow-dog Updater Modified
+# yum		-->>	Yellow-dog Updater Modified
 
-crontab		-->> 	Executes commands at a specified time.
+# crontab		-->> 	Executes commands at a specified time.
 
-getenforce	-->>	Get the current mode of SE-Linux
+# getenforce	-->>	Get the current mode of SE-Linux
 
-setenforce	-->>	Modify the mode SE-Linux is running in.
+# setenforce	-->>	Modify the mode SE-Linux is running in.
 
-sestatus	-->>	SE-Linux status tool
+# sestatus	-->>	SE-Linux status tool
 
-restorecon	-->>	Restore file(s) default SE-Linux security contexts.
+# restorecon	-->>	Restore file(s) default SE-Linux security contexts.
 
-fixfiles	-->>	Fix file SE-Linux security contexts
+# fixfiles	-->>	Fix file SE-Linux security contexts
 
-chcon		-->>	Change file SE-Linux security context
+# chcon		-->>	Change file SE-Linux security context
 
-getsebool	-->>	Get SE-Linux Boolean value
+# getsebool	-->>	Get SE-Linux Boolean value
 
-setsebool	-->> 	Set SE-Linux Boolean value
+# setsebool	-->> 	Set SE-Linux Boolean value
 
-partx		-->>	To update the partition table
+# partx		-->>	To update the partition table
 
-blkid		-->>	To print block device attributes
+# blkid		-->>	To print block device attributes
 
-badblocks	-->>	Search a device for bad blocks
+# badblocks	-->>	Search a device for bad blocks
 
-mkfs		-->>	To format the Linux partition
+# mkfs		-->>	To format the Linux partition
 
-e2lable		-->>	To set and Change the label
+# e2lable		-->>	To set and Change the label
 
-swapon		-->>	To enable swap partition
+# swapon		-->>	To enable swap partition
 
-swapoff		-->>	To disable swap partition
+# swapoff		-->>	To disable swap partition
 
-mkswap		-->>	To format swap partition
+# mkswap		-->>	To format swap partition
 
-pvcreate	-->>	To create physical volume
+# pvcreate	-->>	To create physical volume
 
-pvdisplay	-->>	To show physical volume status
+# pvdisplay	-->>	To show physical volume status
 
-pvremove	-->>	To remove physical volume
+# pvremove	-->>	To remove physical volume
 
-vgcreate	-->>	To create volume group
+# vgcreate	-->>	To create volume group
 
-vgdisplay	-->>	To show volume group status
+# vgdisplay	-->>	To show volume group status
 
-vgremove	-->>	To remove volume group
+# vgremove	-->>	To remove volume group
 
-lvcreate	-->>	To create logical volume
+# lvcreate	-->>	To create logical volume
 
-lvdisplay	-->>	To show logical volume status
+# lvdisplay	-->>	To show logical volume status
 
-lvremove	-->>	To remove logical volume
+# lvremove	-->>	To remove logical volume
 
-smbstatus	-->>	The smbstatus tool provides access to information about the current connections to smbd
+# smbstatus	-->>	The smbstatus tool provides access to information about the current connections to smbd
 
-testparm	-->> The testparm utility is a simple syntax checker for SambaÂ ´s smb.conf configuration file.
+# testparm	-->> The testparm utility is a simple syntax checker for SambaÂ ´s smb.conf configuration file.
+
+
+
+%%%%%%%%%%%   System Shutdown,Restart & Log out   %%%%%%%%%%%%%
+
+
+# init 0          -->>             [shutdown the system]
+
+
+# init 6          -->>             [reboot the system]
+
+
+# reboot          -->>             [restart the system]
+
+
+# shutdown -r now   -->>           [restart]
+
+
+# reboot -f        -->>            [force restart]
+
+
+# shutdown -h now    -->>          [shutdown now]
+
+
+# shutdown -h/r minutes    -->>    [planned shutdown of the system]
+
+
+# shutdown -c         -->>         [cancel a planned shutdown of the system]
+
+
+# logout         -->>              [logout user] 
+
+
+# ctrl+D         -->>              [CLI logout user]
+
+
+# ctrl+alt+backspace      -->>     [GUI logout user]
+
+
+%%%%%%%%%%%%%% 	  Get the help command   %%%%%%%%%%%%%%
+
+
+
+***   Rename & Move file
+========================
+
+
+# mv <soure><destination>  	-->>      [move file or dir]
+
+# mv <oldname><newname>         -->>	  [rename file or dir]
+
+
+
+
+*** Create Directory
+====================
+
+
+# mkdir <dirname>               -->>	  [create dirs]
+
+# mkdir -v data1                -->>      [verbose mode show]
+
+# mkdir -p /data/data1/data2    -->>      [parent directory create]
+
+# mkdir -m 764 data             -->>      [mode/ to set permission]
+
+
+
+***  Directory List
+===================
+
+# ls        	-->>		[listing]
+
+# ls -l    	-->>		[long list]
+
+# ls -r     	-->>		[reverse listing]
+
+# ls -a         -->>		[all]
+
+# ls -i   	-->>		[inode no show]
+
+# ls -F    	-->>		[classify dirs and files]
+
+# ls -sh    	-->>		[to show human readable size]
+
+# ls -n    	-->>		[Numeric UID/GID]
+
+# ls -t     	-->>		[sort by modification time]
+
+# ls -ld <directoryname>      -->>	[only show this dir list]
+
+# ls -l <filename>       -->>		[only show this file list]
+
+# ls -l | grep ^d   	 -->>		[only dir show]
+
+# ls -l | grep ^-   	 -->>		[only Regular file show]
+
+# ls -l | grep ^l    	 -->>		[only link file show]
+
+# lsof      	-->>		[List open files]
+
+# tree /root    -->>		[show files and directory in a tree]
+
+
+
+***  Change Directory
+=====================
+
+
+# cd        	-->>		[change directory]
+  
+# cd /home  	-->>		[go to home dir]
+
+# cd /     	-->>		[go to /]
+
+# cd ~user  	-->>		[user home directory]
+
+# cd ~      	-->>		[go to home directory]
+
+# cd ..     	-->>		[go to one level back]
+
+# cd ../..  	-->>		[go to two level back]
+
+# cd -      	-->>		[go to privise directory]
+
+
+
+***	To read a file
+======================
+
+
+# cat <exitingfilename>      -->>	 [to read file]
+
+# cat ><newfilename>         -->>	 [overwrite file]
+
+# cat >><exitingfilename>    -->>	 [append file]
+
+# tac <filename>             -->>	 [file read in reverse]
+
+
+
+
+*** 	To remove files and directory
+=====================================
+
+
+# rm <filename>           -->>		[remove file and directory]
+
+# rm -rf <diretory name>  -->>		[recursive / force]
+ 
+# rm -v <filename>        -->>		[verbose mode]
+
+# rmdir  <emptydirname>   -->>		[Remove empty folder(s)]
+
+
+
+
+***	Hard Link and Soft Link
+===============================
+
+
+## Different between Soft links and hard link..?
+
+-->>	Hard Link is a mirror copy of the original file. Hard links share the same
+inode. Any changes made to the original or hard linked file will reflect the
+other. Even if you delete any one of the files, nothing will happen to the
+other.
+
+
+-->>	Soft Link is a symbolic link to the original file. Soft Links will have a
+different Inode value.A soft link points to the original file. If you delete
+the original file, the soft link fails.
+
+
+***	If you delete the soft link, nothing will happen
+========================================================
+
+# ln -s <target><linkname>      -->>	[to create soft link]
+
+# ls -il                        -->>	[to show inode No]
+
+# ln <target><linkname>         -->>	[to create hard link]
+
+# ls -il                        -->>	[to show inode No]
+
+# unlink softlink               -->>	[for soft link delete link file]
+
+
+
+
+###### 	Text Mode Editor nano,vi,vim	 ######
+===============================================
+
+
+***	nano, Vi  and Vim Text Editor.......
+=============================================
+
+
+# nano <new/exiting file name>    -->>	   [to create / editing file]
+
+# vi  <file_name>                 -->>	   [to create / editing file]
+
+# vim <file_name>                 -->>	   [to create / editing file]
+
+
+
+***	VIM = the vim utility is a powerful command-line based text editor which is
+more complex and powerful than other editor.In fact it's an implementation of the vi utility.
+
+
+*** There are three mode of vi and vim editor
+=============================================
+
+1. Command Mode OR Default Mode		-->>	(This mode to use for file read, cut,copy, paste and delete)
+2. Insert Mode				-->>	(This mode used to normal text editing and text modified)
+3. Ex Mode				-->>	(This mode used to save,exit,search and replace)
+
+
+**** Use the vi and vim editor *****
+====================================
+
+# vim <new filename>
+
+# vim  filename 
+ 
+press i, a, insert key          (Go Command mode to  Insert mode)
+
+This is text file only          (add the content)
+
+press Esc to return to command mode 
+
+Press Shift :                   (Go command mode to Ex mode)
+
+:wq!       (w= save, q= quit and ! = forcefully)
+
+
+
+===========================================================================
+-------------------- Advance Options in vi/vim editors --------------------
+===========================================================================
+1.   yy  = to copy line
+
+2.   2yy = 2 line copy
+
+3.   yw  = to copy word
+
+4.   2yw = 2 word copy
+
+5.   p   = to paste
+
+6.   cc  = cut line
+
+7.   cw  = cut word
+
+8.   2cw = 2 cut word
+
+9.   dd  = to delete line
+
+10.  dw  = delete word
+
+11.  2dw = 2 delete word
+
+12.  u   = to undo
+
+13.  x   = to delete the character under the cursor
+
+14.  2x  = to character delete
+
+15.  q   = quit file
+
+16.  w   = save file
+
+17. :set nu = to show line numbers
+
+18. :wq   = save & quit file
+
+19. :wq!  = forcefully save & quit
+
+20. :No   = go to line no.
+
+21. :help = to help
+
+22. :!ls  = command execute
+
+23. :/example = to search
+
+24. :%s/example/nasa  = to search and replace the words
+
+
+**********************************************************************
+
+
+***	{NOTE:- The 'vimtutor 'command included with vim runs a tutorial that can help
+	you learn more about vim outside this class.}
+======================================================================================
+
+
+***	Compress files
+======================
+
+
+# zip file.zip file            -->>	  (Compress file/dir)
+
+# uzip file.zip                -->>	  (Decompress file)
+
+# zcat file.zip                -->>	  (Read zip file)
+
+# zip nasa.zip file file1 file2  -->>	  (Multiple file Compress)
+
+# zip -e file.zip file         -->>	  (Encrypt with Password)
+
+( NOTE: - bzip2 is usually better compression agent than gzip )
+ 
+
+***	Backup and restore	***
+===================================
+
+
+
+*** tar command
+===============
+
+c= create  
+             
+x= extract
+             
+t= listing
+                   
+v= verbose 
+           
+f= file name 
+          
+z= gzip 
+                
+j= bzip
+  
+
+                 
+***	file folder Backup and Restore
+======================================
+
+# tar -cf archive.tar file file1        -->>	  [archive file and file1]
+
+# tar -xf archive                       -->>	  [extract]
+
+# tar -tvf archive.tar      		-->>	  [List all files in archive.tar verbosely]
+
+# tar  -cvjf /var/tmp/etc.tar.gz /etc/  -->>	  [to create backup]
+
+
+
+
+***	Partition Backup and restore
+====================================
+
+# xfsdump -f boot.dump /dev/sda1 	-->>	[file-system backup/partition backup]
+
+# xfsrestore -f boot.dump               -->>	[restore backup] 
+                
+# grep   	-->>	 Print lines matching a pattern
+
+# more   	-->>	 To Show file in paging view
+
+# less   	-->>	 To Show file in paging view
+
+# mail   	-->>	 To Send and Receive Internet mail
+
+# lpr    	-->>	 To Print files
+
+# locate 	-->>	 find files by name
+
+# find   	-->>	 search for files in a directory
+
+# grep 'root' /etc/passwd        -->>        (To show root line)
+
+# grep -i 'ROOT' /etc/passwd     -->>        (To Ignore  case )
+
+# grep -v root /etc/passwd 	 -->>	     (select non-matching lines/invert-match)
+
+# grep -m 1 root /etc/passwd     -->>	     (to show 1 output only)
+
+# grep -n root /etc/passwd       -->>	     (to show line number)
+
+# more /etc/passwd        	 -->>	     (To show paging) (|(Pipe symbol) to used two command run)
+
+# less /etc/passwd          	 -->>        (To show file in paging)
+
+  
+***	Mail send
+=================
+
+
+# mail <user name> 	-->>	(To send mail to user)
+
+# mail           	-->>	(To check mailbox)
+
+# mail -s "hi root" root   -->>		(Subject add)
+
+# mail -a install.log root  	-->>	(attach file)
+
+# mail -c student root     -->>	        (Send carbon copies)
+
+# mail -c student,alex,harry    -->>	(multiple carbon copies)
+
+# mail root,student             -->>	(to send multiple users)
+
+	[w = save attach file, q = quit]
+
+***	[NOTE:-Mail stored in /var/spool/mail/root]	***
+
+ 
+# lpr <file name>            -->>            (Print the file)
+            
+# lpq                        -->>            (Show printer queue status)
+
+# lprm <job No>              -->>            (Cancel print jobs)
+
+
+
+***	Locate and find Command 
+===============================
+
+# updatedb                  -->>	(to update file database)
+
+# locate passwd             -->>	(To search file or directory)
+
+# locate -n 10 passwd       -->>	(to show only 10 output)
+
+# locate -n 10 *.html       -->>	(to search all html files)
+
+# locate -i Passwd          -->>	(to ignore case)
+
+
+# find <search location><options><filename>
+
+# find /etc -name passwd    -->>	(To search by name)
+
+# find /etc -size  1M       -->>	(To search by size)
+
+# find /etc -perm  000      -->>        (To search by permission)
+
+# find /home  -user <USERNAME>   -->>	(To search by user created file)
+
+# find /home  -group <GROUPNAME> -->>   (To search by group created file)
+
+# find / -name *.html -user alex  -->>  (to show alex user html file)
+
+# find /root -name '*.txt'   -->>       (to show all txt files)
+
+# find /proc -amin 2         -->>       (File was last accessed 2 minutes ago)
+
+# find / -atime 1            -->>       (File was last accessed 1 hours ago)
+
+# find / -mmin 1             -->>       (Files status was last changed 1 minutes ago)
+
+# find / -mtime 1            -->>       (Files status was last changed 1 hours ago)  
+
+
+
+I/O Redirection
+===============
+*There are three type of Redirection:-
+======================================
+
+
+1. Standard Input       -->>	 (STDIN) usually from the keyboard (value 0)
+
+2. Standard Output      -->>	 (STDOUT) usually from the terminal (value 1)
+
+3. Standard Error       -->>	 (STDERR) usually from the terminal (value 2) 
+
+STDOUT = >                (symbol)
+
+STDIN =<(--#--)
+
+STDERR = 2>               (--#--)
+
+
+***	Advance Command
+=======================
+
+
+# ps aux            -->>	(To show running processes)
+
+# top               -->>	(To show update run processes)
+
+# pidstat           -->>	(reports statistics based on the process id (PID)
+  
+# pidof firefox     -->>	(To show PID NO)
+
+# kill <pid no>     -->>	(To kill processes)
+
+# kill -9 <PID No>  -->>	(9 forcefully kill)
+
+# pkill top         -->>	(Stop processes by name)
+
+# w                 -->>	(To show remote login user and longing user)
+ 
+# logname           -->>	(Print current login name)
+
+# groups alex       -->>	(print the groups a user is in)
+
+# du /etc           -->>	(to show file/dir. usage space (in bytes)
+
+# du -sh /etc       -->>	(to show etc dir. Size)	(-k kilobyte -m megabyte, s= show only a total each file/directory)
+
+# df /              -->>	(report file system disk space usage)
+
+# tr "a-z" "A-Z" < file     -->>	(Translate)(Lowercase to uppercase)
+
+# head /etc/passwd          -->>	(show 1st 10 line)
+
+# head -n 5 /etc/passwd     -->>	(show 1st 5 line)
+
+# tail /etc/passwd          -->>	(To show last 10 line)
+
+# tail -n 5 /etc/passwd     -->>	(to show last 5 line)
+
+# cut -c1  <file name>      -->>	(to show or cut column of the file)
+       
+# wc <file name>      	    -->>	(words, bytes counts for each file)
+
+# sort <file name> 	    -->>	(Ascending)
+
+# sort -r <file name>       -->>        (Descending)
+
+# sort -n <file name> 	    -->>	(Numeric sort)
+
+# sort -u <file name> 	    -->>	(do not show same line)
+
+# diff  <file1><file2>      -->>	(To show different between 2 files)
+
+# diff -r <dir1><dir2> 	    -->>	(To show different between 2 directory)
+
+# firefox                   -->>        (open the web browser)
+
+# last                      -->> 	(to show login user & system reboot history)
+
+# last tty2                 -->>	(to show tty2 user status)
+
+# lastb                     -->>	(show the last logged in user)
+
+# lastlog -u alex           -->>	(individual user log check)
+
+# wall  "hi all"            -->>	(to send broadcast message)
+
+# free               	    -->>	(To show RAM & swap status)
+
+# vmstat              	    -->>	(To show virtual memory Status)
+
+# lsmod               	    -->>	(To show list of modules)
+
+# modinfo cdrom       	    -->>	(TO show info about module)
+
+# modprobe cdrom      	    -->>	(To install the module)
+
+# modprobe -r cdrom   	    -->>	(Uninstall module)
+
+# dmidecode        	    -->>	(To show all hardware info)
+
+# uptime  		    -->>	(show how long the system has been running)
+
+# uname -a            	    -->>	(print system information)
+
+# uname -r            	    -->>	(to show the kernel version)
+
+# dd if=/dev/sr0 of=/mnt/data/file.iso  -->>	[to create iso file]
+
+# dd if=/dev/sda of=/tmp/file1  -->>	[backup content of the hdd to a file]
+
+# diff -r dir1 dir2        -->>         [different between two dir.]
+
+# mkisofs -o /data/myiso.iso /test   -->>	[to create iso file of a folder contain]
+
+# cdrecord -v dev=/dev/cdrom cd.iso  -->>	[burn an ISO image]
+
+# ethtool eth0              -->>        [show status of eth0]
+
+# smartctl -i /dev/sda      -->>        (to show HDD information)
+
+# smartctl -H /dev/sda      -->>        (to show HDD health)
+
+# look exer                 -->>	(to show lines beginning with a given word)
+
+# sar -    		    -->>	(Collect, report, or save system activity information)
+
+# lsblk -a       	    -->>	(list block devices)
+
+# lscpu          	    -->>	(list CPU architecture information)
+
+# lsusb          	    -->>	(list usb devices)
+
+# ac             	    -->>	(print the user connect time (in hours))
+ 
+# ac -p alex     	    -->>	(only alex user individual-totals)
+
+# netstat  		    -->>	(Networking information such as install protocols and port no)
+
+# namp 192.168.0.254 	    -->>	(Port Scanner(Nmap (Network Mapper) tool)
+
+# yum install wireshark* -y -->>	(install pkg)
+
+# wireshark        	    -->>	(Network monitoring tool)
+
+# ss                        -->>	(ss is used to dump socket statistics)
+
+# logger "welcome to skynet"     -->>   (log generate)
+
+# osinfo                    -->>        (to show OS information)
+
+# osinfo -h station1.example.com   -->> (remote info show) 
+ 
+# smartctl -i /dev/sda
+
+# smartctl -H /dev/sda
+
+# smartctl -a /dev/sda
+
+# dd if=/dev/sr0 of=/mnt/data/file.iso  -->>	[to create iso file]
+
+# dd if=/dev/sda of=/tmp/file1   	-->>	[backup content of the HDD to a file]
+
+# diff -r dir1 dir2                     -->>	[different between two dir]
+
+# mkisofs -o /data/myiso.iso /test    	-->>	[to create iso file of a folder contain]
+
+# ethtool eth0                          -->>	[show status of eth0]
+
+# cdrecord -v dev=/dev/cdrom cd.iso     -->>	[burn an ISO image]
+
+# dumpe2fs /dev/sda1                	-->>	[to show file-system information]
+
+# stty -echo                            -->>	[hidden command]
+
+# stty echo                             -->>	[show command]
+
+# sed 's/unix/linux/' file.txt          -->>    (replace words)
+
+# sed 's/unix/& kishor/' nasa.txt       -->>    (extra modify line)
+
+# sed '1 s/unix/linux/' nasa.txt        -->>    (line numbers replace)
+
+# sed '1,3 s/unix/linux/' nasa.txt      -->>    (1 to 3 line replace only)
+
+# sed '1,$ s/unix/linux/' nasa.txt      -->>	(1st line to last line replace)
+
+# sed '2 d' nasa.txt                    -->>    (2 no line delete)
+
+# sed '2,3 d' nasa.txt                  -->>    (2 & 3 line delete)
+
+# sed '3,$ d' nasa.txt                  -->>    (3 to last line delete)
+
+# sed '/^$/d' nasa.txt        		-->>	(remove all blank lines from file)
+
+# apropos ifco              		-->>	(search the whatis database for strings)
+
+# wget -r www.google.com      		-->>	(download the web site)
+
+# wget -c ftp://192.168.0.254/pub/ISOs/window7.iso  -->> (Download the file current directory)
+
+# wget -c ftp://192.168.0.254/pub/ISOs/window7.iso -O/root/Download/window7.iso  	-->>	(Download file on /root/Download directory)
+            
+# users    		-->>	(show the user name of users currently logged in to the current host)
+
+# logname               -->>	(Print current login name)
+
+# vmstat                -->>    (To show virtual memory Status)
+
+# watch <command-name>  -->>    (to watch command with full-screen)
+
+
+
+
+***	IMP FILE
+================
+
+# vim /etc/motd  	-->>	[to store message of the day]
+
+# vim /proc/meminfo  	-->>	[to store memory info]
+
+# vim /proc/cpuinfo  	-->>	[to store CPU info]
+
+# vim /etc/system-release     -->>	[to store OS info]
+
+# vim  /etc/redhat-release    -->>      [to store OS info]
+
+# vim /etc/services           -->>	[to store all port Number]
+
+# vim /etc/issue        -->>	[pre-login message and identification file]
+
+
+
+***	What is kernel?
+
+-->>	Kernel is heart of Linux OS. It manages resource of Linux OS Resources mean
+facilities available In Linux For e.g. Facility to store data, print data on
+printer, memory manage, file management. Kernel decides who will use this resource for how long and when.
+
+
+***	Kernel performance following task:
+==========================================
+
+1.I/O management
+
+2. Process management
+
+3. Device management
+
+4. File management
+
+5. Memory management
+
+
+***  ##### Linux Special Permission ####
+========================================
+
+***	Apart from traditional file permissions in Linux, there are 3 types of special
+permission.
+
+
+1. Set User id (SUID) = only for command binaries
+
+
+2. Set Group id (SGID) = for command directories
+
+
+3. Sticky Bit = only for directory
+
+
+***	SUID:- when a SUID bit is set on a command then that command always executes
+with the User ID of its own user owner(who created it) instead of the user who
+is executing it.
+
+
+***	SGID:- when SGID permission is set on a directory, then all the new (future)
+files created under that directory will have the same group owner as that of
+the parent directory.
+
+
+***	Sticky Bit:- The new files create under the directory having sticky bit on it
+can be only deleted by root or the user who created that file. On other user can delete that file even if they have
+write permission on the parent directory.
+
+
+
+######## How many types of file in Linux/Unix..? ###########
+============================================================
+By default Unix/Linux have only 3 types of files..
+============================================================
+
+1. Regular file(-)
+
+2. Directory files(d)
+
+3. Special files:- (This category is having 5 sub types in it.)
+
+a. Block file(b)
+
+b. Character device file(c)
+
+c. Named/pipe file(p)
+
+d. Symbolic link file(l)
+
+e. Socket file(s
+
+----------------------------------------------------------------------------
+
+
+
+
 
 
 
