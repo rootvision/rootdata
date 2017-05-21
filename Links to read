@@ -49,3 +49,82 @@ http://websterz.info/configuring-whmcpanel-tweak-settings-from-ssh/     -->>  Co
 https://billing.assetict.com/knowledgebase/article/45/config-file--cannot-read--etc-cl-selector-selector-conf---errno-2--no-such-file-or-directory----etc-cl-selector-selector-conf---/  -->>  Cannot read /etc/cl.selector/selector.conf
 
 
+IMP LINKS
+==========
+
+https://knowledgelayer.softlayer.com/learning/find-spam-script-location-exim    -  Spamming / exim URL
+
+https://docs.cloudlinux.com/index.html?converting_existing_servers.html -  Cloud Linux
+
+======== R1Soft
+
+http://wiki.r1soft.com/display/CDP3/Setting+up+cPanel+Plugin
+http://wiki.r1soft.com/display/ServerBackup/Set+up+cPanel+plugin
+https://www.snelserver.com/en/blog/966878358/internet-hosting/how-to-install-a-cpanel-plugin-for-r1soft/
+https://kb.iweb.com/entries/58290506-Installing-a-cPanel-plugin-for-Idera
+
+https://kb.iweb.com/entries/80856493-Troubleshooting-firewall-connectivity-to-R1Soft-Idera-for-Windows   - r1soft
+http://wiki.r1soft.com/display/CDP3/Installing+Enterprise+Edition+on+CentOS,+RHE,+and+Fedora
+http://wiki.r1soft.com/display/CDP3/Installing+Agent+on+CentOS,+RHE+and+Fedora
+http://wiki.r1soft.com/display/ServerBackup/Install+Backup+Agent+on+Debian+and+Ubuntu+manually
+http://wiki.r1soft.com/display/CDP3/Installing+Agent+on+Windows
+
+
+========  Chnage server primary ip
+
+http://thecpaneladmin.com/changing-shared-ip-address-live-server/
+http://www.codero.com/knowledge-base/questions/248/How+to+change+the+primary+IP+addres+of++a+WHM%7B47%7DcPanel+server
+http://www.linuxbrigade.com/change-main-hostname-and-ip-of-whmcpanel-machine/
+
+https://vps.us/clients/knowledgebase/157/How-to-change-your-server-IP-address-in-WHMorcPanel.html
+https://forums.cpanel.net/threads/change-primary-ip-address-tutorial-have-some-questions-in-some-steps.446652/
+
+======== Mod Security
+
+https://forums.cpanel.net/threads/how-to-disable-mod_security2-rule-for-one-domain.73135/
+
+
+======= vnstat
+
+http://www.tecmint.com/vnstat-php-frontend-for-monitoring-network-bandwidth/
+http://humdi.net/vnstat/
+http://linuxaria.com/recensioni/monitot-your-bandwidth-on-linux-with-vnstat
+http://hardik.in/2009/07/12/keep-track-of-your-bandwidth-usage-using-vnstat-on-ubuntu/
+http://www.thegeekstuff.com/2011/11/vnstat-network-traffic-monitor/
+
+
+========== Make bcc to outgoing mails
+
+http://www.contrid.co.za/2015/05/cpanel-copy-someone-on-all-incomingoutgoing-emails/
+alam.co.in/tracking-outgoing-emails-without-bcccccpanel/
+http://www.linuxquestions.org/questions/linux-software-2/auto-bcc-in-exim-4175425163/
+
+http://howto-security.blogspot.in/2010/05/removing-duplicate-email-messages-after.html
+
+========= Forums 
+
+http://www.techsupportforum.com/forums/f64/
+
+
+========= IP Tables
+
+http://safesrv.net/quick-how-to-denyallow-ip-using-iptables/   
+https://major.io/2007/02/09/delete-single-iptables-rules/
+https://fedoraproject.org/wiki/How_to_edit_iptables_rules   
+
+iptables -L -v --line-numbers
+
+============= plesk installation 
+
+http://download1.parallels.com/Plesk/Doc/en-US/online/plesk-installation-upgrade-migration-guide/index.htm?fileName=65780.htm 
+http://www.networkinghowtos.com/howto/flush-the-postfix-mail-queue-to-force-retry/
+
+
+=============  Outlook - reject some mails
+
+http://www.iongrp.com/whmcs/knowledgebase.php?action=displayarticle&id=3
+
+https://forums.cpanel.net/threads/reject-emails-with-zip-files-containing-exe-files.333101/
+https://www.eukhost.com/forums/f38/blocking-certain-email-attachments-6271/
+
+
