@@ -68,15 +68,20 @@
 /proc/sys for you to manipulate a running kernel
 ================================================
 
-The /proc/sys directory in the /proc virtual filesytem contains a lot of useful and interesting files and directories. Many kernel settings can be manipulated by writing to files in the proc filesystem. A lot of important information can be retrieved from these files. This is especially useful when you are troubleshooting or fine tuning your linux system.
+The /proc/sys directory in the /proc virtual filesytem contains a lot of useful and interesting files and directories.
+Many kernel settings can be manipulated by writing to files in the proc filesystem.
+A lot of important information can be retrieved from these files.
+This is especially useful when you are troubleshooting or fine tuning your linux system.
 Following is a description of the most important files.
 Especially the files in /proc/sys/vm are very interesting and useful.
-You can also use the sysctl command to make this changes persistent, or to see all the possible kernel options you can change at run-time.
+You can also use the sysctl command to make this changes persistent,
+or to see all the possible kernel options you can change at run-time.
 
 #  Cat /proc/sys/dev
 
 
-Contains device specific information. For instance the directory cdrom /proc/sys/dev/cdrom/info shows you cdrom capabilities. The other files in /proc/sys/dev/cdrom are writable and allow you to actually set options for your cdrom drive.
+Contains device specific information. For instance the directory cdrom /proc/sys/dev/cdrom/info shows you cdrom capabilities.
+The other files in /proc/sys/dev/cdrom are writable and allow you to actually set options for your cdrom drive.
 For instance echo 1 > /proc/sys/dev/cdrom/autoeject makes your tray open automagically when you unmount your cdrom.
 /proc/sys/dev/parport holds information about parallel ports. Browse these directories to learn more about their contents.
 
@@ -88,87 +93,107 @@ Virtual filesystem information/tuning
 
 
 
-binfmt_misc allows you to configure the system to execute miscellaneous binary formats. For instance it enables you to make the system execute .exe files using wine and java files using the java interpreter, just by typing a file name.
+binfmt_misc allows you to configure the system to execute miscellaneous binary formats.
+For instance it enables you to make the system execute .exe files using wine and java files using the java interpreter, 
+just by typing a file name.
 
 #  Cat  /proc/sys/fs/dentry-state
 
 
 
-Linux caches directory access to speed up sub-sequential access to the same directory, this file contains information about the status of the directory cache.
+Linux caches directory access to speed up sub-sequential access to the same directory, 
+this file contains information about the status of the directory cache.
 
 #  Cat  /proc/sys/fs/dir-notify-enable
 
 
 
-enable/disable dnotify interface, dnotify is a signal used to notify a process about file/directory changes. This is mainly interesting to programmers.
+enable/disable dnotify interface, dnotify is a signal used to notify a process about file/directory changes. 
+This is mainly interesting to programmers.
+
 #  Cat  /proc/sys/fs/dquot-nr
 
 
 
 number of allocated disk quota entries and the number of free disk quota entries
+
 #  Cat  /proc/sys/fs/dquot-max
 
 
 
 maximum number of cached disk quota entries.
+
 #  Cat  /proc/sys/fs/file-max
 
 
 
 system-wide limit on the number of open files for all processes.
+
 #  Cat  /proc/sys/fs/file-nr
 
 
 
 number of files the system has presently opened.
+
 #  Cat  /proc/sys/fs/inode-max
 
 
 
 maximum number of in-memory inodes
+
 #  Cat  /proc/sys/fs/inode-nr
 
 
 
 number of inodes and number of free inodes
+
 #  Cat  /proc/sys/fs/inode-state
 
 
 
-This file contains seven numbers: number of inodes, number of free inodes, preshrink, and four dummy values. nr_inodes is the number of inodes the system has allocated. Preshrink is non-zero when the nr_inodes is bigger than inode-max.
+This file contains seven numbers: number of inodes, number of free inodes, preshrink, and four dummy values. 
+nr_inodes is the number of inodes the system has allocated. Preshrink is non-zero when the nr_inodes is bigger than inode-max.
+
 #  Cat  /proc/sys/fs/inotify
 (since kernel 2.6.13)
 
 
 
 This directory contains files that can be used to limit the amount of kernel memory consumed by the inotify interface.
+
 #  Cat  /proc/sys/fs/lease-break-time
 
 
 
-This file specifies the grace period that the kernel grants to a process holding a file lease after it has sent a signal to that process notifying it that another process is waiting to open the file.
+This file specifies the grace period that the kernel grants to a process holding a file lease after it has sent 
+a signal to that process notifying it that another process is waiting to open the file.
+
 #  Cat  /proc/sys/fs/leases-enable
 
 
 
 This file can be used to enable or disable file leases on a system-wide basis.
+
 #  Cat  /proc/sys/fs/mqueue
 (since kernel 2.6.6)
 
 
 
 This directory contains files controlling the resources used by POSIX message queues.
+
 #  Cat  /proc/sys/fs/overflowgid
 
 
 
-Allows you to change the value of the fixed GID, if a filesystem is mounted which only supports 16 bit GID’s the Linux GID’s which are 32 bit sometimes need to be converted to lower values this is fixed at this value.
+Allows you to change the value of the fixed GID, if a filesystem is mounted which only supports 16 bit GID’s 
+the Linux GID’s which are 32 bit sometimes need to be converted to lower values this is fixed at this value.
 
 #  Cat  /proc/sys/fs/overflowuid
 
 
 
-Allows you to change the value of the fixed UID, if a filesystem is mounted which only supports 16 bit UID’s the Linux UID’s which are 32 bit sometimes need to be converted to lower values this is fixed at this value.
+Allows you to change the value of the fixed UID, if a filesystem is mounted which only supports 16 bit UID’s 
+the Linux UID’s which are 32 bit sometimes need to be converted to lower values this is fixed at this value.
 
 #  Cat  /proc/sys/fs/suid_dumpable
 (since kernel 2.6.13)
@@ -177,9 +202,13 @@ Allows you to change the value of the fixed UID, if a filesystem is mounted whic
 
 Determines whether core dump files are produced for set-user-ID or otherwise protected/tainted binaries.
 Possible values are 0,1,2:
-0 (default) A core dump will not be produced for a process which has changed credentials or whose binary does not have read permission enabled.
+0 (default) A core dump will not be produced for a process which has changed credentials or whose binary does not have 
+read permission enabled.
 1 (debug) All processes dump core when possible.
-2 (suidsafe) Any binary which normally would not be dumped is dumped readable by root only. This allows the user to remove the core dump file but not to read it. For security reasons core dumps in this mode will not overwrite one another or other files. This mode is appropriate when administrators are attempting to debug problems in a normal environment.
+2 (suidsafe) Any binary which normally would not be dumped is dumped readable by root only. 
+This allows the user to remove the core dump file but not to read it. 
+For security reasons core dumps in this mode will not overwrite one another or other files. 
+This mode is appropriate when administrators are attempting to debug problems in a normal environment.
 
 #  Cat  /proc/sys/fs/super-max
 
@@ -223,7 +252,8 @@ See core(5).
 
 
 Controls the handling of Ctrl-Alt-Del from the keyboard.
-If it’s 0, Linux will do a graceful restart. When the value is > 0, Linux’s will do an immediate reboot, without even syncing its dirty buffers.
+If it’s 0, Linux will do a graceful restart. When the value is > 0, Linux’s will do an immediate reboot, 
+without even syncing its dirty buffers.
 
 #  Cat  /proc/sys/kernel/hotplug
 
@@ -277,14 +307,18 @@ These files duplicate the files /proc/sys/fs/overflowgid and /proc/sys/fs/overfl
 
 
 
-Gives read/write access to the kernel variable panic_timeout. If this is zero, the kernel will loop on a panic; if non-zero it indicates that the kernel should autoreboot after this number of seconds.
+Gives read/write access to the kernel variable panic_timeout. If this is zero, 
+the kernel will loop on a panic; if non-zero it indicates that the kernel should autoreboot after this number of seconds.
 
 #  Cat  /proc/sys/kernel/panic_on_oops
 (since kernel 2.5.68)
 
 
 
-This file controls the kernel’s behavior when an oops or BUG is encountered. If this file contains 0, then the system tries to continue operation. If it contains 1, then the system delays a few seconds and then panics. If the /proc/sys/kernel/panic file is also non-zero then the machine will be rebooted.
+This file controls the kernel’s behavior when an oops or BUG is encountered. 
+If this file contains 0, then the system tries to continue operation. If it contains 1, 
+then the system delays a few seconds and then panics. If the /proc/sys/kernel/panic file is also non-zero then 
+the machine will be rebooted.
 
 #  Cat  /proc/sys/kernel/pid_max
 (since kernel 2.5.34)
@@ -297,7 +331,10 @@ This file specifies the value at which PIDs wrap around (i.e., the value in this
 
 
 
-The four values in this file are console_loglevel, default_message_loglevel, minimum_console_level, and default_console_loglevel. This allows configuration of which messages will be logged to the console. (ever worked on a console printing messages all the time to your screen? Here’s how to fix that) Messages with a higher priority than console_loglevel will be printed to the console.
+The four values in this file are console_loglevel, default_message_loglevel, minimum_console_level, 
+and default_console_loglevel. This allows configuration of which messages will be logged to the console.
+(ever worked on a console printing messages all the time to your screen? Here’s how to fix that) 
+Messages with a higher priority than console_loglevel will be printed to the console.
 
 #  Cat  /proc/sys/kernel/pty
 (since kernel 2.6.4)
@@ -422,14 +459,18 @@ This directory supports Sun remote procedure call for network file system (NFS).
 
 
 
-This directory contains files for memory management tuning, buffer and cache management. One of the more interresting directories in proc sys as it allows manipulating memory handling in real time.
+This directory contains files for memory management tuning, buffer and cache management. 
+One of the more interresting directories in proc sys as it allows manipulating memory handling in real time.
 
 #  Cat  /proc/sys/vm/swappiness
 (since kernel 2.6.16)
 
 
 
-vm.swappiness takes a value between 0 and 100 to change the balance between swapping applications and freeing cache. At 100, the kernel will always prefer to find inactive pages and swap them out; in other cases, whether a swapout occurs depends on how much application memory is in use and how poorly the cache is doing at finding and releasing inactive items.
+vm.swappiness takes a value between 0 and 100 to change the balance between swapping applications and freeing cache. 
+At 100, the kernel will always prefer to find inactive pages and swap them out; in other cases, whether 
+a swapout occurs depends on how much application memory is in use and how poorly the cache is doing at finding and 
+releasing inactive items.
 
 #  Cat  /proc/sys/vm/drop_caches
 (since kernel 2.6.16)
@@ -454,7 +495,11 @@ If non-zero, this disables the new 32-bit memory-mapping layout; the kernel will
 
 
 
-Enables a system-wide task dump (excluding kernel threads) to be produced when the kernel performs an OOM-killing. The dump includes the following information for each task (thread, process): thread ID, real user ID, thread group ID (process ID), virtual memory size, resident set size, the CPU that the task is scheduled on, oom_adj score (see the description of /proc[number]/oom_adj), and command name. This is helpful to determine why the OOM-killer was invoked and to identify the rogue task that caused it.
+Enables a system-wide task dump (excluding kernel threads) to be produced when the kernel performs an OOM-killing.
+The dump includes the following information for each task (thread, process): thread ID, real user ID, thread group ID (process ID),
+virtual memory size, resident set size, the CPU that the task is scheduled on, oom_adj score 
+(see the description of /proc[number]/oom_adj), and command name. This is helpful to determine why the OOM-killer was 
+invoked and to identify the rogue task that caused it.
 If this contains the value zero, this information is suppressed.
 It defaults to 0, so if you have a problem requiring it, enable it :
 echo 1 > /proc/sys/vm/oom_dump_tasks
@@ -464,10 +509,12 @@ echo 1 > /proc/sys/vm/oom_dump_tasks
 
 
 
-This enables or disables killing the OOM-triggering task in out-of-memory situations. If this is set to zero, the OOM-killer will scan through the entire tasklist and select a task based on heuristics to kill. This normally selects a rogue memory-hogging task that frees up a large amount of memory when killed.
-If this is set to non-zero, the OOM-killer simply kills the task that triggered the out-of-memory condition. This avoids a possibly expensive tasklist scan.
-If /proc/sys/vm/panic_on_oom is non-zero, it takes precedence over whatever value is used in /proc/sys/vm/oom_kill_allocating_task.
-The default value is 0.
+This enables or disables killing the OOM-triggering task in out-of-memory situations. If this is set to zero, 
+the OOM-killer will scan through the entire tasklist and select a task based on heuristics to kill. 
+This normally selects a rogue memory-hogging task that frees up a large amount of memory when killed.
+If this is set to non-zero, the OOM-killer simply kills the task that triggered the out-of-memory condition. 
+This avoids a possibly expensive tasklist scan.If /proc/sys/vm/panic_on_oom is non-zero, 
+it takes precedence over whatever value is used in /proc/sys/vm/oom_kill_allocating_task. The default value is 0.
 
 #  Cat  /proc/sys/vm/overcommit_memory
 
