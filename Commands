@@ -69,6 +69,22 @@ find . -type f -exec chmod 644 {} \;
 # chattr -ir <Directory/file>   ----- to remove chattr from <Directory/file> directory/file
 +===========+
 
+***  To check the logs of the files ( last, Modify and Access )
+===============================================================
+
+# stat /etc/my.cnf
+
+Output
+======
+[root@server /]# stat /etc/Filename
+File: `/etc/Filename'
+Size: 357             Blocks: 8          IO Block: 4096   regular file
+Device: fd00h/64768d    Inode: 135762      Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2017-06-11 05:17:01.829294038 +0530
+Modify: 2017-05-26 05:15:40.023294038 +0530
+Change: 2017-05-26 05:15:40.043294038 +0530
+======
 
 
 ***  [NOTE: Remember all commands are lower-case]
