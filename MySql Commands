@@ -82,6 +82,8 @@ mysqld is alive
 Processlist command show current processing database status like id, user, host name, database name, commands, time duration of execution database, and information.
 
 # mysqladmin processlist
+
+# mysqladmin processlist | grep database-name
  
 +-----+--------------+-----------+--------------------+----------------+------+--------------------+------------------+
 | Id  | User         | Host      | db                 | Command        | Time | State              | Info             |
