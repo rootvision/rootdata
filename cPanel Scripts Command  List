@@ -129,3 +129,368 @@ Suggest Usage
 /scripts/wwwacct Create a New Account
 
 /scripts/runweblogs account username for awstats to run manually
+
+
+*** Common cPanel /Scripts
+===========================
+
+Install Zend Optimizer /scripts/installzendopt
+Hostname A Entry Missing! /scripts/fixndc then restart bind and apache
+Install Cron on New Server /scripts/installrpm anacron vixie-cron ; /etc/rc.d/init.d/crond start
+Bandwidth issues /scripts/cleanbw
+/scripts/fixwebalizer (To fix problem in webalizer that stop updating stats)
+/scripts/fixcommonproblems
+/scripts/fixeverything
+Fixing Mail List MailMan /usr/local/cpanel/bin/convertmailman2
+Reinstall MailMan /scripts/reinstallmailman
+Fix Permissions on accounts: /scripts/fixhome
+Edit mySQL conf file: pico /etc/my.cnf
+Edit php.ini: pico /usr/local/lib/php.ini
+Edit Apache Conf: pico /etc/httpd/conf/httpd.conf
+Checking Real Time Top Processes Login to SSH and run: top
+Run cpanel backup /scripts/cpbackup
+To try and fix domain controller: /scripts/fixndc
+
+Quotas /scripts/initquotas - takes a while to run
+/scripts/resetquotas
+
+/scripts/fixquotas - takes a while to run
+
+/scripts/adddns Add a Dns Entry
+/scripts/addfpmail Install Frontpage Mail Exts
+/scripts/addservlets Add JavaServlets to an account (jsp plugin required)
+/scripts/adduser Add a User
+/scripts/admin Run WHM Lite
+/scripts/apachelimits Add Rlimits (cpu and mem limits) to apache.
+/scripts/dnstransfer Resync with a master DNS Server
+/scripts/editquota Edit A User's Quota
+/scripts/finddev Search For Trojans in /dev
+/scripts/findtrojans Locate Trojan Horses
+
+
+
+Suggest Usage
+=============
+
+
+#  /scripts/findtrojans > /var/log/trojans
+
+#  /scripts/fixtrojans /var/log/trojans
+ 
+#  /scripts/fixcartwithsuexec Make Interchange work with suexec
+
+#  /scripts/fixinterchange Fix Most Problems with Interchange
+
+#  /scripts/fixtrojans Run on a trojans horse file created by findtrojans to remove them
+
+#  /scripts/fixwebalizer Run this if a user's stats stop working
+
+#  /scripts/fixvaliases Fix a broken valias file
+
+#  /scripts/hdparamify Turn on DMA and 32bit IDE hard drive access (once per boot)
+
+#  /scripts/initquotas Re-scan quotas. Usually fixes Disk space display problems
+
+#  /scripts/initsuexec Turn on SUEXEC (probably a bad idea)
+
+#  /scripts/installzendopt Fetch + Install Zend Optimizer
+
+#  /scripts/ipusage Display Ipusage Report
+
+#  /scripts/killacct Terminate an Account
+
+#  /scripts/killbadrpms Delete "Security Problem Infested RPMS"
+
+#  /scripts/mailperm Fix Various Mail Permission Problems
+
+#  /scripts/mailtroubleshoot Attempt to Troubleshoot a Mail Problem
+
+#  /scripts/mysqlpasswd Change a Mysql Password
+
+#  /scripts/quicksecure Kill Potential Security Problem Services
+
+#  /scripts/rebuildippool Rebuild Ip Address Pool
+
+#  /scripts/remdefssl Delete Nasty SSL entry in apache default httpd.conf
+
+#  /scripts/restartsrv Restart a Service (valid services: httpd,proftpd,exim,sshd,cppop,bind,mysql)
+
+#  /scripts/rpmup Syncup Security Updates from RedHat/Mandrake
+
+#  /scripts/runlogsnow Force a webalizer/analog update.
+
+#  /scripts/secureit Remove non-important suid binaries
+
+#  /scripts/setupfp4 Install Frontpage 4+ on an account.
+
+#  /scripts/simpleps Return a Simple process list. Useful for finding where cgi scripts are running from.
+
+#  /scripts/suspendacct Suspend an account
+
+#  /scripts/sysup Syncup Cpanel RPM Updates
+
+#  /scripts/unblockip Unblock an IP
+
+#  /scripts/unsuspendacct UnSuspend an account
+
+#  /scripts/upcp Update Cpanel
+
+#  /scripts/updatenow Update /scripts
+
+#  /scripts/wwwacct Create a New Account
+
+#  /scripts/runweblogs account username for awstats to run manually
+
+
+
+***  Sometimes such behavior of apache/httpd (taking more and more memory until it dies or crashes the server) can be caused by corrupted MySQL database. Try to do the following:
+
+@@ Kill the mysql server
+
+#  /etc/rc.d/init.d/mysql stop
+
+
+@@ Repair all SQL databases:
+
+#  myisamchk -r /var/lib/mysql/*/*.MYI
+
+
+@@ Start mysql again:
+
+#  /etc/rc.d/init.d/mysql start
+
+
+*** If large numbers of databases are their you can use below mention command:
+
+#  find /var/lib/mysql/ -name "*MYI" | xargs myisamchk -r
+
+====================================================================================================================================
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+====================================================================================================================================
+
+
+Restart chkservd:
+#  /etc/init.d/chkservd restart
+
+
+Tail Apache log:
+#  tail -f /usr/local/apache/logs/error_log
+
+
+Updates the cpanel server software:
+#  /scripts/upcp
+
+
+Reinstalls exim:
+#  /scripts/exim4
+
+
+View traffic or if you think a site is being DDoS:
+cd /usr/local/apache/domlogs
+tail -f targetsite.com
+
+Correct bandwidth issues
+/scripts/cleanbw
+
+
+To fix problem in webalizer that stop updating stats
+/scripts/fixwebalizer
+
+Fix everything
+/scripts/fixcommonproblems
+/scripts/fixeverything
+
+Fixing Mail List MailMan
+/usr/local/cpanel/bin/convertmailman2
+
+Reinstall MailMan
+/scripts/reinstallmailman
+/scripts/fixhome
+pico /etc/my.cnf
+
+Edit php.ini (may be in a differant place if you have Zend installed)
+pico /usr/local/lib/php.ini
+
+Edit Apache Conf
+pico /etc/httpd/conf/httpd.conf
+
+Checking Real Time Top Processes Login to SSH and run
+top
+
+Run cpanel backup
+/scripts/cpbackup
+
+To try and fix domain controller
+/scripts/fixndc
+
+Quotas
+/scripts/initquotas - takes a while to run
+/scripts/resetquotas
+/scripts/fixquotas - takes a while to run
+
+Add a Dns Entry
+/scripts/adddns
+
+Install Frontpage Mail Exts
+/scripts/addfpmail
+
+Add JavaServlets to an account (jsp plugin required)
+/scripts/addservlets
+
+Add a User
+/scripts/adduser
+
+Run WHM Lite
+/scripts/admin
+
+Add Rlimits (cpu and mem limits) to apache
+/scripts/apachelimits
+
+Resync with a master DNS Server
+/scripts/dnstransfer
+
+Edit A User's Quota
+/scripts/editquota
+
+Search For Trojans in
+/dev/scripts/finddev
+
+Locate Trojan Horses
+/scripts/findtrojans
+
+Suggest Usage
+/scripts/findtrojans &gt; /var/log/trojans
+/scripts/fixtrojans /var/log/trojans
+
+Make Interchange work with suexec
+/scripts/fixcartwithsuexec
+
+Fix Most Problems with Interchange
+/scripts/fixinterchange
+
+Run on a trojans horse file created by findtrojans to remove them
+/scripts/fixtrojans
+
+Run this if a user's stats stop working
+/scripts/fixwebalizer
+
+Fix a broken valias file
+/scripts/fixvaliases
+
+Turn on DMA and 32bit IDE hard drive access (once per boot)
+/scripts/hdparamify
+
+Re-scan quotas. Usually fixes Disk space display problems
+/scripts/initquotas
+
+Turn on SUEXEC (probably a bad idea)
+/scripts/initsuexec
+
+Display Ipusage Report
+/scripts/ipusage
+
+Terminate an Account
+/scripts/killacct
+
+Delete "Security Problem Infested RPMS"
+/scripts/killbadrpms
+
+Fix Various Mail Permission Problems
+/scripts/mailperm
+
+Attempt to Troubleshoot a Mail Problem
+/scripts/mailtroubleshoot
+
+Change a Mysql Password
+/scripts/mysqlpasswd
+
+Kill Potential Security Problem Services
+/scripts/quicksecure
+
+Rebuild Ip Address Pool
+/scripts/rebuildippool
+
+Delete Nasty SSL entry in apache default httpd.conf
+/scripts/remdefssl
+
+Restart a Service (valid services: httpd,proftpd,exim,sshd,cppop,bind,mysql)
+/scripts/restartsrv?? (example: /scripts/restartsrv httpd)
+
+Syncup Security Updates from RedHat/Mandrake
+/scripts/rpmup
+
+Force a webalizer/analog update
+/scripts/runlogsnow
+
+Remove non-important suid binaries
+/scripts/secureit
+
+Install Frontpage 4+ on an account
+/scripts/setupfp4
+
+Return a Simple process list. Useful for finding where cgi scripts are running from
+/scripts/simpleps
+
+Suspend an account
+/scripts/suspendacct
+
+Syncup Cpanel RPM Updates
+/scripts/sysup
+
+Unblock an IP
+/scripts/unblockip
+
+UnSuspend an account
+/scripts/unsuspendacct
+
+Update Cpanel
+/scripts/upcp
+
+Update /scripts
+/scripts/updatenow
+
+Create a New Account
+/scripts/wwwacct
+
+Awstats to run manually
+/scripts/runweblogs account_username
+
+License Not working
+rdate -s rdate.darkorb.net
+
+Sometimes such behavior of apache/httpd (taking more and more memory until it dies or crashes the server) can be caused by corrupted MySQL database. Try to do the following:
+
+1) Kill the mysql server
+/etc/rc.d/init.d/mysql stop
+
+2) Repair all SQL databases:
+myisamchk -r /var/lib/mysql/*/*.MYI
+
+3) Start mysql again:
+/etc/rc.d/init.d/mysql start
+
+-------------------------------------------------------------------------------
+
+Restarting cpanel
+/etc/rc.d/init.d/cpanel restart
+
+To run your clients stats now
+/scripts/runlogsnow
+
+Restart the background proccess that runs the stats for your clients
+/usr/local/cpanel/startup
+
+To run your clients stats now
+/scripts/runstatsonce
+
+To run one clients stats:
+/scripts/runweblogsnow username
+Shut down http
+httpd stop
+Start http with SSL
+httpd startssl
+Start http
+httpd start
+/scripts/runweblogs
+
+
