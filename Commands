@@ -87,6 +87,31 @@ Change: 2017-05-26 05:15:40.043294038 +0530
 ======
 
 
+*** Cpanel & WHM Commands
+=========================
+
+***  To Locate the Spammer
+==========================
+
+You need to go in /var/spool/exim/input to fire the below commands
+# cd /var/spool/exim/input
+# egrep "X-PHP-Script" * -R
+# ps -C exim -fH ewww
+# ps -C exim -fH eww |grep home
+
+
+*** Getting login error with the squrrel mail and roundcube
+===========================================================
+/etc/init.d/courier-imap
+/etc/init.d/courier-authlib
+
+
+*** To fix mail permission
+==========================
+/scripts/mailperm -verbose <Username>
+
+
+
 ***  [NOTE: Remember all commands are lower-case]
 =================================================
 
