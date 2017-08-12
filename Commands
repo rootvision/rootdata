@@ -110,6 +110,12 @@ You need to go in /var/spool/exim/input to fire the below commands
 ==========================
 /scripts/mailperm -verbose <Username>
 
+rsync Command
+==============
+( rsync -avz --rsh='ssh -p3233' root@64.34.109.63:/backup/cpbackup/daily/* . ) ---this is wil copy entire backup files from the daily directory to destination folder which we have created on the receiver server.
+rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Destination>
+rsync --progress -avz  -e "ssh -p 61609" root@linux36.domainnameservers.net:/backup/tar-gz/cpbackup/daily/ .
+
 
 
 ***  [NOTE: Remember all commands are lower-case]
