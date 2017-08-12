@@ -462,9 +462,8 @@ exigrep email id /var/log/exim_mainlogs
 tail -f email id /var/log/exim_mainlogs | grep (anyword from the email id)
 ps -aufx | grep username --------------to check the processes of the particular user on the server
 
-ssh root@67.23.163.140 -----to connect to another server from one server.
-
-( rsync -avz --rsh='ssh -p3233' root@64.34.109.63:/backup/cpbackup/daily/* . ) ---this is wil copy entire backup files from the daily directory to destination folder which we have created on the receiver server.
+*** ssh root@67.23.163.140 -----to connect to another server from one server.
+ 
  
  http://www.michianawireless.com/mail-errors.htm ----to check all the mail issues.
 ================= 
@@ -798,6 +797,12 @@ To create daily backup of all the account in cpback/daily. ( 1st rename the dail
 /scripts/cpbackup --force
 rsync -avz /backup/cpbackup/daily/ root@198.20.238.2:/backup/ --- to copy backup to another server.
 ===============
+
+rsync Command
+==============
+( rsync -avz --rsh='ssh -p3233' root@64.34.109.63:/backup/cpbackup/daily/* . ) ---this is wil copy entire backup files from the daily directory to destination folder which we have created on the receiver server.
+rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Destination>
+rsync --progress -avz  -e "ssh -p 61609" root@linux36.domainnameservers.net:/backup/tar-gz/cpbackup/daily/ .
 
 
 To change SSH port
