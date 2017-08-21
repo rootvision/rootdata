@@ -114,8 +114,19 @@ rsync Command
 ==============
 ( rsync -avz --rsh='ssh -p3233' root@64.34.109.63:/backup/cpbackup/daily/* . ) ---this is wil copy entire backup files from the daily directory to destination folder which we have created on the receiver server.
 rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Destination>
-rsync --progress -avz  -e "ssh -p 61609" root@linux36.domainnameservers.net:/backup/tar-gz/cpbackup/daily/ .
 
+***  Command example with explantation
+======================================
+# rsync --progress -avz  -e "ssh -p 61609" root@linux36.domainnameservers.net:/backup/tar-gz/cpbackup/daily/ .
+
+***  Run from destination server
+================================
+# rsync --progress -avz  -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* .
+# rsync --progress -avz  -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* /home/chinatec/mail/autoblaze.co.uk/
+
+*** Run from source server
+==========================
+# rsync -vrplogDtH -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* /home/chinatec/mail/autoblaze.co.uk/
 
 
 ***  [NOTE: Remember all commands are lower-case]
