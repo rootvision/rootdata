@@ -206,7 +206,16 @@ https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-cento
 # service --status-all | less
 
 
+*** To generate the DKIM key for the user (DKIM, SPF)
+==========================================
+# /usr/local/cpanel/bin/dkim_keys_install <Username>
+# /usr/local/cpanel/bin/spf_installer <Username>
 
+
+
+
+
+***
 
 ***  [NOTE: Remember all commands are lower-case]
 =================================================
