@@ -129,6 +129,85 @@ rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Dest
 # rsync -vrplogDtH -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* /home/chinatec/mail/autoblaze.co.uk/
 
 
+***  -->>   https://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/
+
+***  To Block IP Address in IPtables Firewall
+=============================================
+# iptables -A INPUT -s 89.248.174.101 -j DROP
+# iptables -A INPUT -s IP-ADDRESS -j DROP
+
+
+***  To allow the IP Address in IPtables Firewall
+=================================================
+# iptables -I INPUT -p tcp -s 95.49.15.152 -j ACCEPT
+
+
+*** Unblock IP Address in IPtables Firewall
+===========================================
+# iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
+
+
+*** To check last backup run on the server by r1soft
+==========================================
+# hcp -l
+
+***  To check pear list on the server
+=============================
+#  /opt/cpanel/ea-php56/root/usr/bin/pear list
+
+***  To restore the PG via shell
+========================
+#  psql -U username -d database_name -f objects.sql
+# psql -d gb97tst_cnburtest1 -U gb97tst_testsupport < gb97tst-dump.sql
+
+***  To replace the Word under the whole File
+=============================================
+#  sed -i -e "s/OldWord/NewWord/g" <FileName>
+
+
+*** To list the Exim rules set(limits)
+======================================
+# exim -bP | grep message_size_limit
+
+*** To check the usage of particular directory
+==============================================
+# du --max-depth=1 | sort -n | awk 'BEGIN {OFMT = "%.0f"} {print $1/1024,"MB", $2}'
+
+*** finding files that are 500000k or larger
+============================================
+# find /home -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
+
+
+***  To check the number of IP address connection to the domain
+===============================================================
+
+# cat example.com | awk '{print $1}' | sort | uniq -c | sort -n
+
+***  To check the services status on the server(systemctl)
+==========================================================
+https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-centoslinux/
+
+# systemctl
+# systemctl | more
+# systemctl | grep httpd
+# systemctl list-units --type service
+# systemctl list-units --type mount
+
+***  To list all services:
+==========================
+# systemctl list-unit-files
+
+
+***  service command – list running services
+============================================
+# service --status-all
+# service --status-all | more
+# service --status-all | grep ntpd
+# service --status-all | less
+
+
+
+
 ***  [NOTE: Remember all commands are lower-case]
 =================================================
 
