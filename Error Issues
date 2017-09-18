@@ -298,6 +298,22 @@ And then you will need to update the kernel version.
 Unable to repair database -->> Follow the steps.
 https://support.managed.com/kb/a447/how-to-shrink-your-mssql-database-log-file-truncate-transaction-log.aspx
 
+How to Shrink Your MS SQL Database Log File / Truncate Transaction Log
+
+  1  Log into Microsoft SQL Server Management Studio
+  2  Right click on your database.
+  3  Select Properties.
+  4  Click on Options.
+  5  Change the recovery model to Simple.
+  6  Click OK.
+  7  Right click on the database.
+  8  Select Tasks > Shrink > Database.
+  9  Click OK.
+  10 Right click on the database.
+  11 Select Properties.
+  12 Click on Options.
+  13 Change the recovery model to Full.
+  14 Click OK.
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
