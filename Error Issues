@@ -425,6 +425,188 @@ done
 
 
 
+*** To check Mail function enabled on the server.
+==================================================
+testingmail.php
+<?php
+    ini_set( 'display_errors', 1 );
+    error_reporting( E_ALL );
+    $from = "essexshipping@essexshipping.com";
+    $to = "supp0rt24x7@gmail.com";
+    $subject = "PHP Mail Test script";
+    $message = "This is a test to check the PHP Mail functionality";
+    $headers = "From:" . $from;
+    mail($to,$subject,$message, $headers);
+    echo "Test email sent";
+?>
+
+
+
+*** To check MySQLi connection script
+===========================================
+<?php
+$link = mysqli_connect("127.0.0.1", "my_user", "my_password", "my_db");
+
+if (!$link) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+
+echo "Success: A proper connection to MySQL was made! The my_db database is great." . PHP_EOL;
+echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
+
+mysqli_close($link);
+?>
+
+
+
+***  To check MySQL Connection
+==============================
+<?php
+$link = mysql_connect('localhost', 'root', 'password');
+if (!$link) {
+die('Could not connect: ' . mysql_error());
+}
+echo 'Connected successfully';
+mysql_close($link);
+?>
+
+****   Migration
+===========================================================================================================
+
+Using Wget With FTP To Download/Move Web Sites Recursively
+
+Sometimes you need to move a web site from one server to another. Instead of downloading the web site from the old server to your PC via FTP and uploading it from your PC to the new server, it would save a lot of time to simply copy the web site from one server to the other. This tutorial explains how to use Wget to download/move a web site from one server to the other via FTP.
+I do not issue any guarantee that this will work for you!
+
+1 Preliminary Note
+
+I'm assuming that you have a working FTP login on the remote server.
+
+2 Using Wget
+
+To download a remote web site to your local server recursively, you can use Wget as follows:
+wget -m ftp://username:password@www.mydomain.tld/
+
+The -m switch enables mirroring, which means it enables recursion with infinite recursion depth, and it keeps FTP directory listings as well as time stamps.
+If you just want to download a specific subdirectory, e.g. /htdocs, you'd do it as follows:
+wget -m ftp://username:password@www.mydomain.tld/htdocs
+
+3 Links
+
+Wget: http://www.gnu.org/software/wget/
+
+
+===========================================================================================================
+******  How to change the primary IP addres of a WHM/cPanel server
+===========================================================================================================
+
+Steps in WHM:
+
+Log into WHM and go to Basic cPanel & WHM Setup
+Change the Primary IP here with the option that says "The IP address (only one address) that will be used for setting up shared IP virtual hosts"
+Note: This might not actually be necessary.
+
+Log in to SSH, and do the following:
+
+cd /var/named/
+replace "109.203.126.117" "213.175.200.105" --*.db
+
+
+cp -ar /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf_org
+replace  "109.203.126.117" "213.175.200.105" -- /etc/httpd/conf/httpd.conf
+
+Edit /etc/sysconfig/network-scripts/ifcfg-eth0
+Change the IPADDR and GATEWAY lines to match the new IP and Gateway for the new ip
+ 
+
+Edit /etc/sysconfig/network
+Change the GATEWAY line here if it does not exist in the ifcfg-* file.
+ 
+
+Edit /etc/ips
+Remove the new primary IP from this file if it is present
+Add the old primary IP to this file with the format ::
+
+ 
+Edit /var/cpanel/mainip
+Replace the old primary IP with the new primary IP
+ 
+
+Edit /etc/hosts
+Replace the old primary IP with the new one if needed. The hostname's dns will need to be updated too
+ 
+
+Restart the network service to make the new IP the primary
+service network restart
+Note: You're probably going to be disconnected at this point, and have to log in to ssh using the new primary ip.
+ 
+
+Restart the ipaliases script to bring up the additional IP
+service ipaliases restart
+
+ 
+Run ifconfig and make sure all IPs show up correctly
+ 
+
+Update the cpanel license to the new primary IP
+ 
+
+Verify you can still log in to WHM and there is no license warning
+Verify cPanel
+
+===================================================================
+
+
+
+===================================================================
+***********cpanel list account shows the wrong ip address ***********
+===================================================================
+
+
+While accessing cpanel list account shows the wrong ip address, The following files may be caused of the issue.
+the old shared IP might be listed in following files.
+
+#grep “oldipaddress” * /etc/userdatadomains
+#cd /var/cpanel/users/
+#grep “oldipaddress” *
+
+To resolve the issue perform the following command.
+
+#cd /var/cpanel/users/
+#replace "oldip" "newip" -- *
+#replace  "109.203.126.117" "213.175.200.105"  --  /etc/userdatadomains
+#/scripts/updatedomainips
+#/scripts/updateuserdatacache
+#/scripts/updateuserdomains
+#/scripts/update_db_cache
+===================================================================
+
+
+*** For Reference Use Below Command.
+================================
+    9  fdisk -l
+    10  fdisk /dev/sda
+    11  partx /dev/sda
+    12  clear
+    13  fidsk -l
+    14  fdisk -l
+    15  pvcreate /dev/sda3
+    16  partx -a /dev/sda
+    17  shutdown -r now
+    18  pvcreate /dev/sda3
+    19  vgscan
+    20  vgextend vg_centos67 /dev/sda3
+    21  lvextend vg_centos67 /dev/sda3
+    22  lvscan
+    23  lvextend /dev/vg_centos67/lv_root /dev/sda3
+    24  df -h
+    25  resize2fs /dev/mapper/vg_centos67-lv_root
+    26  df -h
+
+
 
 
 
