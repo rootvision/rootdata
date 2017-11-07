@@ -13,6 +13,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 
+
 http://techstream.org/Web-Development/HTACCESS/WWW-to-Non-WWW-and-Non-WWW-to-WWW-redirect-with-HTACCESS
 ==========================================================================================================================================
 
@@ -29,6 +30,27 @@ RewriteCond %{HTTP_HOST} ^www\.example\.com [NC]
 RewriteRule ^(.*)$ http://example.com/$1 [L,R=301]
 
 =======================
+
+*** Single link redirection
+====================
+
+http://htaccesscheatsheet.com/#redirect-an-entire-site
+RedirectMatch 301 (.*)\.htm/$ https://www.chiangdao.com$1.htm
+Redirect 301 /oldpage.html http://www.yoursite.com/newpage.html
+Redirect 301 /oldpage2.html http://www.yoursite.com/folder/
+
+
+
+*** To limit the post(.htaccess)
+=======================
+# END WordPress
+<Limit POST>
+order deny,allow
+deny from all
+allow from 127.0.0.1
+</Limit>
+
+
 
 *** Leverage browser caching (.htaccess file)
 =============================================
