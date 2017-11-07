@@ -213,6 +213,39 @@ https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-cento
 
 
 
+*** To check the hard disk type on the server( HDD Or SSD)
+==============
+# cat /sys/block/--**--/queue/rotational
+1
+==============
+1 means you have a HDD
+0 means you have a SSD
+==============
+
+
+*** To remove unwanted Inodes from the cPanel server
+==========================================
+
+# /usr/local/cpanel/bin/purge_dead_comet_files
+
+
+*** Command to firewall-cmd (firewall D)
+===============================
+# firewall-cmd --zone=public --permanent --add-port=2195/tcp
+
+# firewall-cmd --zone=public --permanent --list-ports
+
+# firewall-cmd --permanent --add-port=8080/tcp
+
+# firewall-cmd --reload
+
+# firewall-cmd --list-all
+
+
+
+
+
+
 
 
 ***
