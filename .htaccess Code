@@ -40,7 +40,6 @@ Redirect 301 /oldpage.html http://www.yoursite.com/newpage.html
 Redirect 301 /oldpage2.html http://www.yoursite.com/folder/
 
 
-
 *** To limit the post(.htaccess)
 =======================
 # END WordPress
@@ -50,7 +49,28 @@ deny from all
 allow from 127.0.0.1
 </Limit>
 
+*** index.html Code to showing the contents of another folder. (iframe)
+=======================================================================
 
+<html>
+<iframe src="page url which you want to show" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+Your browser doesn't support iframes
+</iframe>
+</html>
+
+
+*** .htaccess code to fetch the contents from another directory
+===============================================================
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www.)?littlesolutions.co.uk$
+RewriteCond %{REQUEST_URI} !^/wpl2/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /wpl2/$1
+RewriteCond %{HTTP_HOST} ^(www.)?littlesolutions.co.uk$
+RewriteRule ^(/)?$ wpl2/index.php [L]
+</IfModule>
 
 *** Leverage browser caching (.htaccess file)
 =============================================
