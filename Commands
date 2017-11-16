@@ -147,6 +147,47 @@ rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Dest
 # iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
 
 
+***  Block Specific Port on IPtables Firewall
+============================================
+# iptables -A OUTPUT -p tcp --dport xxx -j DROP
+
+*** To allow incoming connections use
+======================================
+# iptables -A INPUT -p tcp --dport xxx -j ACCEPT
+
+*** Allow Multiple Ports on IPtables using Multiport
+======================================================
+# iptables -A INPUT -p tcp -m multiport --dports 22,80,443 -j ACCEPT
+# iptables -A OUTPUT -p tcp -m multiport --sports 22,80,443 -j ACCEPT
+
+*** Allow Specific Network Range on Particular Port on IPtables
+================================================================
+# iptables -A OUTPUT -p tcp -d 192.168.100.0/24 --dport 22 -j ACCEPT
+
+
+*** How To Verify The Service SSL On The cPanel Server Using The Command Line Interface
+======================================================================
+
+*** If you wish to verify the Service SSL On The cPanel Server Using the Command Line Interface , Use The Following Commands
+
+*** For cPanel :: 
+============
+
+openssl s_client -showcerts -verify 32 -connect server.hostname.net:2083
+openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2083
+
+*** For WHM :: 
+============
+openssl s_client -showcerts -verify 32 -connect server.hostname.net:2087
+openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2087
+
+######  Where 192.168.1.1 Is The Server IP While server.hostname.net Is the server HostName   ######
+
+*** Check SSL Certificate Expiration Date
+================================
+# echo | openssl s_client -servername applehomeimprovements.com -connect applehomeimprovements.com:443 2>/dev/null | openssl x509 -noout -dates
+
+
 *** To check last backup run on the server by r1soft
 ==========================================
 # hcp -l
