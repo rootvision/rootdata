@@ -219,6 +219,10 @@ openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2087
 #  psql -U username -d database_name -f objects.sql
 # psql -d gb97tst_cnburtest1 -U gb97tst_testsupport < gb97tst-dump.sql
 
+***  MySQL Dump/Restore Stored Procedures and Triggers
+=============================================
+# mysqldump Database --routines > Database.sql
+
 ***  To replace the Word under the whole File
 =============================================
 #  sed -i -e "s/OldWord/NewWord/g" <FileName>
