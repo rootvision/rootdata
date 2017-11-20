@@ -188,6 +188,24 @@ openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2087
 # echo | openssl s_client -servername applehomeimprovements.com -connect applehomeimprovements.com:443 2>/dev/null | openssl x509 -noout -dates
 
 
+*** To remove unwanted Inodes from the cPanel server
+==========================================
+
+# /usr/local/cpanel/bin/purge_dead_comet_files
+
+*** To count the INODE
+======================
+# echo "Detailed Inode usage for: $(pwd)" ; for d in `find -maxdepth 1 -type d |cut -d\/ -f2 |grep -xv . |sort`; do c=$(find $d |wc -l) ; printf "$c\t\t- $d\n" ; done ; printf "Total: \t\t$(find $(pwd) | wc -l)\n"
+
+*** WHM login link(One-time)
+=============================
+# whmapi1 create_user_session user=root service=whostmgrd
+
+*** To check status of account of sepecific user
+================================================
+# whmapi1 listaccts search=(username) searchtype=user
+
+
 *** To check last backup run on the server by r1soft
 ==========================================
 # hcp -l
