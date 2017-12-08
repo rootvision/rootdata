@@ -1,3 +1,25 @@
+***************          ***************   ***************
+
+###===>>>  To reset wordpress user password  ###===>>>
+
+*** Through MySQL/MariaDB Command Line
+========================================
+1. use wp_genesis;
+2. SELECT ID, user_login, user_pass FROM wp_users;
+3. UPDATE wp_users SET user_pass = MD5(‘NEWPASSWORD’) WHERE ID=1 LIMIT 1;
+
+
+*** Through MySQL/MariaDB Command Line in details
+==================================================
+1. "use (name-of-database)" (select WordPress database)
+2. "show tables;" (you're looking for a table name with "users" at the end)
+3. "SELECT ID, user_login, user_pass FROM (name-of-table-you-found);" (this gives you an idea of what's going on inside)
+4. "UPDATE (name-of-table-you-found) SET user_pass="(MD5-string-you-made)" WHERE ID = (id#-of-account-you-are-reseting-password-for);" (actually changes the password)
+5. "SELECT ID, user_login, user_pass FROM (name-of-table-you-found);" (confirm that it was changed)
+6. (type Control-D, to exit mysql client)
+==================================================
+
+
 ----------------------------------------------------------------------
 **  FTP window promths in wordpress
 ----------------------------------------------------------------------
