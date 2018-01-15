@@ -13,6 +13,17 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 
+***  Automatic steps to upgrade WordPress
+==================================
+
+cd /usr/local/src/
+rm -rf latest.tar.gz wordpress/
+wget http://wordpress.org/latest.tar.gz --no-check-certificate
+tar zxf latest.tar.gz
+cd wordpress/
+yes |cp -pr * /home/personal/public_html/
+cd /home/personal/public_html/
+chown personal.personal * -R
 
 http://techstream.org/Web-Development/HTACCESS/WWW-to-Non-WWW-and-Non-WWW-to-WWW-redirect-with-HTACCESS
 ==========================================================================================================================================
