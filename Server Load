@@ -311,3 +311,20 @@ Further I will strongly recommend you to change your FTP password, and the new p
 -------
 
 # kill -9 $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }')			--->> TO kill zombies process
+
+***  You can get all the IPs addresses connected to/from TCP port 25 at any given time by running the following command
+=======================================================================================================================
+
+root@server [~]# netstat -plan|grep ':25'|grep ESTAB
+tcp        0      0 109.75.168.252:25           202.75.32.186:55685         ESTABLISHED 854035/exim
+tcp        0      0 109.75.168.252:25           141.105.66.176:55822        ESTABLISHED 855849/exim
+tcp        0      0 109.75.168.252:25           70.98.78.136:13005          ESTABLISHED 855671/exim
+tcp        0      0 109.75.168.252:25           70.98.78.136:10833          ESTABLISHED 855821/exim
+
+
+# ps -auxwwf | grep exim
+
+# netstat -ano | grep “25”
+
+
+
