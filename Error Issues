@@ -1,5 +1,9 @@
 ***************          ***************   ***************
 
+*** To reset magento admin password via mysql console
+=====================================================
+mysql > UPDATE `admin_user` SET `password` = MD5('kent76essa'), `rp_token_created_at` = NULL WHERE `admin_user`.`user_id` = 2;
+
 ###===>>>  To reset wordpress user password  ###===>>>
 
 *** Through MySQL/MariaDB Command Line
@@ -627,6 +631,279 @@ To resolve the issue perform the following command.
     24  df -h
     25  resize2fs /dev/mapper/vg_centos67-lv_root
     26  df -h
+
+
+​​​​​***  Please create "custom.ini" file for user:
+===================================
+# su -s /bin/bash USERNAME
+# cd /etc/cl.php.d/alt-phpXX/ (where XX depend from version)
+# nano custom.ini >>
+----------------------------------------------------
+disable_functions=   "system,passthru,popen,exec,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,highlight_file,escapeshellcmd,define_syslog_variables,
+
+posix_uname,posix_getpwuid,apache_child_terminate,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,escapeshellarg,posix_uname,ftp_exec,ftp_connect,ftp_login,ftp_get,
+
+ftp_put,ftp_nb_fput,ftp_raw,ftp_rawlist,ini_alter,ini_restore,inject_code,syslog,openlog,define_syslog_variables,apache_setenv,mysql_pconnect,eval,phpAds_XmlRpc,
+
+phpAds_remoteInfo,phpAds_xmlrpcEncode,phpAds_xmlrpcDecode,xmlrpc_entity_decode, fp,fput,shell_exec,apache_get_modules"                             
+----------------------------------------------------
+
+**** Increase SWAP
+================
+==========================================================================================================
+Increase SWAP
+
+Suppose the sever has 512 MB Swap, and I wish to raise it by 1 GB I'll do the following steps.
+These are the commands to raise swap size
+dd if=/dev/zero of=swapfile bs=1M count=1024 
+(Here 1024 is because we wish to raise the size by 1 GB )
+mkswap swapfile
+swapon swapfile
+This will create a file named swapfile at the directotry where you have executed the command andswap size will show 1.5 GB
+If you wish to resize it so that swap size should be 1 GB only use the following method
+swapoff
+remove swapfile by using rm -f
+dd if=/dev/zero of=swapfile bs=1M count=512
+mkswap swapfile
+swapon swapfile
+
+==@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+***  MySQL upgrade into plesk panel
+=============================
+https://support.plesk.com/hc/en-us/articles/213403429-How-to-upgrade-MySQL-5-5-to-5-6-5-7-on-Linux
+
+***  Kernel upgrade procedure :
+===============================
+
+[root@prashant~]# yum install kernel
+
+Edit grub configuration by editing /boot/grub/grub.conf and change default=0 to default=1 (Or your working kernel)
+Go to grub prompt using grub command.
+
+[root@prashant ~]# grub
+Probing devices to guess BIOS drives. This may take a long time.
+Unknown partition table signature
+
+GNU GRUB version 0.97 (640K lower / 3072K upper memory)
+
+[ Minimal BASH-like line editing is supported. For the first word, TAB
+
+lists possible command completions. Anywhere else TAB lists the possible
+
+completions of a device/filename.]
+
+grub
+grub> savedefault --default=0 --once
+grub> quit
+
+Reboot the server and make sure that you booted with latest kernel 
+
+also
+
+http://winlinuxadmins.com/index.php?/topic/1170-kernel-upgrade-steps-for-cpanel-and-plesk-server/
+
+CENTOS 7
+
+https://wiki.centos.org/HowTos/Grub2
+
+*** To upgrade disk on the VPS
+=========================
+
+upgrade disk size 
+check currnt disk size => df -h
+check available partition and new attach disk at end => fdisk -l
+create pv => pvcreate /dev/xvdf
+find vg name => vgdisplay
+add pv to vg => vgextend VolGroup00 /dev/xvdf
+check new vg size => vgdisplay
+get lv name => df -h
+extend lv => lvextend -l +100%FREE /dev/mapper/VolGroup00-LogVol00
+resize2fs /dev/mapper/VolGroup00-LogVol00
+reverify the new size => df -h
+
+*** For Reference Use Below Command.
+================================
+    9  fdisk -l
+    10  fdisk /dev/sda
+    11  partx /dev/sda
+    12  clear
+    13  fidsk -l
+    14  fdisk -l
+    15  pvcreate /dev/sda3
+    16  partx -a /dev/sda
+    17  shutdown -r now
+    18  pvcreate /dev/sda3
+    19  vgscan
+    20  vgextend vg_centos67 /dev/sda3
+    21  lvextend vg_centos67 /dev/sda3
+    22  lvscan
+    23  lvextend /dev/vg_centos67/lv_root /dev/sda3
+    24  df -h
+    25  resize2fs /dev/mapper/vg_centos67-lv_root
+    26  df -h
+
+*** Awstats not update
+======================
+https://forums.cpanel.net/threads/awstats-not-update.159853/
+https://forums.cpanel.net/threads/work-around-for-error-log-is-currently-being-processed-in-the-background-cannot-update.446882/
+
+
+Login to WHM, then select Server Configuration ->> Tweak Settings.
+Scroll down to Stats and Logs.
+Check the box "Allow users to update Awstats from cPanel"
+
+Actully the update link for Awstats should be present in
+
+cPanel>>Logs >>Awstats option will show "Update Now" next to "Last Update".
+
+If The Link Doesn't Appear in cPanel :-
+
+You can also verify that the setting is actually enabled, by checking the AWStats Configuration File for a particular user.
+
+1. Login via SSH as root
+2. cd /home/username/tmp/awstats
+3. grep AllowToUpdateStatsFromBrowser awstats.example.com.conf
+4. It should be set to AllowToUpdateStatsFromBrowser=1
+5. If not, edit the file and save.
+6. restart cpanel : service cpanel restart
+
+
+==============================================================================
+***  How do we configure another /home directory partition on a cPanel server
+==============================================================================
+
+1. Add the new hard-drive to the server
+
+2. Format it and mount it as /home2.
+
+3. There are two options to utilize /home2 partition in cPanel.
+
+Edit /etc/wwwacct.conf and set HOMEDIR as /home2.
+
+OR
+
+Edit /etc/wwwacct.conf and set HOMEMATCH as /home*.
+
+Afterwards all the new accounts will be created on /home or /home2 depending upon the amount of the free space.
+==============================================================================
+
+===============================
+Install Teamspeak3
+
+===============================
+1. useradd ts3user
+
+passwd ts3user
+password:****
+re-type password:****
+
+2. chmod 755 /home/ts3user
+
+
+3. su ts3user
+
+4. cd /home/ts3user
+
+5. wget http://teamspeak.gameserver.gamed.de/ts3/releases/3.0.10.3/teamspeak3-server_linux-amd64-3.0.10.3.tar.gz
+
+(you can select link from http://teamspeak.com)
+
+6. tar -zxvf teamspeak3-server_linux-amd64-3.0.10.3.tar.gz
+
+7. rm teamspeak3-server_linux-amd64-3.0.10.3.tar.gz
+
+8. mv teamspeak3-server_linux-amd64 teamspeak3-server
+
+9. cd teamspeak3-server
+
+10. ./ts3server_minimal_runscript.sh createinifile=1
+
+11. vi ts3server.ini
+
+voice_ip= server IP
+filetransfer_ip= server IP
+query_ip==server IP
+:wq
+
+11. ./ts3server_startscript.sh start
+
+12. ./ts3server_startscript.sh stop
+
+13. ./ts3server_startscript.sh restart
+
+14. su root
+
+15. cd ~
+
+16. create file in init.d to run service using service or systemctl command
+
+vi /etc/init.d/teamspeak
+
+add below code,
+
+
+=========================================
+#!/bin/sh
+# chkconfig: 2345 99 10
+USER="ts3user"
+TS3='/home/ts3user/teamspeak3-server'
+STARTSCRIPT="$TS3/ts3server_startscript.sh"
+cd $TS3
+case "$1" in
+'start')
+su $USER -c "$STARTSCRIPT start"
+;;
+'stop')
+su $USER -c "$STARTSCRIPT stop"
+;;
+'restart')
+su $USER -c "$STARTSCRIPT restart"
+;;
+'status')
+su $USER -c "$STARTSCRIPT status"
+;;
+*)
+echo "Usage $0 start|stop|restart|status"
+esac
+=========================================
+
+
+17. chmod 755 /etc/init.d/teamspeak
+
+18. chkconfig --add teamspeak
+
+19. chkconfig --level 2345 teamspeak on
+
+20. service teamspeak status
+
+*************************if server is NOT working you can remove all setup by deleting user using below command,
+userdel -r ts3user
+=========================================================
+
+***  Install PhantomJS on cPanel
+=================================
+
+http://www.davidghedini.com/pg/entry/install_phantomjs_on_cpanel
+
+[root@demos opt]# yum -y install flex bison gperf ruby freetype-devel fontconfig-devel libicu-devel sqlite-devel libpng-devel libjpeg-devel openssl-devel, make, gcc, abd gcc-c++  
+
+[root@demos opt]# service httpd start 
+
+[root@demos opt]# wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.0.0-source.zip 
+ 
+[root@demos opt]# unzip -q phantomjs-2.0.0-source.zip 
+
+[root@demos phantomjs-2.0.0]# ./build.sh  
+
+[root@demos phantomjs-2.0.0]# ln -s /opt/phantomjs/phantomjs-2.0.0/bin/phantomjs /usr/bin/phantomjs
+
+[root@demos phantomjs-2.0.0]# phantomjs -v
+[root@demos phantomjs-2.0.0]# phantomjs --version
+
+=================================
+...
+
 
 
 
