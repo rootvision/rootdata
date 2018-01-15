@@ -205,6 +205,23 @@ openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2087
 ================================================
 # whmapi1 listaccts search=(username) searchtype=user
 
+*** To check status of account of sepecific user
+===================================
+# whmapi1 listaccts search=(username) searchtype=user
+# whmapi1 listaccts search=Username searchtype=user | grep -e "domain" -e "email" -e "user" -e "plan" -e "disklimit" -e "diskused" -e "theme"
+
+*** This function modifies a user's disk quota
+==================================
+# whmapi1 editquota user=user quota=500
+
+*** This function lists suspended accounts on the server
+==========================================
+# whmapi1 listsuspended 
+
+*** This function returns a list of the currently-installed EasyApache 4 packages
+=============================================================
+# whmapi1 ea4_get_currently_installed_packages
+
 
 *** To check last backup run on the server by r1soft
 ==========================================
@@ -245,6 +262,17 @@ openssl s_client -showcerts -verify 32 -connect 192.168.1.1:2087
 ===============================================================
 
 # cat example.com | awk '{print $1}' | sort | uniq -c | sort -n
+
+# cat rensrescue.org | egrep -o '"(GET|POST)' | cut -b2- | sort | uniq -c
+236 GET
+1657 POST
+
+# cat rensrescue.org | cut -d\" -f3 | cut -d\ -f2 | sort | uniq -c
+1771 200
+22 301
+20 302
+80 404
+
 
 ***  To check the services status on the server(systemctl)
 ==========================================================
@@ -304,10 +332,20 @@ https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-cento
 
 # firewall-cmd --list-all
 
+*** To check open ports on the remote server
+==================================
+# nc -zv server.workstation.com 25
+# nc -zv 151.236.51.42 20-25
 
+*** Un-tar a specific directory inside of a tar
+=================================
+# tar -zxvf httpdocs.tar.gz --strip 1 httpdocs/wp-content/themes/gurdwara
 
-
-
+*** SpamAssassin
+================
+# rpm -qa | grep SpamAssassin
+# rpm -e -nodeps cpanel-perl-514-Mail-ApamAssassin
+# /scripts/check_cpanel_rpms
 
 
 
