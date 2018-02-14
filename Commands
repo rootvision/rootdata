@@ -347,6 +347,197 @@ https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-cento
 # rpm -e -nodeps cpanel-perl-514-Mail-ApamAssassin
 # /scripts/check_cpanel_rpms
 
+*** To check the current status of Exim
+==================================
+# exiwhat
+... shows active connections being handled
+# ps -C exim wwwu
+... shows a list of all running exim processes
+# lsof -c exim
+... shows a list of files being accessed by exim
+
+# openssl s_client -connect 151.236.51.42:587
+... Manuallt testing IMAP/POP with Openssl
+
+
+*** To check the spamming directory sending huge mail
+================================================
+# grep cwd=/ exim_mainlog | cut -d = -f 2 | cut -d " " -f 1 | sort | uniq -c | sort -n
+
+*** To check the mail send from the particular user
+========================================
+# exiqgrep -f sender@example.com
+
+*** To check mail received from the particular recipient
+=========================================
+# exiqgrep -r recipients@example.com
+
+*** To remove the mails of particular user
+======================================
+# exiqgrep -f test@example.com -i | xargs exim -Mrm
+
+nslookup
+host
+dig
+
+*** To check if private IP address is mapped into the cPanel server.
+# cat /var/cpanel/cpnat
+
+# named-checkconf /etc/named.conf
+# named-checkzone example.com /var/named/examplecom.db
+
+# /scripts/restartsrv_named --check
+# /scripts/restartsrv_named --status
+# /scripts/restartsrv_named --stop
+# /scripts/restartsrv_named --start
+
+*** To check the number of zone on the server.
+# ls -arilh /var/named |wc -l
+
+*** To replace the word
+======================
+# sed -i s/2015121703/2015121704/ ham.ninja.db
+
+*** To delete the line number
+===========================
+sed -i '141,144d' /etc/named.conf
+
+*** DNS Files location
+======================
+System
+* /etc/hosts
+* /etc/resolve.conf
+* /etc/nsswitch.conf
+
+Bnd/named
+* /var/named
+* /etc/named.conf
+* /etc/sysconfig/named
+* /etc/rndc.conf
+* /etc/rndc.key
+* /var/run/named
+
+Logs
+* /var/logs/messages
+* /var/logs/named/named.log
+
+MyDNS & NSD
+* /etc/mydns.conf
+* /etc/nsd.conf
+
+PowerDNS
+* /etc/pdns/pdns.conf
+* /etc/pdns/dnssec.db
+* /usr/bin/pdns
+* /var/logs/messages
+
+*** MySQL Grabage
+===================
+
+*** To read JSON file
+==================
+# cat file.json | python -mjson.tool
+
+*** To check if any of the user is using its my.cnf configuration file On cPanel server
+=============================
+# /usr/local/cpanel/scripts/check_users_my_cnf
+
+mysql > show variables like"%char%";
+mysql > show variables like "%myisam%";
+mysql > show databases like "username_%";
+mysql > select last_name from employees limit 5;
+mysql> select last_name from employees where last_name "A%" limit 5;
+mysql> update fish_name set name='catfish' where id=0;
+mysql> insert into fish_name set id=3 name="coy";
+mysql> delete from fish_name where name="catfish";
+
+*** Fixing a broken root user
+=======================
+# /usr/local/cpanel/scripts/restartsrv_mysql --stop
+# mysqld_safe --skip-grant-tables --skip-networking &
+mysql> mysql
+mysql> use mysql;
+mysql> select * from user where User="root";
+# /usr/local/cpanel/scripts/restartsrv_mysql
+
+*** Tool to check Mysql process threads
+=================================
+# yum install mytop
+# vi /root/.mytop
+(add the line)
+db=mysql
+:wq!
+
+*** To check mail receiving to localhost
+=========================================
+# cat /etc/localaliases
+# cat /var/cpanel/userhomes/cpanel/.forward
+# cat /root/.forward
+# grep email@domain.com /etc/valiases/*
+# grep email@domain.com /etc/vfilters/*
+--------------------------------------------------------------------------------------------------------------
+Part of the issue is that /etc/localaliases isn't set to server@example.com for cpanel, nobody and root. You can change that either directly in /etc/localaliases by setting it to show this instead:
+cpanel: server@example.com
+nobody: server@example.com
+root: server@example.com
+Or, it could be changed in WHM > Change System Mail Preferences area.
+Next, /var/cpanel/userhomes/cpanel/.forward file would need to be set to that email account as well:
+server@example.com
+When it is set as root, then root@localhost should translate to root@hostname because localhost is normally routed to the server's hostname. If the above steps are not fixing the issue, please open up a ticket at that point for us to further investigate.
+Also, if you could provide the output for these commands as I'd like to see the /etc/hosts entry for localhost as well as any possible mail_reverse_dns entries:
+--------------------------------------------------------------------------------------------------------------
+# cat /etc/hosts
+# cat /etc/mail_reverse_dns
+
+
+*** Cpanel Backend
+===================
+/etc/ips ==> ip address
+/etc/reservedips =====> reserved ips
+/etc/ipaddrpool ===> ip address pool
+/home/user/.accesshash OR /root/.acesshash ===>Access Hash (WHM remote access key)
+/etc/cpupdate.conf ==>cpanel update preferances
+/etc/wwwacct.conf ===> Basic/cpanel setup
+/etc/localaliases ===> system mail preferences
+/etc/alwaysrelay ===> Exim open relay list
+/etc/localdomains ===> Exim related file . all domain should be listed here to be able to send mails
+/etc/remotedomains ==> list doamin that have account on the server but send /receive mails through their own mail server
+/etc/userdomains ===> user and their domains
+/etc/domainusers ==> users and their main domains
+/etc/trueuserdomains ==> user and their main domains
+/etc/trueuserowners ==> users and their owners
+/etc/domainips ===> doamin with dedicated ip
+/etc/nameserverips == > nameserver ips
+/etc/valiases/domain.tld ==> catchall and forwarders are set here
+/var/cpanel/maxmailsperhour ==> server-wide mx mails per hour
+/var/cpanel/cpanel.config ==> tweak setting
+
+*** For update tweak setting run script:
+=========================================
+
+# /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings
+
+/var/cpanel/packages/ ===> cpanel packages
+/var/cpanel/features/ === cpanel features
+/var/cpanel/users/ and /var/cpanel/userdata/ ==>User data
+/var/cpanel/templates/apache(1,2) ==> apache templates
+/etc/exim.conf.localopts ==> exim config templates
+/etc/mailips ===> exim mail IP
+/etc/mail_reverse_dns ==> rDNS for mail IP
+/var/cpanel/cluster/root/config ==> clustering
+/etc/chkserv.d/ ===> service manager
+/etc/cpupdate.conf ===>update config
+/etc/cpbackup.conf ===> backup configuration
+/var/cpanel/mainip ===> cpanel main ip
+/usr/local/cpanel/version ===> cpanel version
+/var/cpanel/resellers ===> resellers
+/home/user/.accesshash or /root/.accesshash ===> Access hash (WHM remote access key
+/etc/localaliases ==>System mail preferences
+/etc/alwaysrelay ===> Exim open relay list
+/var/cpanel/cluster/root/config ==> Clusterring
+/var/cpanel/resellers-nameservers ===> resellers nameservers
+
+
 
 
 ***
