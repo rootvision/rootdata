@@ -458,7 +458,7 @@ testingmail.php
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
     $from = "essexshipping@essexshipping.com";
-    $to = "supp0rt24x7@gmail.com";
+    $to = "***@gmail.com";
     $subject = "PHP Mail Test script";
     $message = "This is a test to check the PHP Mail functionality";
     $headers = "From:" . $from;
@@ -902,7 +902,65 @@ http://www.davidghedini.com/pg/entry/install_phantomjs_on_cpanel
 [root@demos phantomjs-2.0.0]# phantomjs --version
 
 =================================
-...
+
+
+***Steps to Create a New Sudo User on CentOS 7
+================================================
+=> 1. Connect via SSH
+=> 2. Add New User in CentOS => You can add a new system user using the following command
+# adduser newuser
+=> 3. Create a Strong Password => To set up a password you can use the following command:
+# passwd newuser
+=> 4. Add User to the Wheel Group in CentOS => you need to add the new user to this group so it can run commands as superuser
+# usermod -aG wheel newuser
+=> Now, use visudo to open and edit the /etc/sudoers file. Make sure that the line that starts with %wheel is not commented. It should look exactly like this
+## Allows people in group wheel to run all commands
+%wheel ALL=(ALL) ALL
+=> 5. Switch to the sudo User => To switch to the new user, run the following command:
+# su - newuser
+
+***  Enable HTTP2 via WHM:
+===========================
+Log in to WHM and go to Home >> Software >> EasyApache 4 >> Customize >> Apache modules , disable the mod_mpm_prefork if it is enabled , click on ‘review’ to review the changes and click on ‘Provision’.
+Then, go to Home >> Software >> EasyApache 4 >> Customize >> Apache modules , search for ‘mod_http2’ module, and enable it:
+
+Do you want to proceed with this selection? Yes
+
+Enable HTTP2 via command line:
+You can also install mod_http2 Apache module on command line using the following commands:
+# yum clean all
+# yum shell
+Loaded plugins: universal-hooks
+> remove ea-apache24-mod_mpm_prefork
+> install ea-apache24-mod_mpm_worker
+> install ea-apache24-mod_http2
+> run
+
+You should see something like this:
+
+httpd started successfully.
+Setting /home permissions to 0711......Done
+Setting permissions for.....virtualthings …
+laravelvirtualth …
+...Done
+
+Enter quit to exit the yum shell:
+
+quit
+Leaving Shell
+
+Please make sure that there is a /etc/apache2/conf.d/http2.conf Apache configuration file with the following lines:
+cat /etc/apache2/conf.d/http2.conf
+<IfModule http2_module>
+LogLevel http2:info
+Protocols h2 h2c http/1.1
+</IfModule>
+# service httpd restart
+
+
+
+
+
 
 
 
