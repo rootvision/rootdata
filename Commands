@@ -36,8 +36,6 @@
 
 # /usr/local/cpanel/cpkeyclt	-->> to update the licnence key of cpanel or whm
 
-# curl -I -L http://kaitness.net		-->> to check on what the domain is working (litespeed,apache,nija)
-
 # /scripts/cphulkdwhitelist	<IP address> 	-->> to white list the IP address from CPhulk 
 
 # grep -lr "<word>" *		-->> to fine the pparticular word from a directory
@@ -402,35 +400,6 @@ dig
 ===========================
 sed -i '141,144d' /etc/named.conf
 
-*** DNS Files location
-======================
-System
-* /etc/hosts
-* /etc/resolve.conf
-* /etc/nsswitch.conf
-
-Bnd/named
-* /var/named
-* /etc/named.conf
-* /etc/sysconfig/named
-* /etc/rndc.conf
-* /etc/rndc.key
-* /var/run/named
-
-Logs
-* /var/logs/messages
-* /var/logs/named/named.log
-
-MyDNS & NSD
-* /etc/mydns.conf
-* /etc/nsd.conf
-
-PowerDNS
-* /etc/pdns/pdns.conf
-* /etc/pdns/dnssec.db
-* /usr/bin/pdns
-* /var/logs/messages
-
 *** MySQL Grabage
 ===================
 
@@ -490,52 +459,51 @@ Also, if you could provide the output for these commands as I'd like to see the 
 # cat /etc/mail_reverse_dns
 
 
-*** Cpanel Backend
-===================
-/etc/ips ==> ip address
-/etc/reservedips =====> reserved ips
-/etc/ipaddrpool ===> ip address pool
-/home/user/.accesshash OR /root/.acesshash ===>Access Hash (WHM remote access key)
-/etc/cpupdate.conf ==>cpanel update preferances
-/etc/wwwacct.conf ===> Basic/cpanel setup
-/etc/localaliases ===> system mail preferences
-/etc/alwaysrelay ===> Exim open relay list
-/etc/localdomains ===> Exim related file . all domain should be listed here to be able to send mails
-/etc/remotedomains ==> list doamin that have account on the server but send /receive mails through their own mail server
-/etc/userdomains ===> user and their domains
-/etc/domainusers ==> users and their main domains
-/etc/trueuserdomains ==> user and their main domains
-/etc/trueuserowners ==> users and their owners
-/etc/domainips ===> doamin with dedicated ip
-/etc/nameserverips == > nameserver ips
-/etc/valiases/domain.tld ==> catchall and forwarders are set here
-/var/cpanel/maxmailsperhour ==> server-wide mx mails per hour
-/var/cpanel/cpanel.config ==> tweak setting
+***  Curl Commands
+https://www.rosehosting.com/blog/curl-command-examples/
 
-*** For update tweak setting run script:
-=========================================
+*** To check Webserver
+======================
+# curl -I -L http://kaitness.net		-->> to check on what the domain is working (litespeed,apache,nija)
 
-# /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings
+*** Get details of website connect time with the server
+============================================
+# curl -s -w '\nLookup time:\t%{time_namelookup}\nConnect time:\t%{time_connect}\nPreXfer time:\t%{time_pretransfer}\nStartXfer time:\t%{time_starttransfer}\n\nTotal time:\t%{time_total}\n' -o /dev/null http://highlandtrails.com/
 
-/var/cpanel/packages/ ===> cpanel packages
-/var/cpanel/features/ === cpanel features
-/var/cpanel/users/ and /var/cpanel/userdata/ ==>User data
-/var/cpanel/templates/apache(1,2) ==> apache templates
-/etc/exim.conf.localopts ==> exim config templates
-/etc/mailips ===> exim mail IP
-/etc/mail_reverse_dns ==> rDNS for mail IP
-/var/cpanel/cluster/root/config ==> clustering
-/etc/chkserv.d/ ===> service manager
-/etc/cpupdate.conf ===>update config
-/etc/cpbackup.conf ===> backup configuration
-/var/cpanel/mainip ===> cpanel main ip
-/usr/local/cpanel/version ===> cpanel version
-/var/cpanel/resellers ===> resellers
-/home/user/.accesshash or /root/.accesshash ===> Access hash (WHM remote access key
-/etc/localaliases ==>System mail preferences
-/etc/alwaysrelay ===> Exim open relay list
-/var/cpanel/cluster/root/config ==> Clusterring
-/var/cpanel/resellers-nameservers ===> resellers nameservers
+*** Save the output of the URL to a file
+===============================
+# curl -o website http://highlandtrails.com/
+
+*** Download files with cURL
+=======================
+# curl -O https://domain.com/file.zip
+
+*** You can also download the file with a different name by adding the -o option to cURL
+=======================================================================
+# curl -o archive.zip https://domain.com/file.zip
+
+*** cURL can be also used to download multiple files simultaneously
+========================================================
+# curl -O https://domain.com/file.zip -O https://domain.com/file2.zip
+
+*** cURL can be also used to download files securely via SSH using the following command
+===========================================================================
+# curl -u user sftp://server.domain.com/path/to/file
+
+*** Access an FTP server
+*** To access your FTP server with cURL use the following command
+========================================================
+# curl ftp://ftp.domain.com --user username:password
+
+*** download a file via FTP
+=====================
+# curl ftp://ftp.domain.com/file.zip --user username:password
+
+*** upload a file ot the FTP server
+===========================
+# curl -T file.zip ftp://ftp.domain.com/ --user username:password
+
+
 
 
 
