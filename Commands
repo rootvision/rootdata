@@ -1,6 +1,11 @@
 *** Normally used command in daily tasks
 =========================================
 
+*** To connect via sftp from the server
+========================================
+# sftp -oPort=8973 catherine@easychoicepropertymanagement.com
+# sftp -oPort=8973 109.75.172.145
+
 # cat /etc/wwwacct.conf  -->>   file contains the most basic setup instructions for cPanel & WHM
 
 # cat /etc/localdomains | grep < abc > 		-->>  this will show the domain name relateding abc 
