@@ -6,6 +6,89 @@
 # sftp -oPort=8973 catherine@easychoicepropertymanagement.com
 # sftp -oPort=8973 109.75.172.145
 
+***  To check traffic on the port
+=========================
+#  tcpdump -i eth0 -vvv -nn udp dst port 1414
+#  tcpdump -i eth0 -vvv -nn tcp dst port 80
+
+***  To download the files from the remote loation using wget
+=============================================================
+#  wget -r --user="supporttest@superhotcelebs.com" --password="Developer191" ftp://108.167.146.32/www.superhotcelebs.com
+
+#  wget -r --user="supporttest@superhotcelebs.com" --password="Developer191" ftp://108.167.146.32/
+
+*** imapsync commands
+====================
+imapsync --host1 server1.example.com --user1 sales@example.com --passfile1 /etc/secret2 --host2 server2.example.com --user2 sales@example.com --passfile2 /etc/secret2
+
+SSL
+===
+imapsync   --nousecache --buffersize 8192000  --addheader --syncacls --subscribe --syncinternaldates --nofoldersizes  --host1 seftontaxconsulting.net --ssl1  --user1 "rashid@artravel.co.uk" --password1 "786Ummar1" --host2 euk-83588.eukservers.com --ssl2  --user2 "rashid@artravel.co.uk"  --password2 "gVlm2!77"
+
+imapsync --host1 p3plcpnl0111.prod.phx3.secureserver.net --user1 "alexandra@calibrationservicesltd.com" --password1 'Calibration2018-' --host2 158.255.47.143 --port1 993 --port2 993 --ssl1 --ssl2  --user2 "alexandra@calibrationservicesltd.com" --password2 '5}yCf*ovMFn3'
+
+*** To list connections on the server with netstat command
+==============================================
+#  netstat -ntu | awk '{print }' | cut -d: -f1 | sort | uniq -c | sort -n
+
+***  To take the MySQL backup as per the date.
+==============================================
+#  mysqldump database_name  > /home/clientbackup/database_name_$(date "+%b-%d-%Y-%H-%M-%S").sql
+
+#  mysqldump yohwcouk_h3d7ck2aa  > /home/clientbackup/yohwcouk_h3d7ck2aa_$(date "+%b-%d-%Y-%H-%M-%S").sql
+
+*** ------------------------------------------------------- ***
+>>> Tell if Your PHP Site has been Hacked or Compromised <<<
+*** ------------------------------------------------------- ***
+Link: http://www.gregfreeman.io/2013/how-to-tell-if-your-php-site-has-been-compromised/
+
+(Check your Access Logs)
+------------------------
+IPREMOVED - - [01/Mar/2013:06:16:48 -0600] "POST /uploads/monthly_10_2012/view.php HTTP/1.1" 200 36 "-" "Mozilla/5.0"
+IPREMOVED - - [01/Mar/2013:06:12:58 -0600] "POST /public/style_images/master/profile/blog.php HTTP/1.1" 200 36 "-" "Mozilla/5.0"
+
+*** Finding Recently Modified PHP Files
+=========================================
+# find . -type f -name '*.php' -mtime -7
+
+>>> Output: My compromised server returned results such as:
+-------------------------------------------------------------
+./uploads/monthly_04_2008/index.php
+./uploads/monthly_10_2008/index.php
+./uploads/monthly_08_2009/template.php
+./uploads/monthly_02_2013/index.php
+
+*** Search all PHP Files for Suspicious Code (First check for files that contains eval, base64_decode, gzinflate or str_rot13)
+============================================
+# find . -type f -name '*.php' | xargs grep -l "eval *(" --color
+# find . -type f -name '*.php' | xargs grep -l "base64_decode *(" --color
+# find . -type f -name '*.php' | xargs grep -l "gzinflate *(" --color
+
+*** Find outdated versions of WordPress: (cPanel server)
+========================================================
+#  find /home/*/public_html/ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "$wp_version =" {} \;
+
+*** Find outdated versions of WordPress: (plesk server)
+========================================================
+#  find /var/www/vhosts/*/httpdocs/ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "$wp_version =" {} \;
+ 
+***  Find outdated versions of Joomla:(cPanel server)
+========================================================
+#  find /home/*/public_html/ -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print -exec perl -e 'while (<>) { $release =  if m/ $RELEASE\s+= .([\d.]+).;/; $dev =  if m/ $DEV_LEVEL\s+= .(\d+).;/; } print qq($release.$dev\n);' {} \; && echo "-"
+
+***  Find outdated versions of Joomla:(plesk server)
+========================================================
+#  find /var/www/vhosts/*/httpdocs/ -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print -exec perl -e 'while (<>) { $release =  if m/ $RELEASE\s+= .([\d.]+).;/; $dev =  if m/ $DEV_LEVEL\s+= .(\d+).;/; } print qq($release.$dev\n);' {} \; && echo "-"
+
+***  Find Outdated Drupal Versions: (cPanel server)
+========================================================
+#  find /home/*/public_html/ -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+
+***  Find Outdated Drupal Versions: (plesk server)
+========================================================
+#  find /var/www/vhosts/*/httpdocs -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+
+
 # cat /etc/wwwacct.conf  -->>   file contains the most basic setup instructions for cPanel & WHM
 
 # cat /etc/localdomains | grep < abc > 		-->>  this will show the domain name relateding abc 
