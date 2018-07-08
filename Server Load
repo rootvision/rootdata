@@ -25,6 +25,29 @@ ps -eo pmem,pcpu,pid,user,args | sort -k 1 -r | head -10
 
 -------------
 
+root@test [~]# netstat -nat | awk '{print $6}' | sort | uniq -c | sort -n
+1 CLOSING
+1 established)
+1 FIN_WAIT1
+1 Foreign
+2 CLOSE_WAIT
+2 SYN_RECV
+7 LAST_ACK
+14 FIN_WAIT2
+51 LISTEN
+131 ESTABLISHED
+133 TIME_WAIT
+
+root@test [~]# netstat -atun | awk '{print $5}' | cut -d: -f1 | sed -e '/^$/d' |sort | uniq -c | sort -n
+1 103.43.93.26
+1 104.196.146.141
+1 104.196.178.232
+1 104.197.56.190
+1 106.201.233.100
+1 109.240.216.208
+1 109.240.243.230
+1 113.71.243.84
+
 Use below mentioned command to get top memory consuming processes"
 
 ps aux | head -1;ps aux --no-headers| sort -rn -k 3 | head
