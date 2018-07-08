@@ -957,7 +957,115 @@ Protocols h2 h2c http/1.1
 </IfModule>
 # service httpd restart
 
+*** cPanel's WHM: "A database owner with the name already exists" 
+=================================================================
+You've deleted an account via cPanel's WHM, but needed to recreate it again. But, unfortunately, you got the following error message:
 
+Account Creation Status: failed
+
+A database owner with the name <account-name> already exists
+
+>>>   Well, it's a bug in the cPanel system, where some configuration files are not removed by the account-deletion scripts. But, here is the simple solution:
+
+Go to /var/cpanel/databases
+
+>>>  Find the following two entries for the terminated (deleted) account name:
+
+<account-name>.cache
+<account-name>.yaml
+
+>>>  Delete these two files.
+>>>  Now, successfully recreate the terminated account via WHM.
+
+
+**************************************************************************************************************
+https://support.plesk.com/hc/en-us/articles/115000063909-How-to-change-mailbox-limit-in-the-Power-User-view-mode-
+
+***  How to change mailbox limit in the Power User view mode?
+
+Answer
+In Power User view mode service plan and subscriptions management is not available, it is available in Service Provider view only. Web Admin and Web App editions do not support Service Provider View, so in order to switch to Service Provider View, it is required to re-activate Plesk with Web Host or Web Pro edition licenses that support Service Provider View. When Web Host or Web Pro license is used, the subscription properties are ready to be adjusted. Web Host trial license can be retrieved
+
+Solution 1
+1. Change mailbox size limits on a Service Plan level.
+
+2. Go to Tools & Settings > License Management > Install Key ;
+
+3. Use a trial key to set Plesk to Web Host Edition
+
+4. If Service Provider view was not activated, click Change View in bottom right corner;
+
+5. Go to Service Plans , select domain plan that was used for all domains and modify "Mailbox size" entry;
+
+6. Click Update & Sync to automatically apply changes to all domains associated with the Service Plan;
+
+7.Go to Tools & Settings > License Management > Roll Back Key and click Ok to revert to existing Web Admin license.
+
+Solution 2
+
+1. Login to the server over SSH
+
+2. Login to Plesk database
+
+3. Execute the following query to find out mailbox limit value replacing the domain name:
+mysql> select id, limit_name, value from Limits where id in (select value from SubscriptionProperties where subscription_id in (select id from Subscriptions where object_id in (select id from domains where name = "example.com"))and name='limitsId')and limit_name='mbox_quota';
+
+4. Use the id to update the value:
+mysql> update Limits set value='-1' where id=x and limit_name='mbox_quota';
+
+>>  where -1 is equal to unlimited. Any value can be set in bytes.  This setting will work as a template for all mailboxes created under that domain.
+
+Solution 3
+
+Manually change values in the database.
+
+1. Log into Plesk database
+
+2. To set current mailbox limits for every existing domain (for example, 200Mb):
+
+mysql> update limits set value=209715200 where limit_name='mbox_quota'; 
+
+3. To modify all default limits for future domains:
+
+mysql> update tmpldata set value='209715200' where element='mbox_quota';
+
+4. To set 200Mb limit for all existing mailboxes on all existing domains:
+
+mysql> update mail set mbox_quota=209715200;
+**************************************************************************************************************
+
+
+*** Commands to run the magento website 
+======================================
+php bin/magento cache:clean
+php bin/magento cache:flush
+php bin/magento setup:upgrade
+php bin/magento setup:static-content:deploy
+php bin/magento indexer:reindex
+php bin/magento cache:clean
+
+*** To whitelist any rule ID for the user
+==========================================
+
+File location
+--------------
+[root@mirage ~]# cat /etc/apache2/conf.d/userdata/std/2_4/username/modsec.conf
+
+Output
+-------
+[root@mirage ~]# cat /etc/apache2/conf.d/userdata/std/2_4/dmacorg/modsec.conf
+<IfModule mod_security2.c>
+<LocationMatch .*>
+        SecRuleRemoveById 959100
+</LocationMatch>
+</IfModule>
+==========================================
+
+*** Mysql database present on the server but not getting displayed in the cPanel mysql database section
+========================================================================================================
+# /scripts/rebuild_dbmap netrover
+# cd /var/cpanel/databases/
+# python -mjson.tool username.json
 
 
 
