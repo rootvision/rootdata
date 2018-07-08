@@ -1,0 +1,40 @@
+                           talk server
+                         Port No:- 517
+- talk server is used for communicating between two server
+- talk server works as communication program
+
+     -------                ------- 
+     |     |                |     |
+     |     |-------z--------|     |
+     |     |                |     |  
+     -------                ------- 
+     192.168.0.1           192.168.0.2
+
+# how to configure talk server ??
+  ==============================
+
+# yum install talk*  -y
+# vim /etc/xinetd.d/talk
+  
+   disable = no
+
+:wq
+
+# vim /etc/xinetd.d/ntalk
+ 
+  disable = no
+
+:wq
+
+# service xinetd restart
+# chkconfig xinetd on
+
+### NOTE :-Configure setting both site:-
+
+Access:-
+=======
+
+# talk root@192.168.0.1     [request]
+  
+# talk root@192.168.0.2     [accept request on another machine]
+================================================================

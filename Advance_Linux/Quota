@@ -1,0 +1,40 @@
+                               Disk Quota 
+                              ==========
+Quota are used to limit a users and groups of users ability to consume disk space.
+Quota are commonly used by ISP, web hosting companies, on FTP site etc.
+================================================================================
+  How to configure Disk Quota 
+  ===========================
+# vim /etc/fstab
+
+add the options on permission section
+
+defaults,usrquota
+
+:wq
+
+# mount -o remount,rw /         [remount the / filesystem]
+# quotacheck -cvum /            [to create disk quotas]
+# cd /                          [go to /]
+# ls                            [to show aquota.user file]
+# cd                            [go to home directory]
+# quotaon -uv /       		[to enable user disk quotas]
+# quotaon -p -a       		[to print whether quotas are on or off]
+# repquota -a                   [to show report]
+# edquota natasha               [to set disk quota]
+   - edit the file Block limint area
+    
+    Soft        hard
+    100         120     <------ {size in KB}
+
+:wq
+
+# repquota -a            [to show report]
+# su - natasha           [login user]
+# dd if=/dev/zero of=nasa.txt bs=1024M count=1    [to create dump file]
+------> Error Disk Quota limit <------
+# exit      [logout user]
+DONE
+# edquota -p natasha alex       [to set natasha user disk quotas to alex user]
+=======================================================================================
+

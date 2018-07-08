@@ -1,0 +1,61 @@
+﻿# how to backup and restore vg partition
+========================================
+
+# first take the vg0 backup
+# vgcfgbackup -f /var/tmp/vg0
+
+- restore 
+
+# first copy the backup file in /etc/lvm/backup
+# cp -iv /var/tmp/vg0 /etc/lvm/backup
+# cd /etc/lvm/backup
+# vgcfgretore vg0         [restore the vg]
+
+======================================================
+# LVM Snapshot
+
+Create a snapshot logical volume for an  existing, so called original logical volume (or origin). Snapshots provide a ’frozen image’ of the contents of the origin while the origin can still be updated.
+
+# lvcreate -s -L 50G -n snap-lv  /dev/vg0/lv0
+
+# rm -rf /lvm/*      [remove all data for practise]
+
+# mount /dev/vg0/snap  /mnt       [mount the snap on /mnt]
+
+# cd /mnt    [goto /mnt directory]
+# ls         [to show all data]
+==========================================================================
+
+     ####### Linux Filesystem Convert ext2,ext3 to ext4  #############
+
+
+### How to Covert ext2 to ext4 #######
+ 
+# umount /dev/vda5     
+# tune2fs -j /dev/vda5
+# e2fsck -f /dev/vda5
+# mount -t ext4 /dev/vda5 /data
+# vim /etc/fstab
+
+/dev/vda5      /data       ext4[change ext2 to ext4]   defaults  0 0
+:wq
+# mount -a
+# df -hT
+# reboot
+=========================================================================
+
+#### How to Convert ext3 to ext4
+
+# umount /dev/vda6     
+# tune2fs -O extents,uninit_bg,dir_index /dev/vda6      [to add parameters]
+# e2fsck -f /dev/vda6        				[to check filesystem]
+# mount -t ext4 /dev/vda6 /data1
+# vim /etc/fstab
+
+/dev/vda6      /data1      ext4[change ext3 to ext4]   defaults  0 0
+:wq
+# mount -a
+# df -hT
+# reboot
+======================================================================================
+

@@ -1,0 +1,91 @@
+                            PXE Server
+                            ==========
+PXE stand for Preboot eXecution Environment
+allow computers to boot up remontely through a network interface. PXE enables a 
+client machine to boot from a server independent of the hard disk and installed OS.
+===================================================================================
+# How to Configure PXE server.
+  ===========================
+
+Requirement :  1. yum server 
+               3. DHCP server
+               3. TFTP server
+               4. Kickstart file
+               5. FTP server
+
+#######################
+Configure DHCP server #
+#######################
+
+# iptables -F
+
+# yum install dhcp -y
+
+# vim /etc/dhcp/dhcpd.conf
+
+add line
+
+allow booting;
+allow bootp;
+authoritative;
+
+subnet 192.168.0.0 netmask 255.255.255.0 {
+ range 192.168.0.1 192.168.0.254;
+ next-server 192.168.0.254;
+ filename "pxelinux.0";
+};
+
+:wq
+
+# service dhcpd restart
+# chkconfig dhcpd on
+====================================================
+####################
+NFS server         #
+####################
+
+# mount /dev/cdrom /mnt
+# cd /mnt
+# mkdir /var/ftp/pub/rhel6
+# cp -ivr * /var/ftp/pub/rhel6
+# service vsftpd restart
+# chkconfig vsftpd on
+====================================================
+############################
+Configure TFTP server
+############################
+
+# yum install tftp-server
+
+# vim /etc/xinet.d/tftp
+
+Disable = no
+
+:wq
+
+# cp -iv /media/isolinux/*  /var/lib/tftpboot
+# mkdir /var/lib/tftpboot/pxelinux.cfg
+# cp -iv /var/lib/tftpboot/isolinux.cfg /var/lib/tftpboot/pxelinux.cfg/default
+# yum install syslinux* -y
+# cp -iv /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot
+
+# vim /var/lib/tftpboot/pxelinux.cfg/default
+
+Editing.....
+
+label Red Hat
+  menu label ^Install Red Hat Enterprise Linux 6
+  menu default
+  kernel vmlinuz
+  append initrd=initrd.img linux ks=ftp://192.168.0.254/pub/rhel6/ks.cfg
+
+:wq
+
+# service xinetd restart
+# chkconfig xinetd on
+========================================
+# Goto client machine and boot from LAN  
+========================================
+               Thanks
+
+

@@ -1,0 +1,61 @@
+# How to Lock and Unlock user account (only ssh)
+
+# vim /etc/pam.d/password-auth
+
+add the following AUTH configuration line to at begininig of the auth section
+
+auth required  pam_tally2.so  file=/var/log/tallylog  deny=3 even_deny_root unlock_time=60
+
+account  required pam_tally2.so
+
+:wq
+
+Options:-
+
+1. file=/var/log/tallylog = defualt log file is used to keep login counts
+2. deny=3 = deny access after 3 attempts and lock down user
+3. even_deny_root = policy is also apply to root user
+4. unlock_time=60 = account will be locked till 1 min.
+=============================================================
+
+ssh alex@192.168.0.1
+password:- wrong password put 3 time then get error lock password
+
+#### How to check  #####
+ # pam_tally2 -u alex
+
+#### How to to unlock user ####
+ # pam_tally2 -r -u alex
+===========================================================================
+
+# How to Lock and Unlock user account (only local system)
+
+# vim /etc/pam.d/system-auth
+
+add the following AUTH configuration line to at 2nd line of the auth section
+
+auth required  pam_tally2.so  file=/var/log/tallylog  deny=3 even_deny_root unlock_time=120
+
+2nd line
+
+account  required pam_tally2.so
+
+:wq
+==============================================================================
+
+Options:-
+
+1. file=/var/log/tallylog = defualt log file is used to keep login counts
+2. deny=3 = deny access after 3 attempts and lock down user
+3. even_deny_root = policy is also apply to root user
+4. unlock_time=60 = account will be locked till 20 min.
+=============================================================
+Then login users and check
+
+#### How to check  #####
+ # pam_tally2 -u alex
+
+#### How to to unlock user ####
+ # pam_tally2 -r -u alex
+--------------------------------
+

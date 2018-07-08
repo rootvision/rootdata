@@ -1,0 +1,97 @@
+                            RAID 
+                 Redundant Array of Independent Disk 
+
+Originally Redundant Array of Inexpensive Disks. RAID is a way of storing the same data in different places(thus redundantly) on multiple hard disks. By placing data on multiple disks. I/O operations can overlap in a balanced way, improving performance. 
+=======================================================================================
+There are Two Types of RAID
+
+1. Software RAID
+2. Hardware RAID
+
+=================================
+The most commonly used RAID LEVEL
+=================================
+RAID0 :- RAID0 is a striping. two or more disks used to create a single large high performance volume.performance is better if drives of equal size are used.
+-------------------------------------------------------------------------------------
+RAID1 :- RAID 1 is a fault-tolerance configuration known as disk mirroring. with RAID 1 data is copied seamlessly and simultaneously from one disk to another. creating a replica or mirror. if one disk gets fried, the other can keep working
+-------------------------------------------------------------------------------------
+RAID5 :- RAID 5 is by far the most common RAID Configuration for business servers and enterprise NAS devices.This RAID level provides better performance than mirroring as well as fault tolerance.parity (which is additional data used for recovery) are striped across three or more disks. if a disk gets an error of starts to fail, data is recreated from this distributed data and parity block seamlessly and automatically.
+========================================================================================
+# How to create RAID 5..?
+=========================
+[root@extra1 ~]# fdisk -l
+
+Disk /dev/vda: 8589 MB, 8589934592 bytes
+16 heads, 63 sectors/track, 16644 cylinders
+Units = cylinders of 1008 * 512 = 516096 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0004b3ef
+
+ Device    Boot      Start        End      Blocks   Id  System
+/dev/vda1   *           3         409      204800   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/vda2             409        8536     4096000   83  Linux
+/dev/vda3            8536        9576      524288   82  Linux swap / Solaris
+/dev/vda4            9576       10352      391104    5  Extended
+/dev/vda5            9576        9770       97744+  fd  Linux raid autodetect
+/dev/vda6            9770        9964       97744+  fd  Linux raid autodetect
+/dev/vda7            9964       10158       97744+  fd  Linux raid autodetect
+/dev/vda8           10158       10352       97744+  fd  Linux raid autodetect
+
+[ # NOTE:- to create 4 partition of same size using "fdisk or cfdisk" command. in this case size is (100M)]
+
+# mdadm -C /dev/md0 -n 3 /dev/vda{5,6,7} -l 5  [to create RAID 5]
+
+[C = Create; -n = no of device; -l = Raid level ]
+ 
+# mdadm -D /dev/md0         [to view the meta device details]
+
+# cat /proc/mdstat          [to read file]  
+
+# mkfs.ext4 /dev/md0        [format raid partition]
+
+# mkdir /raid               [create directory]
+  
+# mount /dev/md0 /raid/     [mount raid partition on /raid directory]
+
+[Note: if you want to permanent mounting the device, you have added to "/etc/fstab" file]
+
+/dev/md0               /raid                   ext4     defaults        0 0
+:wq
+
+# mount -a
+
+# mdadm -D /dev/md0                       [to check]
+
+# mdadm -f /dev/md0  /dev/vda6            [make faulty Device]
+
+# mdadm -D /dev/md0                       [to check]
+
+# mdadm -r /dev/md0  /dev/vda6            [remove the faulty device]
+
+# mdadm -a /dev/md0 /dev/vda8             [add spare device]
+
+#####################################################################################
+HOW TO STOP RAID =
+=================
+# umount /raid                [unmount the partition]
+# mdadm -S /dev/md0           [stop the RAID partition]
+
+########################################################################
+
+HOW TO ACTIVATE RAID
+===================
+
+# mdadm -A /dev/md0 /dev/vda{5,8,7}         [to active raid partitions]
+
+# mdadm -D /dev/md0                         [to check]
+
+# mount /raid                               [mount partition]
+
+#######################################################################
+
+
+
+  
+

@@ -1,0 +1,77 @@
+                      NIC Channel bonding
+                      ===================
+- NIC channel bonding allows multiple network cards to act as one network card
+- NIC allowing increased bandwidth and redundancy.
+
+
+         -----
+        |     |- eth0 
+        |     |- eth1  } bond0   
+        |     |
+         -----
+
+# Requirement:- two NIC Cards
+
+#  How to configure ###
+
+# service NetworkManager stop
+# service NetworkManager off
+
+# vim /etc/modprobe.conf   [create file]
+[add line]
+
+alias bond0 bonding
+
+:wq
+
+# cd /etc/sysconfig/network-scritpts/
+# vim ifcfg-bond0
+
+DEVICE=bond0
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.0.100
+NETMASK=255.255.255.0
+BONDING_OPTS="mode=1 miimon=100"
+
+:wq
+
+# vim ifcfg-eth0
+
+[Add lines]
+
+MASTER=bond0
+SLAVE=yes
+
+:wq
+
+# vim ifcfg-eth1
+
+Add line
+MASTER=bond0
+SLAVE=yes
+
+:wq
+
+# service network restart
+# chkconfig network on
+# ifconfig
+
+DONE
+=========================================
+
+==================================
+How to disabled ipv6
+=====================
+
+# vim /etc/sysconfig/network-scripts/ifcfg-eth0
+
+IPV6INIT=no
+
+:wq
+
+# echo "install ipv6 /bin/true" > /etc/modprobe.d/disabled-ipv6.conf
+
+# reboot
+
+==============================

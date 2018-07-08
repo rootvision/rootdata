@@ -1,0 +1,53 @@
+              TELNET server
+              Port No:- 23
+
+- telnet was developed in 1968.
+- telnet provided access to a command-line interface on a remote computer.
+
+
+## how to configure telnet server ####
+
+# useradd alex
+# passwd alex
+
+# yum install telnet-server telnet -y
+
+# vim /etc/xinetd.d/telnet
+
+disable = no
+
+:wq
+
+# service xinetd restart
+# chkconfig xinetd on
+
+# go to another system
+
+# yum install telnet -y
+
+# telnet 192.168.0.2
+login: alex
+password: redhat
+
+================================
+# root access allow #
+
+# vim /etc/pam.d/remote
+
+line No. 2 disabled   add # mark
+
+:wq
+
+# service xinetd restart
+
+then login in another system
+================================
+Advance Options:-
+
+1. only_from = 192.168.0.0/24  [allow host]
+2. no_access = 192.168.0.1     [deny host]
+3. access_times = 10:00-17:00  [time base acl] 
+4. per_source = 1              [per ip connections]
+5. instances = 100             [total no of connections]
+
+=================================================================

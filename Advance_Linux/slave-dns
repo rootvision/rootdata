@@ -1,0 +1,4 @@
+                  slave dns
+
+ a slave dns domain is one for which your system  acts as a backup for the master dns.
+ they are used to spread the load of server dns.
