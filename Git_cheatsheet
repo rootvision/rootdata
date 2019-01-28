@@ -1,0 +1,161 @@
+
+...
+
+==========================================================================================
+
+Link: https://rubygarage.org/blog/most-basic-git-commands-with-examples
+
+Note: Checking the git status again and again is good habit ( # git status) after every changes or work.
+
+>> To tell Git who you are, run the following two commands
+# git config --global user.name "King Kong"
+# git config --global user.email "king-kong@gmail.com"
+
+>> To turn on code highlighting, just run the following command
+# git config --global color.ui true
+
+>> The last basic configuration command will let you view your Git configurations. Running this command is the same as asking for a copy of your contract
+# git config --list
+
+>> To Initialized empty Git repository in /home/user/new-folder/.git/
+# git int
+
+>> To know the git status
+# git status
+
+(Output)
+$ git status
+On branch master
+Initial commit
+nothing to commit (create/copy files and use "git add" to track)
+
+>> To add all three files to the staging area. Instead of adding these files separately, we can add them all together.(file.ts,file.js,and file.rb)
+# git add file.ts,file.js,and file.rb
+
+>> To committing that you have added the three files
+# git commit -m "Add three files"
+
+(Output)
+[master (root-commit) abfbdeb] Add three files
+3 files changed, 0 insertions(+), 0 deletions(-)
+create mode 100644 file.js
+create mode 100644 file.txt
+create mode 100644 file.rb
+
+>> There will be times when you'll regret committing to a repository. Let's say you've modified three files, but committed only two. How can you add that remaining file to the last commit? And how can you modify a file if you've already committed it? There are two ways out. First, you can undo the commit:
+
+# git reset --soft HEAD^
+
+As you may recall, the "reset" command is the opposite of the "add" command. This time, "reset" tells Git to undo the commit. What follows "reset" is the "--soft" option. The "--soft" option means that the commit is canceled and moved before HEAD. You can now add another file to the staging area and commit, or you can amend files and commit them.
+					OR
+
+>> Instead of resetting the HEAD and undoing the last commit, we can rectify a commit by using the "--amend" option when committing to a repository. Just add the remaining file to the staging area and then commit:
+# git add file-i-forgot-to-add.html
+# git commit --amend -m "Add the remaining file"
+
+The "--amend" option lets you amend the last commit by adding a new file (or multiple files). Using the "--amend" option, you can also overwrite the message of your last commit.
+
+>> First you need to bind this remote repository to your local repository
+# git remote add origin https://github.com/YourUsername/some-small-app.git
+
+We tell Git to "add" a repository. The "origin" option is the default name for the server on which your remote repository is located. Lastly, there's a link to your project on GitHub.
+
+Once you run the command above, Git will connect your local and remote repositories. But what does this liaison actually mean? Can you already access your code online? Unfortunately, not yet.
+
+>> All you did for now is signed papers so that the remote lock box (GitHub) can accept various items (your code) from your home drawer (local repository). To actually copy your things to a remote lock box, you need to personally carry them to it. With Git, copying your code to a remote repository looks like this
+# git push -u origin master
+
+It's obvious that the command "push" tells Git to push your files to a remote repository. What we also specified is the server our local repo is connected to (origin) and the branch we're pushing, which is master. There's also that strange "-u" option. What it means is that we're lazy enough not to run a long "git push -u origin master" command each time we push code to the cloud. Thanks to "-u", we can run only "git push" next time!"
+
+>> As we can see, there's an SSH option that we can use instead of HTTPS. If you set up Git on your computer to work with SSH, then you won't have to enter GitHub credentials every time you push code to GitHub. You'll only need to add a remote origin with this SSH link, like this for command line
+# git remote add origin git@github.com:YourUsername/your-app.git
+
+>> You can view the list of repositories by running the following command
+# git remote -v
+
+The "-v" option will list all remote repositories you've connected to. This is what we've got
+origin	https://github.com/YourName/some-app.git (fetch)
+origin	https://github.com/YourName/some-app.git (push)
+
+>>  Git can clone an entire project from a remote repository. That's what the "clone" command does.
+# git clone git@github.com:YourUsername/your-app.git
+
+>> Running "git pull" is enough to update your local repository.
+# git pull
+
+When you run the "pull" command, Git will:
+
+Pull changes in the current branch made by other developers; and
+Synchronize your local repository with the remote repository.
+
+The "pull" command doesn't create a new directory with the project name. Git will only pull updates to make sure that your the local repository is up to date.
+
+>> To see our current branches.
+# git branch
+
+>> To create a new branch.
+# git branch user-profile
+
+Let's run the "git branch" command once more
+$ git branch
+*master
+user-profile
+
+>> Switching branches in Git, you won't use a "switch" command, as you might think. Instead, you'll need to use "checkout"
+# git checkout user-profile
+Switched to branch 'user-profile'
+
+Git also notifies you that you've switched to a different branch: "Switched to branch 'user-profile'". Let's run "git branch" once more to prove that
+$ git branch
+master
+*user-profile
+
+>> To merge a secondary branch into the main branch (which can be a master, development, or feature branch), first switch back to the main branch. In our case, we should checkout the master branch
+# git checkout master
+*master
+user-profile
+
+>> The current branch is now changed to master, and we can merge the user-profile branch using the command "merge"
+# git merge user-profile
+
+
+
+@@@@@@@@@@  Git Cheat Sheet @@@@@@@@@@@@
+
+
+Git: Configuration
+$ git config --global username "FirstName LastName"
+$ git config --global user.email "Your-email@email-provider.com"
+$ git config --global color.ui true
+$ git config --list
+
+Git: Starting a repository
+$ git int
+$ git status
+
+Git: Staging files
+$ git add <file-name>
+$ git add <file-name> <another-file-name> <yet-another-file-name>
+$ git add .
+$ git add --all
+$ git add -A
+$ git rm --cached <file-name>
+$ git reset <file-name>
+
+Git: Committing to a repository
+$ git commit -m "Add three files"
+$ git reset --soft HEAD^
+$ git commit --amend -m <enter your message>
+
+Git: Pulling and pushing from and to repostories
+$ git remote add origin <link>
+$ git push -u origin master
+$ git clone <clone>
+$ git pull
+
+Git: Branching
+$ git branch
+$ git branch <branch-name>
+$ git checkout <branch-name>
+$ git merge <branch-name>
+$ git checkout -b <branch-name>
