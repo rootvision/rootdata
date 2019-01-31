@@ -384,6 +384,15 @@ RewriteCond %{REQUEST_URI}/ blog
 RewriteRule ^(.*) http://www.somewhere.com/%{REQUEST_URI} [R=302,NC]
 RewriteRule ^(.*) http://www.somewhere.com/blog/%{REQUEST_URI} [R=302,NC]
 
+*** .htaccess to redirect a wildcard url
+========================================
+For example: https://github.com/rootvision/rootdata/blob/ to https://github.com/rootvision/rootdata/blob/master/Commands
+Any word between github.com/ and /master/Commands will be ingored and will be redirected to master/Commands(https://github.com/rootvision/rootdata/blob/master/Commands)
+======
+
+RedirectMatch 301 (.*)/blob/master$ https://github.com/rootvision/rootdata/blob/master/Commands
+RedirectMatch 301 (.*)/testing-test.html$ https://github.com/rootvision/rootdata/blob/master/Commands/testing.html
+
 
 .htaccess (code to increase the value)
 ================
