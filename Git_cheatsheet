@@ -159,3 +159,80 @@ $ git branch <branch-name>
 $ git checkout <branch-name>
 $ git merge <branch-name>
 $ git checkout -b <branch-name>
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+** Set-up remote git repository on a standard server
+====================================================
+
+* The first thing to do is to install Git on the remote server.
+
+* Once you do that the rest of the process is split into three sections:
+
+Server set-up
+Local set-up (push commits)
+Server (pull commits)
+
+** Server set-up
+=================
+ssh -pxxxx username@xxx.xxx.xxx.xxx (this is you connecting to your remote server)
+cd ../ (this gets you to the 'absolute root' of the server)
+cd www/..../ (navigate to the directory one level above your website directory - e.g. your website directory being where you would upload your HTML files etc)
+
+** Note: if (for example) your web directory is httpdocs then move up one level from there.
+
+** The following example assumes httpdocs is your web directory...
+==================================================================
+rm -rf httpdocs (remove the web directory - you'll recreate it again in a minute)
+mkdir httpdocs && cd httpdocs (create new web directory folder and move inside it)
+git init (initiate new git repo)
+cd ../ (jump back up a directory level)
+
+** The following three commands are the black magic for getting a remote git repo setup:
+========================================================================================
+git clone --bare httpdocs httpdocs.git
+mv httpdocs httpdocs.backup
+git clone httpdocs.git
+
+** Local set-up (push commits) >> You can Ignore this If git is configured locally
+===================================================================================
+cd ~/Desktop/Sites/myWebsite
+git init
+git add *
+git commit -m 'Start of new project'
+git remote add origin ssh://username@xxx.xxx.xxx.xxx:xxxx/www/.../httpdocs.git
+git push origin master
+
+*** Server (pull commits)
+=========================
+cd ../
+cd www/..../httpdocs/
+git status
+git fetch
+git pull origin master
+
+
+**  On Remote server
+====================
+
+mkdir project
+git init
+git clone --bare project project.git
+mv project project.backup
+git clone project.git
+
+
+** On Local system
+===================
+git remote add deploy ssh://root@192.168.1.192/var/www/html/server-testing/demo-testing.git
+git push deploy master
+
+** On Remote server
+===================
+git status
+git fetch
+git pull origin master
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
