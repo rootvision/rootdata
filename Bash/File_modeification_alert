@@ -1,0 +1,9 @@
+*** Run the command on the screen 
+
+>> Install inotifywait tool and then you can run the below command on the screen 
+
+inotifywait -m -e modify /home/user/demoo/.file | while read path action file; do echo "The file '$file' appeared in directory '$path' via '$action'" | mail -s "example.com : file file has been modified Date & Time: $(date "+%b-%d-%Y-%H-%M-%S")" demo@example.com <<< 'example.com: file file has been modified' ;done
+
+
+
+...
