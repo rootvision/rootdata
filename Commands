@@ -212,8 +212,8 @@ rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Dest
 
 *** Run from source server
 ==========================
-# rsync -vrplogDtH -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* /home/chinatec/mail/autoblaze.co.uk/
-
+# rsync --progress -avz  <Source>  -e "ssh -p 22" user@192.168.0.1:<Destination>
+# rsync --progress -avz  /home/user/example.com/file -e "ssh -p 22" user@192.168.0.1:/home/user/demo.example.com/
 
 ***  -->>   https://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/
 
