@@ -6,6 +6,23 @@
 # sftp -oPort=8973 catherine@easychoicepropertymanagement.com
 # sftp -oPort=8973 109.75.172.145
 
+>> FTP download directory
+=========================
+http://go2linux.garron.me/linux/2011/03/recursively-download-files-and-folders-ftp-ncftpget-wget-929/
+
+$ ncftpget -R -v -u "user@example.com" example.com . /home/user/Downloads
+>>  ncftpget -R -v -u "username" remote-server.com /local-directory remote-directory
+
+>> To check command pid and nice value
+$ ps -axo pid,comm,nice --sort=-nice
+
+>> To check high CPU usage process on the server (CPU colum is thrid)
+# ps -aux --sort=pcpu | tail 
+# ps -aux --sort=pcpu | tail -n 3 | awk '{print $3}'
+
+>>> Check output with curl
+while true; do curl -I -L https://github.com/; echo; done
+
 ***  To check traffic on the port
 =========================
 #  tcpdump -i eth0 -vvv -nn udp dst port 1414
