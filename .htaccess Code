@@ -394,6 +394,16 @@ RedirectMatch 301 (.*)/blob/master$ https://github.com/rootvision/rootdata/blob/
 RedirectMatch 301 (.*)/testing-test.html$ https://github.com/rootvision/rootdata/blob/master/Commands/testing.html
 
 
+>>> Trailing Slash to Non-Trailing Slash Redirection
+====================================================
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+</IfModule>
+
+
+
 .htaccess (code to increase the value)
 ================
 
