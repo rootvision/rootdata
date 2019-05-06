@@ -40,7 +40,7 @@ imapsync --host1 server1.example.com --user1 sales@example.com --passfile1 /etc/
 
 SSL
 ===
-imapsync   --nousecache --buffersize 8192000  --addheader --syncacls --subscribe --syncinternaldates --nofoldersizes  --host1 seftontaxconsulting.net --ssl1  --user1 "rashid@artravel.co.uk" --password1 "786Ummar1" --host2 euk-83588.eukservers.com --ssl2  --user2 "rashid@artravel.co.uk"  --password2 "gVlm2!77"
+imapsync   --nousecache --buffersize 8192000  --addheader --syncacls --subscribe --syncinternaldates --nofoldersizes  --host1 seftontaxconsulting.net --ssl1  --user1 "rashid@artravel.co.uk" --password1 "786Ummar1" --host2 uk-83588.servers.com --ssl2  --user2 "rashid@artravel.co.uk"  --password2 "gVlm2!77"
 
 imapsync --host1 p3plcpnl0111.prod.phx3.secureserver.net --user1 "alexandra@calibrationservicesltd.com" --password1 'Calibration2018-' --host2 158.255.47.143 --port1 993 --port2 993 --ssl1 --ssl2  --user2 "alexandra@calibrationservicesltd.com" --password2 '5}yCf*ovMFn3'
 
