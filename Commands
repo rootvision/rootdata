@@ -81,6 +81,14 @@ IPREMOVED - - [01/Mar/2013:06:12:58 -0600] "POST /public/style_images/master/pro
 # find . -type f -name '*.php' | xargs grep -l "base64_decode *(" --color
 # find . -type f -name '*.php' | xargs grep -l "gzinflate *(" --color
 
+>>> To search PHP Backdoors
+===========================
+
+# grep -iR 'c99' /var/www/html/
+# grep -iR 'r57' /var/www/html/
+# find /var/www/html/ -name \*.php -type f -print0 | xargs -0 grep c99
+# grep -RPn "(passthru|shell_exec|system|base64_decode|fopen|fclose|eval)" /var/www/html/
+
 *** Find outdated versions of WordPress: (cPanel server)
 ========================================================
 #  find /home/*/public_html/ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "$wp_version =" {} \;
