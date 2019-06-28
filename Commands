@@ -617,6 +617,44 @@ https://www.rosehosting.com/blog/curl-command-examples/
 # curl -T file.zip ftp://ftp.domain.com/ --user username:password
 
 
+*** Unzip Multiple Files at Once
+================================
+$ for z in *.zip
+do
+  unzip $z;
+done
+
+$ for z in *.zip; do unzip "$z"; done
+
+*** Extract multiple tar.xz files at Once
+==========================================
+$ for z in *.tar.xz
+do
+  tar -xf $z;
+done
+
+$ for z in *.tar.xz; do tar -xf "$z"; done
+
+***  Unrar Multiple Files at Once
+=================================
+$ for z in *.rar
+do
+  unrar e $z;
+done
+
+$ for f in *.rar; do unrar e “$f”; done
+
+***  Extract Multiple 7z files at Once
+======================================
+$ for z in *.7z
+do
+7z e $z;
+done
+
+$ for z in *.7z; do 7z e "$z"; done
+
+
+
 
 
 
