@@ -1,0 +1,171 @@
+https://gist.github.com/facelordgists/5761101
+http://www.postfix.org/QSHAPE_README.html
+
+
+****  Some more for the reference *****
++--------------------------------------+
+https://mangesh7rhcss.wordpress.com/2010/11/08/track-spammer-in-qmail-plesk/
+https://docs.plesk.com/en-US/onyx/advanced-administration-guide-linux/services-management/spam-protection/fighting-spam-on-a-qmail-mail-server.61674/
+
+
+
+***  Email: postfix SPAM and security tricks & tips
+===================================================
+
+
+**  Log Location
+-->>  #  /usr/local/psa/var/log/maillog
+
+
+**  View the log in realtime
+-->>  #  tail -f /usr/local/psa/var/log/maillog
+
+
+**  Display number of emails being sent to each domain and how long they have been in the active queue
+
+**  See more into about Qshape here
+-->>  #  qshape active
+
+
+**   Display differed queue
+-->>  #  qshape deferred
+
+
+**  Display hold queue
+-->>  #  qshape deferred
+
+
+**  Check Postfix Queue
+-->>  #  postqueue -p
+
+
+**  Read a message in the Postfix Queue
+-->>  #  postcat -q MESSAGE_ID
+
+
+**  Resend messages in the queue
+-->>  #  postqueue -f
+
+
+**  Delete all messages in Queue
+-->>  #  postsuper -d ALL
+
+
+**  Test Email sending from postfix
+-->>  #  echo "Test mail from postfix" | mail -s "Test Postfix" person@example.com
+
+
+**  Check for serious errors in the log
+-->>  #  egrep '(reject|warning|error|fatal|panic):' /usr/local/psa/var/log/maillog | more
+
+
++==================================================================================================================================+
+
+
+***  Healthy queue
+==================
+
+When looking at just the incoming and active queues, under normal conditions (no congestion) the incoming and active queues are nearly
+empty. Mail leaves the system almost as quickly as it comes in or is deferred without congestion in the active queue.
+
+# qshape        (show incoming and active queue status)
+
+                 T  5 10 20 40 80 160 320 640 1280 1280+
+          TOTAL  5  0  0  0  1  0   0   0   1    1     2
+  meri.uwasa.fi  5  0  0  0  1  0   0   0   1    1     2
+  
+If one looks at the two queues separately, the incoming queue is empty or perhaps briefly has one or two messages,
+while the active queue holds more messages and for a somewhat longer time:
+
+# qshape incoming
+
+                 T  5 10 20 40 80 160 320 640 1280 1280+
+          TOTAL  0  0  0  0  0  0   0   0   0    0     0
+
+# qshape active
+
+                 T  5 10 20 40 80 160 320 640 1280 1280+
+          TOTAL  5  0  0  0  1  0   0   0   1    1     2
+  meri.uwasa.fi  5  0  0  0  1  0   0   0   1    1     2
+  
+  
+  
+***  Deferred queue full of dictionary attack bounces
+======================================================
+
+This is from a server where recipient validation is not yet available for some of the hosted domains.
+Dictionary attacks on the unvalidated domains result in bounce backscatter. The bounces dominate the queue,
+but with proper tuning they do not saturate the incoming or active queues.
+The high volume of deferred mail is not a direct cause for alarm.
+
+# qshape deferred | head
+
+                         T  5 10 20 40 80 160 320 640 1280 1280+
+                TOTAL 2234  4  2  5  9 31  57 108 201  464  1353
+  heyhihellothere.com  207  0  0  1  1  6   6   8  25   68    92
+  pleazerzoneprod.com  105  0  0  0  0  0   0   0   5   44    56
+       groups.msn.com   63  2  1  2  4  4  14  14  14    8     0
+    orion.toppoint.de   49  0  0  0  1  0   2   4   3   16    23
+          kali.com.cn   46  0  0  0  0  1   0   2   6   12    25
+        meri.uwasa.fi   44  0  0  0  0  1   0   2   8   11    22
+    gjr.paknet.com.pk   43  1  0  0  1  1   3   3   6   12    16
+ aristotle.algonet.se   41  0  0  0  0  0   1   2  11   12    15
+ 
+The domains shown are mostly bulk-mailers and all the volume is the tail end of the time distribution,
+showing that short term arrival rates are moderate. Larger numbers and lower message ages are more indicative of current trouble.
+Old mail still going nowhere is largely harmless so long as the active and incoming queues are short.
+We can also see that the groups.msn.com undeliverables are low rate steady stream rather than a concentrated dictionary attack that 
+is now over.
+
+
+# qshape -s deferred | head
+
+                     T  5 10 20 40 80 160 320 640 1280 1280+
+            TOTAL 2193  4  4  5  8 33  56 104 205  465  1309
+    MAILER-DAEMON 1709  4  4  5  8 33  55 101 198  452   849
+      example.com  263  0  0  0  0  0   0   0   0    2   261
+      example.org  209  0  0  0  0  0   1   3   6   11   188
+      example.net    6  0  0  0  0  0   0   0   0    0     6
+      example.edu    3  0  0  0  0  0   0   0   0    0     3
+      example.gov    2  0  0  0  0  0   0   0   1    0     1
+      example.mil    1  0  0  0  0  0   0   0   0    0     1
+	  
+Looking at the sender distribution, we see that as expected most of the messages are bounces.
+
+
+
+***  Congestion in the active queue
+===================================
+
+# qshape        (show incoming and active queue status)
+
+                           T   A   5  10  20  40  80 160 320 320+
+                 TOTAL 11775 9996  0   0   1   1  42  94 221 1420
+  user.sourceforge.net  7678 7678  0   0   0   0   0   0   0    0
+ lists.sourceforge.net  2313 2313  0   0   0   0   0   0   0    0
+        gzd.gotdns.com   102    0  0   0   0   0   0   0   2  100
+		
+The "A" column showed the count of messages in the active queue, and the numbered columns showed totals for the deferred queue. 
+At 10000 messages (Postfix 1.x active queue size limit) the active queue is full. The incoming was growing rapidly.
+
+
+
+***  High volume destination backlog
+====================================
+
+When a site you send a lot of email to is down or slow, mail messages will rapidly build up in the deferred queue, or worse, 
+in the active queue. The qshape output will show large numbers for the destination domain in all age buckets that overlap 
+the starting time of the problem:
+
+# qshape deferred | head
+
+                    T   5  10  20  40   80  160 320 640 1280 1280+
+           TOTAL 5000 200 200 400 800 1600 1000 200 200  200   200
+  highvolume.com 4000 160 160 320 640 1280 1440   0   0    0     0
+             ...
+			 
+Here the "highvolume.com" destination is continuing to accumulate deferred mail. 
+The incoming and active queues are fine, but the deferred queue started growing some time between 1 and 2 hours ago and continues 
+to grow.
+
+

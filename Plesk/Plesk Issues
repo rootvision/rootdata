@@ -1,0 +1,25 @@
+
+
+Plesk Issues
+============
+
+***  MySQL upgrade into plesk panel
+=============================
+https://support.plesk.com/hc/en-us/articles/213403429-How-to-upgrade-MySQL-5-5-to-5-6-5-7-on-Linux
+
+*** Plesk all domains showing default plesk page
+================================================
+
+https://support.plesk.com/hc/en-us/articles/213925385-How-to-configure-PHP3-extension-on-domains-
+
+# /usr/local/psa/admin/sbin/httpdmng --reconfigure-all
+# /usr/local/psa/admin/bin/httpdmng --reconfigure-domain dagaung.com
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,418 @@
+
+
+xen commands 
+=========
+To view the list of containers in vps
+=====================================
+xm list
+
+To enter to container
+=========== 
+xm console contaierID
+
+ [root@vpnode1 ~]# xm -list
+Error: Subcommand -list not found!
+Usage: xm <subcommand> [args]
+
+Control, list, and manipulate Xen guest instances.
+
+Common 'xm' commands:
+
+ console              Attach to <Domain>'s console.
+ vncviewer            Attach to <Domain>'s VNC server.
+ create               Create a domain based on <ConfigFile>.
+ new                  Adds a domain to Xend domain management
+ delete               Remove a domain from Xend domain management.
+ destroy              Terminate a domain immediately.
+ dump-core            Dump core for a specific domain.
+ help                 Display this message.
+ list                 List information about all/some domains.
+ mem-set              Set the current memory usage for a domain.
+ migrate              Migrate a domain to another machine.
+ pause                Pause execution of a domain.
+ reboot               Reboot a domain.
+ reset                Reset a domain.
+ restore              Restore a domain from a saved state.
+ resume               Resume a Xend managed domain
+ save                 Save a domain state to restore later.
+ shell                Launch an interactive shell.
+ shutdown             Shutdown a domain.
+ start                Start a Xend managed domain
+ suspend              Suspend a Xend managed domain
+ top                  Monitor a host and the domains in real time.
+ unpause              Unpause a paused domain.
+ uptime               Print uptime for all/some domains.
+ usb-add              Add the usb device to FV VM.
+ usb-del              Delete the usb device to FV VM.
+ vcpu-set             Set the number of active VCPUs for allowed for
+                      the domain.
+
+<Domain> can either be the Domain Name or Id.
+For more help on 'xm' see the xm(1) man page.
+For more help on 'xm create' see the xmdomain.cfg(5)  man page.
+
+For a complete list of subcommands run 'xm help'.
+
+
+Xen : Administration commands
+
+Xen Daemons
+
+For the Xen server to function properly, the below daemons must be running on the VM server.
+xend : This is the Xen server control daemon. This daemon must be running to start and manage the virtual machines. The administrative interface of xend is "xm". The xend daemon can be customized using the configuration file /etc/xen/xend-config.sxp.
+xendomains : This daemon helps on starting the guests automatically when the host server boots up. The Xen guest config file has to be placed in /etc/xen/auto/ for the xendomains to pickup and boot the guests when the server boots up.
+libvirtd: This daemon allows the administrators to access the hypervisors and the virtual machines using management tools like "virsh" and "virt-install".
+Here are some more xm and virsh commands for creating, managing, and troubleshooting xen virtual machines.
+List the guest domains:  The command "xm list" displays the information of all running domains. The "--long" option displays full information on running guests.
+[root@unixfoo-xen-adm01 ~]# xm list 
+Name                                ID   Mem  VCPUs    State   Time(s) 
+Domain-0                            0   2048     8     r-----  45645.8 
+guest04                             4   4096     2     -b----    343.4 
+guest05                             5   4096     2     -b----    896.4 
+guest06                             3   4096     2     r-----   2244.1 
+[root@unixfoo-xen-adm01 ~]#
+In the output of "xm list" 
+Name - represents the domU guest VM name
+ID -represents the domain ID
+Mem - represents the amount of memory allotted to the guest domain (in MB)
+VCPUs - represents the number of virtual CPUs assigned to a domain.
+State - represents the running state of the guest OS.
+r - running. The domain is currently running on a CPU.
+b - blocked. The domain is currently not running.
+p - paused. The domain is paused using "xm pause" command.
+c - crashed . The domain has crashed and terminated abruptly
+d - dying . The domain is the process of shutdown or crash.
+Time - represents the total runtime of the domain as accounted by the Xen server.
+
+
+Starting a guest domain: The command "xm  create" is used to startup a Xen guest.  This command creates a guest based on the configuration file storage in /etc/xen.  
+[root@unixfoo-xen-adm01 ~]# xm create guest06 
+Using config file "/etc/xen/guest06". 
+Started domain guest06 
+[root@unixfoo-xen-adm01 ~]#
+If the Xen configuration file is not stored in /etc/xen, the file name with full path should be specified in "xm create" command. 
+Shutdown a guest: The command "xm shutdown" is used to shutdown an Xen guest gracefully. 
+[root@unixfoo-xen-adm01 ~]# xm shutdown guest06
+[root@unixfoo-xen-adm01 ~]# xm list 
+Name                                ID   Mem  VCPUs    State   Time(s) 
+Domain-0                            0   2048     8     r-----  45645.8 
+guest04                             4   4096     2     -b----    343.4 
+guest05                             5   4096     2     -b----    896.4 
+[root@unixfoo-xen-adm01 ~]# Rebooting a guest: The command "xm reboot" is used to reboot a Xen domU guest. 
+Terminate a guest: The command "xm destroy" is used to immediately terminate an Xen domU guest virtual machine. 
+
+Status monitoring
+xm uptime        - Displays uptime for a domain
+xm top            - Monitors a host and its domains in real time
+xm list             - Displays domain information
+xm info            - Displays host information
+xm vcpu-list     - Lists domain virtual processors
+xm network-list - List virtual network interfaces for a domain.
+virsh nodeinfo   - Gives basic information about the node.
+virsh cpuinfo
+Troubleshooting
+xm console     - Attaches to a domain console
+xm dump-core - Dumps core of a specific domain
+xm dmesg       - Reads and/or clears the xend daemon’s message buffer
+xm log            - Gives Xend log
+virsh dominfo   - Returns basic information about the domain
+virsh dumpxml  - Gives domain informations as an XML.
+Xen Performance tuning
+xm mem-max - Sets the maximum amount of memory for a domain
+xm mem-set  - Sets the current memory usage for a domain
+xm vcpu-set  - Sets the number of active processors for a domain
+Other commands
+xm rename   - Renames a domain
+xm sysrq      - Sends a system request to a domain
+xm block-list - Lists virtual block devices for a domain 
+
+xm Command-line vs xm Shell
+
+The xm options covered in this chapter may be invoked individually as command-line arguments to xm or used with xm in shell mode. 
+To use the options as command-line arguments, use them at a Terminal command prompt as shown in the following example: 
+su - 
+xm list
+To run commands in the xm shell, run the following command: 
+[root@fedora7 ~]# xm shell
+The Xen Master. Type "help" for a list of functions.
+xm>
+At the xm> prompt enter the options you wish to run, for example: 
+su -
+[root@fedora7 ~]# xm shell
+The Xen Master. Type "help" for a list of functions.
+xm> list
+Name                                      ID   Mem VCPUs      State   Time(s)
+Domain-0                                   0   384     1     r-----    455.1
+XenFed                                     2   305     1     -b----      7.7
+myFedoraXen                                    300     1                 0.0
+myXenGuest                                     300     1                 0.0
+xm> 
+xm> start XenFed
+xm> suspend XenFed
+xm> restore 
+
+Listing Guest System Status
+
+The status of the host and guest systems may be viewed at any time using the list option of the xm tool. For example: 
+su - 
+xm list
+The above command will display output containing a line for the host system and a line for each guest similar to the following: 
+Name                                      ID   Mem VCPUs      State   Time(s)
+Domain-0                                   0   389     1     r-----   1414.9
+XenFed                                         305     1               349.9
+myFedoraXen                                    300     1                 0.0
+myXenGuest                                 6   300     1     -b----     10.6
+The state column uses a single character to specify the current state of the corresponding guest. These are as follows: 
+r - running - The domain is currently running and healthy
+b - blocked - The domain is blocked, and not running or runnable. This can be caused because the domain is waiting on IO (a traditional wait state) or has gone to sleep because there was nothing else for it to do.
+p - paused - The domain has been paused, typically as a result of the administrator running the xm pause command. When in a paused state the domain will still consume allocated resources like memory, but will not be eligible for scheduling by the Xen hypervisor.
+s - shutdown - The guest has requested to be shutdown, rebooted or suspended, and the domain is in the process of being destroyed in response.
+c - crashed - The domain has crashed. Usually this state can only occur if the domain has been configured not to restart on crash.
+d - dying - The domain is in process of dying, but hasn't completely shutdown or crashed.
+
+Starting a Xen Guest System
+
+A guest operating system can be started using the xm tool combined with the start option followed by the name of the guest operating system to be launched. For example: 
+su -
+xm start myGuestOS
+
+Connecting to a Running Xen Guest System
+
+Once the guest operating system has started, a connection to the guest may be established using either the vncviewer tool or the virt-manager console. To use virt-manager, select Applications->System Tools->Virtual Machine Manager, select the desired system and click Open. 
+To connect using vncviewer enter the following command in Terminal window: 
+vncviewer
+When prompted for a server enter localhost:5900. A VNC window will subsequently appear containing the running guest system. 
+
+Shutting Down a Guest System
+
+The shutdown option of the xm tool is used to shutdown a guest operating system: 
+xm shutdown guestName
+where guestName is the name of the guest system, to be shutdown. 
+Note that the shutdown option allows the guest operating system to perform an orderly shutdown when it receives the shutdown instruction. To instantly stop a guest operating system the destroy option may be used (with all the attendant risks of filesystem damage and data loss): 
+xm destroy myGuestOS
+
+Pausing and Resuming a Guest System
+
+A guest system can be paused and resumed using the xm tool's pause and restore options. For example, to pause a specific system named myXenGuest: 
+xm pause myXenGuest
+Similarly, to resume the paused system: 
+xm resume myXenGuest
+Note that a paused session will be lost if the host system is rebooted. Also, be aware that a paused system continues to reside in memory. To save a session such that it no longer takes up memory and can be restored to its exact state after a reboot, it is necessary to either suspend and resume or save and restore the guest. 
+
+Suspending and Resuming a Guest OS
+
+A running guest operating system can be suspended and resumed using the xm utility. When suspended, the current status of the guest operating system is written to disk and removed from system memory. A suspended system may subsequently be restored at any time (including after a host system reboot): 
+To suspend a guest OS named myGuestOS: 
+xm suspend myGuestOS
+To restore a suspended guest OS: 
+xm resume myGuestOS
+
+Saving and Restoring Xen Guest Systems
+
+Saving and restoring of a Xen guest operating system is similar to suspending with the exception that the file used to contain the suspended operating system memory image can be specified by the user: 
+To save a guest: 
+xm save myGuestOS path_to_save_file
+<pre>
+
+To restore a saved guest operating system session:
+
+<pre>
+xm restore path_to_save_file
+
+Rebooting a Guest System
+
+To reboot a guest operating system: 
+xm reboot myGuestOS
+
+Configuring the Memory Assigned to a Xen Guest OS
+
+To configure the memory assigned to a guest OS, use the mem-set option of the xm command. For example, the following command reduces the memory allocated to a guest system named myGuestOS to 256Mb: 
+xm mem-set myGuestOS 256
+Note that acceptable memory settings must fall within the memory available to the current Domain. This may be increased using the mem-max option to xm. 
+
+Migrating a Domain to a Different Host
+
+The migrate option allows a Xen managed domain to be migrated to a different physical server. 
+In order to use migrate, Xend must already be running on other host machine, and must be running the same version of Xen as the local host system. In addition, the remote host system must have the migration TCP port open and accepting connections from the source host. Finally, there must be sufficient resources for the domain to run (memory, disk space, etc). 
+xm migrate domainName host
+Optional flags available with this command are: 
+-l, --live           Use live migration.
+-p=portnum, --port=portnum
+                     Use specified port for migration.
+-r=MBIT, --resource=MBIT
+                     Set level of resource usage for migration. 
+ 
+ 
+ 
+ 
+The xm command line interface
+
+The xm command is used to manage your Red Hat Virtualization environment using a CLI interface. Most operations can be performed by the virt-manager application, including a CLI interface which is part of virt-manager. However, there are a few operations which currently can not be performed using virt-manager. As the xm command is part of the Xen environment a few options available with the xm command will not work in a Red Hat Enterprise Linux 5 environment. The list below provides an overview of command options available (and unavailable) in a Red Hat Enterprise Linux 5 environment. As an alternative to using the xm command one can also use the virsh command which is provided as part of the Red Hat Enterprise Linux 5 Xen environment . The virsh command is layered on top of the libvirt API which can provide a number of benefits over using the xm command. Namely the ability to use virsh in scripts and the ability to manage other hypervisors as they are integrated into the libvirt API. 
+Basic management options
+
+The following are basic and commonly used xm commands:
+xm help [--long]: view available options and help text.
+use the xm list command to list active domains: 
+$ xm list
+Name                                ID  Mem(MiB)   VCPUs      State      Time(s)
+Domain-0                            0     520       2         r-----     1275.5
+r5b2-mySQL01                       13     500       1         -b----       16.1
+xm create [-c] DomainName/ID: start a virtual machine. If the -c option is used, the start up process will attach to the guest's console.
+xm console DomainName/ID: attach to a virtual machine's console.
+xm destroy DomainName/ID: terminate a virtual machine , similar to a power off.
+xm reboot DomainName/ID: reboot a virtual machine, runs through the normal system shut down and start up process.
+xm shutdown DomainName/ID: shut down a virtual machine, runs a normal system shut down procedure.
+xm pause
+xm unpause
+xm save
+xm restore
+xm migrate
+Resource management options
+
+Use the following xm commands to manage resources:
+xm mem-set
+use the xm vcpu-list to list virtual CPU assignments/placements: 
+$ xm vcpu-list
+Name                          ID  VCPUs   CPU State  Time(s)  CPU Affinity
+Domain-0                       0    0      0    r--   708.9    any cpu
+Domain-0                       0    1      1   -b-    572.1    any cpu
+r5b2-mySQL01                  13    0      1   -b-     16.1    any cpu
+xm vcpu-pin
+xm vcpu-set
+use the xm sched-credit command to display scheduler parameters for a given domain: 
+$ xm sched-credit -d 0
+{'cap': 0, 'weight': 256}
+$ xm sched-credit -d 13
+{'cap': 25, 'weight': 256}
+Monitoring and troubleshooting options
+
+Use the following xm commands for monitoring and troubleshooting:
+xm top
+xm dmesg
+xm info
+xm log
+use the xm uptime to display the uptime of guests and hosts: 
+$ xm uptime
+Name                       ID  Uptime
+Domain-0                    0  3:42:18
+r5b2-mySQL01               13  0:06:27
+xm sysrq
+xm dump-core
+xm rename
+xm domid
+xm domname
+ 
+ 
+ 
+ 
+xen-shell commands
+The xen shell has built in help and TAB completion so it should be fairly simple to use.
+Some commands have synonyms and in that case both are listed here even though the functionality doesn't change when the name changes.
+The currently available commands are:
+boot
+This allows you to boot your Xen guest if it is currently shutdown.
+bandwidth
+This allows you to see the bandwidth a guest has used in a given period of time.
+console / serial
+These, identical, commands allow you to access your Xen guest's console, allowing you to login if your networking is broken, or if you've chosen to disable the OpenSSH server.
+control [instance-name]
+Since the v0.8 release of the xen-shell it is possible for an administrator to delegate control of multiple Xen guest systems to a single user. (Prior to this release a user could only control a single system.)
+Each of the shell commands operate upon the currently selected Xen guest - and the control command allows you to specify which instance that is.
+If the user only has a single instance under their control then this command is disabled; and all operations are implicitly conducted upon their sole Xen guest. Otherwise the list command will display guests the user may control.
+exit / quit
+These commands both exit the shell, saving any commands you might have entered into the ~/.xen-shell history file.
+list
+This command will list all the available Xen instances you're allowed to control - for the case when there is more than one Xen guest available to you.
+If you only have one instance available this command will be disabled.
+help [command1 command2]
+When invoked with no arguments the help command will show a list of available commands and a one-line description of them all.
+If you wish help on a specific command you can use "help command" to see more details.
+passwd
+If the client is connecting to the host system via OpenSSH using a plain text password then this command will allow them to change that password.
+The command is disabled/removed if the users home directory contains the file ~/.ssh/authorized_keys - it is assumed this means key-based authentication is in use.
+rdns [ip hostname]
+The rdns command allows you to either view your current reverse DNS settings, or update them. Run rdns with no arguments to view your current setup, or run "rdns 1.2.3.4 foo.bar.com" to set the reverse DNS for the IP 1.2.3.4
+Note: you can only set the reverse DNS for IPs which you control, which you'll find listed in the output of rdns.
+See the installation page for what is required to implement this fully.
+reboot
+This allows you to reboot your running Xen guest.
+reimge
+After prompting for confirmation, and counting down for ten seconds this command will wipe your Xen guest, and perform a fresh installation via the use of xen-tools.
+See the installation page for what is required to implement this fully.
+shutdown [force]
+This command will shutdown your currently running Xen guest. It will remain shutdown until you issue a boot command.
+status
+This command shows you the current status of your Xen guest, which will either be "running/booted", or "shutdown".
+For information purposes it will also show you the uptime of the host system.
+sysreq
+This command allows you to send a "sysreq" command to a running Xen guest.
+top
+This command invokes the "top" display provided by the Xen monitor, allowing all guests to see their CPU/Memory/Network usage.
+uptime
+This command is similar to the status command and will show you the uptime of your Xen guest along with the uptime of the host system.
+version
+This shows you the version of the Xen shell which is comprised of the release number and the CVS revision identifier of the xen-shell.
+
+
+The command "xm list" displays the information of all running domThe "--long" option displays full information on running guests.
+
+[root@unixfoo-xen-adm01 ~]# xm list
+Name ID Mem VCPUs State Time(s)
+Domain-0 0 2048 8 r----- 45645.8
+guest04 4 4096 2 -b---- 343.4
+guest05 5 4096 2 -b---- 896.4
+guest06 3 4096 2 r----- 2244.1
+[root@unixfoo-xen-adm01 ~]#
+
+In the output of "xm list"
+
+Name - represents the domU guest VM name
+ID -represents the domain ID
+Mem - represents the amount of memory allotted to the guest domain (in MB)
+VCPUs - represents the number of virtual CPUs assigned to a domain.
+State - represents the running state of the guest OS.
+r - running. The domain is currently running on a CPU.
+b - blocked. The domain is currently not running.
+p - paused. The domain is paused using "xm pause" command.
+c - crashed . The domain has crashed and terminated abruptly
+d - dying . The domain is the process of shutdown or crash.
+Time - represents the total runtime of the domain as accounted by the Xen server.
+
+Rebooting a guest: The command "xm reboot" is used to reboot a Xen domU guest.
+
+Terminate a guest: The command "xm destroy" is used to immediately terminate an Xen domU guest virtual machine.
+
+Status monitoring
+
+xm uptime - Displays uptime for a domain
+xm top - Monitors a host and its domains in real time
+xm list - Displays domain information
+xm info - Displays host information
+xm vcpu-list - Lists domain virtual processors
+xm network-list - List virtual network interfaces for a domain.
+virsh nodeinfo - Gives basic information about the node.
+virsh cpuinfo
+
+Troubleshooting
+
+xm console - Attaches to a domain console
+xm dump-core - Dumps core of a specific domain
+xm dmesg - Reads and/or clears the xend daemon’s message buffer
+xm log - Gives Xend log
+virsh dominfo - Returns basic information about the domain
+virsh dumpxml - Gives domain informations as an XML.
+
+Xen Performance tuning
+
+xm mem-max - Sets the maximum amount of memory for a domain
+xm mem-set - Sets the current memory usage for a domain
+xm vcpu-set - Sets the number of active processors for a domain
+
+Other commands
+
+xm rename - Renames a domain
+xm sysrq - Sends a system request to a domain
+xm block-list - Lists virtual block devices for a domain
+
+
+xm console VID

@@ -1,0 +1,210 @@
+# Xen
+
+======================================================================================
+http://lzone.de/cheat-sheet/Xen
+======================================================================================
+
+======================================================================================
+
+xm list           # List all domains
+xm list vm1       # List status of a single VM
+xm list vm1 -l    # Details for a VM 
+xm create vm1     # Starts/Creates a VM
+xm reboot vm1     
+xm shutdown vm1
+xm destroy vm1
+
+xm network-list vm1
+
+xm console vm1     # Open console to VM (escape like telnet)
+
+xm info            # HV infos
+xm top             # Monitor HV and domains
+xm log             # View HV log
+
+xm dominfo
+xm vcpuinfo
+xm nodeinfo
+
+======================================================================================
+
+
+#  xm info – Shows information about the Xen host
+
+
+#  xm list – Shows information about doms (states include r for running, b for blocked, c for crashed, p for paused and the worse, d for dying).
+
+
+#  xm network-list – Shows virtual interfaces for doms
+
+
+#  xm log – Shows information from the Xen logs
+
+
+#  xm reboot – Reboots a VM
+
+
+#  xm vcpu-list – Shows dom virtual processors
+
+
+#  xm top – Shows hosts and domains similar to how top works in *nix
+
+
+#  xm uptime – Shows uptime
+
+
+#  xm dmesg – Shows the send message buffer
+
+
+#  xm create krypted.com – Create a node called krypted.com
+
+
+#  xm console krypted.com – Switch to that new krypted.com node
+
+
+#  xm destroy krypted.com – Deletes that newly created krypted.com node
+
+
+#  xm shell – Invoke an interactive shell environment of your xend
+
+
+#  xm shutdown – Turn off a VM
+
+
+#  xm pause – Rather than shut the VM down, just pause it (starts back up much faster), but if the host is rebooted then state is lost (otherwise use suspend)
+
+
+#  xm suspend – Suspends a VM, which writes the data to disk, so changes wouldn’t be lost on restart.
+
+
+#  xm rename – Rename installed VMs
+
+
+#  xm resume – If a VM is paused, fire it up
+
+
+#  xm save  – Similar to suspend except with user definable state file
+
+
+#  xm restore – Similar to resume except restoreable with exports that used the save verb
+
+
+#  xm dump-core – Dumps core per domain
+
+
+#  xm sysrq – Sends system requests per domain
+
+
+#  xm block-list – Lists block devices per domain
+
+
+#  xm mem-max – Configure the maximum memory for a domain
+
+
+#  xm mem-set – Configure the current memory allowance for a domain
+
+
+#  xm vcpu-set – Configure active processors for a domain
+
+
+#  xm migrate – Move a domain to another server (e.g. using the -l operator to do so live)
+
+
+#  Virt-manager and virt-install can be used to manage and create virtual machines for use with Xen.
+
+
+
+***   Virsh can also be of assistance:
+======================================
+
+#  virsh nodeinfo – Shows information about each node
+
+
+#  virsh vcpuinfo – Shows information about virtual processors
+
+
+#  virsh dominfo – Shows information about domains
+
+
+#  virsh dumpxml  – Dumps the same information just in parseable XML
+
+
+
+======================================================================================
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+======================================================================================
+https://ervikrant06.wordpress.com/2014/10/12/xen-hypervisor-xm-command-cheat-sheet/
+======================================================================================
+**  Xen Hypervisor (xm) command Cheat Sheet
+======================================================================================
+
+**  How to list the currently running VM on physical server ?
+
+[root@OVS-2 ~]# xm list
+Name                                        ID   Mem VCPUs      State   Time(s)
+0004fb00000600004689b1d1cc6e83d9             1  1027     1     r—–    293.5
+Domain-0                                     0   830     4     r—–   1242.7
+
+**  How to list the virtual CPUs which are assigned to VM with domain ID 1 ?
+
+[root@OVS-2 ~]# xm vcpu-list 1
+Name                                ID  VCPU   CPU State   Time(s) CPU Affinity
+0004fb00000600004689b1d1cc6e83d9     1     0     2   -b-     287.8 any cpu
+
+**  How to check the state of domain ?
+
+[root@OVS-2 ~]# xm domstate 1
+idle
+
+**  How to list the vNICs which are assigned to VM ?
+
+[root@OVS-2 ~]# xm network-list 1
+Idx BE     MAC Addr.     handle state evt-ch tx-/rx-ring-ref BE-path
+0   0  00:21:f6:cd:c2:87    0     4      6     768  /769     /local/domain/0/backend/vif/1/0
+
+**  How to check the up time of the VM ?
+
+[root@OVS-2 VirtualDisks]# xm uptime
+Name                                ID Uptime
+0004fb00000600004689b1d1cc6e83d9     2  0:01:07
+Domain-0                             0  4:21:58
+
+**  How to list the block devices associated with VM ?
+
+[root@OVS-2 ~]# xm block-list 1
+Vdev  BE handle state evt-ch ring-ref BE-path
+51712  0    0     4      12     9     /local/domain/0/backend/vbd/1/51712
+51728  0    0     4      13     10    /local/domain/0/backend/vbd/1/51728
+
+**  How to reboot domain from OVS server ?
+
+[root@OVS-2 VirtualDisks]# xm reboot 2
+
+After reboot operation it will change the domain ID.
+
+[root@OVS-2 VirtualDisks]# xm list
+Name                                        ID   Mem VCPUs      State   Time(s)
+0004fb00000600004689b1d1cc6e83d9             3  1033     1     -b—-      1.3
+Domain-0                                     0   831     4     r—–   1461.7
+
+**  How to run the dry check to see whether domain is able to access the resources ?
+
+[root@OVS-2 crash]# xm dry-run /OVS/Repositories/0004fb0000030000f1532acb312df8a2/VirtualMachines/0004fb00000600004689b1d1cc6e83d9/vm.cfg
+Using config file “/OVS/Repositories/0004fb0000030000f1532acb312df8a2/VirtualMachines/0004fb00000600004689b1d1cc6e83d9/vm.cfg”.
+Checking domain:
+0004fb00000600004689b1d1cc6e83d9: PERMITTED
+Checking resources:
+file:/OVS/Repositories/0004fb0000030000f1532acb312df8a2/VirtualDisks/0004fb0000120000f81558f292b2f52e.img: PERMITTED
+file:/OVS/Repositories/0004fb0000030000f1532acb312df8a2/ISOs/V41362-01.iso: PERMITTED
+Dry Run: PASSED
+
+======================================================================================
+
+
+======================================================================================
+http://blogofsysadmins.com/xenserver-commands-cheat-sheet
+https://www.cyberciti.biz/tips/linux-xen-server-vps-monitoring-commands.html
+======================================================================================
+

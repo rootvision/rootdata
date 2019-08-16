@@ -1,0 +1,249 @@
+
+
+****************************************************
+
+@@@		Virtuozzo	@@@
+=======================
+
+***	To check wheather the VPS with the given ID exists
+=======================================================
+
+#	vzlist -a 101
+VPS not found
+
+***	To enter any VPS on the Hardware Node, use the following command
+====================================================================
+
+#	vzctl enter 101
+
+***	To find out the templates installed on the your system(Hardware Node)
+=========================================================================
+
+#	vzpkgls
+redhat-9 20040119
+redhat-as3 -minimal 20040119
+proftd-rh9 20040119
+
+***	To checkup with the command to single out OS templates from application templates
+	with confuring name:OS templates always have the cached section of the their 
+	configuration file set to yes
+======================================================================================
+
+#	vzpkginfo -g cached -b redhat-9
+Yes
+#	vzpkginfo -g cached -b proftd-rh9
+No
+
+***	To create a new VPS by typing the following string
+======================================================
+
+#	vzctl create 101 --pkgset redhat-9 --config vps.basic
+creating VPS private area
+VPS private area created
+
+***	To find out what OS EZ templates are availables on your system(Hardware Node)
+=================================================================================
+
+#	vzpkg list -o
+redhat-ass4-x86	2005-11-21 23:59:44
+fedora-core-4-x86	2005-02-20 12:45:52
+
+***	To display brief information on the installed OS EZ templates
+=================================================================
+
+#	vzpkg list -o --with-summary
+redhat-ass4-x86 Redhat Enterprise Linux V.4 OS templates
+fedora-core-4-x86 fedora core OS templates 
+
+***	To create new VPS by OS templates arguments
+===============================================
+
+#	vzctl create 101 --ostemplate redhat-as4x86 --config vps.basic
+creating VPS private area (redhat-as4-x86)
+VPS is mounted
+post create action done
+VPS is unmounted
+VPS private area was created
+Delete port redirection
+Adding port redirection to VPS(1):4643 8443
+
+***	To create a VPS wuth ID 101 with the following command.
+(Basis on "vps.basic", which is set into globally config)
+===========================================================
+
+#	vzctl create 101
+creating VPS private area (redhat-as4-x86)
+VPS is mounted
+post create action done
+VPS is unmounted
+VPS private area was created
+Delete port redirection
+Adding port redirection to VPS(1):4649 8443
+
+***	To enable VPS 101 to automatically start on your Hardware Node boot, excute the below cmd
+=============================================================================================
+
+#	vzctl set 101 --onboot yes --save
+Saved paramter for VPS 101
+(parameter will have effect only on the next VPS startup)
+
+***	Setting Network parameters
+==============================
+
+#	vzctl set 101 --hostname server.workstation.com --save
+Hostname for VPS set: server.workstation.com
+Saved paramters for VPS 101
+
+#	vzctl set 101 --ipadd 192.168.0.1 --save
+Adding IP address(es):192.1668.0.1
+Saved paramters for VPS 101
+
+#	vzctl set 101 --nameserver 192.168.0.1 --save
+File resolve.conf was modified
+Saved parameters for VPS 101
+
+***	To check wheather SSH service is running inside the virtual private server.
+	(Use "vzctl exec", sshd is dependent on xinetd)
+================================================================================
+
+#	vzctl start 101
+[This command start VPS101, If it is not started yet]
+
+#	vzctl exec 101 service xinetd status
+xinetd is stopped
+
+#	vzctl exec 101 service xinetd start
+xinetd (pid 16036) is running
+
+***	Setting root Password for VPS
+=================================
+
+#	vzctl set 101 --userpasswd  root:toor --save
+(user: root, password: toor) you can use --save(switch)
+
+*** Starting, Stopping, Restarting and Querying status of virtual private server
+================================================================================
+
+#	vzctl status 101
+VPSID 101 exit mounted running
+
+#	vzctl start 101
+Starting VPS ...
+VPS is mounted
+Adding port redirection to VPS(1):4043 8443
+Adding IP address(es): 192.168.0.1
+Hostname for VPS 101 set: server.workstation.com
+VPS start in progress ...
+
+*** "vzlist" utility is also used to check the status of VPS on the Hardware Node
+=================================================================================
+
+#	vzlist 101
+OR
+#	vzlist -a
+OR
+# cat /proc/vz/veinfo
+
+***	The following command is used to stop a virtual private server
+==================================================================
+
+#	vzctl stop 101
+Stopping VPS ...
+VPS was stopped
+VPS is unmounted
+
+# vzctl status 101
+VEID 101 exist unmounted down
+
+#	vzctl 101 stop --fast
+Stopping VPS ...
+VPS was stopped 
+VPS is unmounted
+(Take care that, you do not use the "--fast" switch on the healthy VPS)
+
+#	vzctl restart 101
+Stoppping VPS ...
+VPS is unmounted 
+starting VPS ...
+VPS is mounted
+Adding IP address(es): 192.168.0.1
+VPS start in progress ...
+
+***	Listing virtual private servers
+===================================
+
+#	vzlist -a
+(Shows all VPS with ID, Status, IP Address and Hostname)
+
+***	To check the information about their IDS and soft limit on disk(Inodes)
+===========================================================================
+
+#	vzlist -o veid,diskinodes.s -s diskinodes.s
+VPSID	DISKINODES.S
+1		400000
+101		200000
+102		200000
+
+***	To migrate/moves VPS 101 from current Hardware NOde to new Hardware Node
+============================================================================
+
+#	vzmigrate new.hardwarenode.com 101
+root@:new.hardwarenode.com Password:
+vzmsrc:Connection to destination HN (new.hardwarenode.com)\
+Is successfully established 
+vzmsrc:Moving VE#101 -> VE#101,[],[],...
+vzmsrc: DST:done
+vzmsrc: Successfully completed
+
+***	To migrate a VPS by using the zero downtime migration technology
+====================================================================
+
+#	vzmigrate --online my_node.com 101
+Enter Password: 
+Connection to destination Hardware Node(192.168.0.1)\
+Is successfully established 
+Moving/copying VPS#101 -> VPS#101 
+100%.............................
+done...
+Suspending VPS#101
+done
+Dumping VPS#101...
+done
+Migration completed...
+
+***	Running the Backup utilites on Backup Node
+(The type of the backup to be performed is specificed by one of the following 3 options)
+========================================================================================
+
+$ -F = A palin simple full backup 
+$ -I = A full backup 
+$ -i = An incremental backup containing only the files changed, Since the pervious "I" or "i" backup
+
+***	Tp take backup of all the VPSs on the Node 192.168.0.1, run the following command
+=====================================================================================
+
+#	vzbackup -i -Cg -s 192.168.0.100
+root@:192.168.0.100's Password :
+vzbackup(1689): Starting backup Node-dhcp-165.asp linuxru.backup
+vzbackup(1656): Node dhcp-165.asplinux archiiived\
+VPS: 101 (2003-06-27) 2400@dhcp 7-165
+vzbackup (1645): Cleaning up
+
+***	To take a backup of specific VPS on the Hardware Node
+=========================================================
+
+vzbackup -i -s 192.168.0.1 -e 101 
+root@192.168.0.1's Password : 
+vzbackup(13578): Starting backup Node-dhcp.165 asplinux 
+vzbackup (46531): Starting Node dhcp-165 asplinux no backup...
+101 (2017-06-03) 120325 dhcp-165 asplinux 
+vzbackup (18465) : Cleaning VPS...
+
+***	Running the Restore utilites on the Node
+============================================
+
+
+**************************************************** To be continue further  ****************************************************
+
+
+

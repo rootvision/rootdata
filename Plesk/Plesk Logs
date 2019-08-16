@@ -1,0 +1,519 @@
+https://docs.plesk.com/en-US/onyx/advanced-administration-guide-linux/system-maintenance/managing-services-from-the-command-line-and-viewing-service-logs.68885/
+
+***  Logs reference plesk
+=========================
+
+**  Panel log files are located in the following directories
+============================================================
+
+-->>  Error Log: /var/log/sw-cp-server/error_log
+
+-->>  Access log: /usr/local/psa/admin/logs/httpsd_access_log
+
+
+***  Panel configuration files are the following
+================================================
+
+-->>  php: $PRODUCT_ROOT_D/admin/conf/php.ini
+
+-->>  www: /etc/sw-cp-server/applications.d/plesk.conf
+
+
+***  Web Presence Builder ( Log files are located in )
+=======================================================
+
+-->>  Error log: /var/log/httpd/sitebuilder_error.log
+
+-->>  Logs: /usr/local/sitebuilder/tmp/
+
+
+****  Configuration files are accessible at
+===========================================
+-->>  /usr/local/sitebuilder/config
+
+-->>  /usr/local/sitebuilder/etc/php.ini
+
+
+***   SSO ( Log files are located in )
+=======================================
+
+-->>  Error log: /var/log/sw-cp-server/error_log
+
+-->>  SSO log: /var/log/sso/sso.log
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/sw-cp-server/applications.d/sso-cpserver.conf
+
+-->>  /etc/sso/sso_config.ini
+
+
+***   phpMyAdmin ( The error log is located in )
+================================================
+
+-->>  /var/log/sw-cp-server/error_log
+
+
+***  The configuration file is accessible at
+=============================================
+
+-->>  /usr/local/psa/admin/htdocs/domains/databases/phpMyAdmin/libraries/config.default.php
+
+
+***   phpPGAdmin  ( The error log is located in )
+=================================================
+
+-->>  /var/log/sw-cp-server/error_log
+
+
+***  The configuration file is accessible at
+============================================
+
+-->>  /usr/local/psa/admin/htdocs/domains/databases/phpPgAdmin/conf/config.inc.php
+
+
+***  DNS / Named / BIND  ( The configuration file is accessible at )
+====================================================================
+
+-->>  /etc/named.conf
+
+
+***  FTP (ProFTPD)  ( Log files are located in )
+================================================
+
+-->>  /usr/local/psa/var/log/xferlog
+
+
+***   Configuration files are accessible at
+===========================================
+
+-->>  /etc/xinetd.d/ftp_psa
+
+-->>  /etc/proftpd.conf
+
+-->>  /etc/proftpd.include
+
+
+***   Courier-IMAP   ( Configuration files are accessible at )
+==============================================================
+
+-->>  /etc/courier-imap/imapd
+
+-->>  /etc/courier-imap/imapd-ssl
+
+-->>  /etc/courier-imap/pop3d
+
+-->>  /etc/courier-imap/pop3d-ssl
+
+
+***  QMail ( Configuration files are accessible at )
+====================================================
+
+-->>  /etc/xinetd.d/smtp_psa
+
+-->>  /etc/xinetd.d/smtps_psa
+
+-->>  /etc/xinetd.d/submission_psa
+
+-->>  /etc/inetd.conf (Debians)
+
+-->>  /var/qmail/control/
+
+
+
+***  Postfix ( Configuration files are accessible at )
+======================================================
+
+-->>  /etc/postfix/
+
+
+
+***  SpamAssassin ( Log files are located in )
+==============================================
+
+-->>  /usr/local/psa/var/log/maillog
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/mail/spamassassin/
+
+-->>  /etc/mail/spamassassin/local.cf
+
+-->>  /var/qmail/mailnames/%d/%l/.spamassassin
+
+
+***  Dr.Web antivirus  (  Log files are located in  )
+=====================================================
+
+-->>  /usr/local/psa/var/log/maillog
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/drweb/
+
+
+***  Kaspersky antivirus   ( Log files are located in )
+=======================================================
+
+-->>  /usr/local/psa/var/log/maillog
+
+-->>  /var/log/kav/5.5/kav4mailservers/aveserver.log
+
+-->>  /var/log/kav/5.5/kav4mailservers/smtpscanner.log
+
+-->>  /var/log/kav/5.5/kav4mailservers/avstats.log
+
+-->>  /var/log/kav/5.5/kav4mailservers/kavscanner.log
+
+-->>  /var/log/kav/5.5/kav4mailservers/kavupdater.log
+
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/kav/5.5/kav4mailservers/
+
+
+
+
+
+***   Tomcat ( Log files are located in )
+=========================================
+
+-->>  var/log/tomcat5/
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /usr/share/tomcat5/conf/
+
+
+***  MySQL ( The configuration file is accessible at )
+======================================================
+
+-->>  /etc/my.cnf
+
+
+***  Postgresql ( Startup log is located in )
+=============================================
+
+-->>  /var/lib/pgsql/pgstartup.log
+
+
+***  The configuration file is accessible at
+============================================
+
+-->>  /var/lib/pgsql/data/postgresql.conf
+
+
+***   xinetd ( The configuration file is accessible at )
+========================================================
+
+-->>  /etc/xinetd.conf
+
+
+***  Watchdog (monit) ( Log files are located in )
+==================================================
+
+-->>  /usr/local/psa/var/modules/watchdog/log/wdcollect.log
+
+-->>  /usr/local/psa/var/modules/watchdog/log/monit.log
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /usr/local/psa/etc/modules/watchdog/monitrc
+
+-->>  /usr/local/psa/etc/modules/watchdog/wdcollect.inc.php
+
+
+***  Watchdog (rkhunter) ( Log is located in )
+==============================================
+ 
+-->>  /var/log/rkhunter.log
+
+
+
+***   The configuration file is accessible at
+=============================================
+
+-->>  /usr/local/psa/etc/modules/watchdog/rkhunter.conf
+
+
+
+***  Log files are located in 
+=============================
+
+-->>  /var/log/httpd/
+
+-->>  /var/www/vhosts/<domain_name>/statistics/logs/
+
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/httpd/conf/httpd.conf
+
+-->>  /etc/httpd/conf.d/
+
+-->>  /var/www/vhosts/<domain_name>/conf/httpd.include
+
+
+***  Mailman  ( Log files are located in )
+==========================================
+
+-->>  /var/log/mailman/
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /etc/httpd/conf.d/mailman.conf
+
+-->>  /usr/lib/mailman/Mailman/mm_cfg.py
+
+-->>  /etc/mailman/sitelist.cfg
+
+
+***   AWstats   ( Configuration files are accessible at )
+=========================================================
+
+-->>  /usr/local/psa/etc/awstats/
+
+
+***  Configuration files are accessible at
+==========================================
+
+-->>  /var/www/vhosts/<domain_name>/conf/webalizer.conf
+
+
+***   Backup Manager  (  Backup logs are located in  )
+======================================================
+
+-->>  /usr/local/psa/PMM/sessions/<session>/psadump.log
+
+-->>  /usr/local/psa/PMM/sessions/<session>/migration.log
+
+-->>  /usr/local/psa/PMM/logs/migration.log
+
+-->>  /usr/local/psa/PMM/logs/pmmcli.log
+
+
+***  Restore logs are located in
+================================
+
+-->>  /usr/local/psa/PMM/rsessions/<session>/conflicts.log
+
+-->>  /usr/local/psa/PMM/rsessions/<session>/migration.log
+
+-->>  /usr/local/psa/PMM/logs/migration.log
+
+-->>  /usr/local/psa/PMM/logs/pmmcli.log
+
+
+***  The configuration file is accessible at
+============================================
+
+-->>  /etc/psa/psa.conf
+
+
+***  Plesk Migration Manager ( Migration logs are located in )
+==============================================================
+
+-->>  /usr/local/psa/PMM/msessions/<session>/migration.log
+
+-->>  /usr/local/psa/PMM/rsessions/<session>/migration.log
+
+-->>  /usr/local/psa/PMM/rsessions/<session>/conflicts.log
+
+-->>  /usr/local/psa/PMM/logs/migration.log
+
+-->>  /usr/local/psa/PMM/logs/pmmcli.log
+
+-->>  /usr/local/psa/PMM/logs/migration_handler.log
+
+
+***  Horde ( Log is located in )
+================================
+
+-->>  /var/log/psa-horde/psa-horde.log
+
+
+***  
+Configuration files are accessible at ( Apache configuration )
+==============================================================
+
+-->>  /etc/httpd/conf.d/zzz_horde_vhost.conf
+
+-->>  /etc/psa-webmail/horde/conf.d/
+
+
+***  Horde configuration
+========================
+
+-->>  /etc/psa-webmail/horde/
+
+
+***  Atmail  (  Log files are located in )
+==========================================
+
+-->>  /var/log/atmail/
+
+
+***  Configuration files are accessible at ( Apache configuration )
+===================================================================
+
+-->>  /etc/httpd/conf.d/zzz_atmail_vhost.conf
+
+-->  /etc/psa-webmail/atmail/conf.d/
+
+
+***  psa-logrotate ( Configuration files are accessible at )
+============================================================
+
+-->>  /usr/local/psa/etc/logrotate.conf
+
+-->>  /usr/local/psa/etc/logrotate.d/
+
+
+***  Samba  ( Log files are located in )
+========================================
+
+-->>  /var/log/samba/
+
+
+***  Configuration files are accessible at
+===========================================
+
+-->>  /etc/samba/smb.conf
+
+-->>  /etc/samba/smb.conf.include 
+
+
+***  psa-firewall ( Configuration files are accessible at )
+===========================================================
+
+-->>  /usr/local/psa/var/modules/firewall/firewall-active.sh
+
+-->>  /usr/local/psa/var/modules/firewall/firewall-emergency.sh
+
+-->>  /usr/local/psa/var/modules/firewall/firewall-new.sh
+
+
+***  psa-firewall (IP forwarding) ( Configuration files are accessible at )
+===========================================================================
+
+-->>  /usr/local/psa/var/modules/firewall/ip_forward.active
+
+-->>  /usr/local/psa/var/modules/firewall/ip_forward.saved
+
+
+***  psa-vpn ( The configuration file is accessible at )
+========================================================
+
+-->>  /usr/local/psa/var/modules/vpn/openvpn.conf
+
+================================================================================================================================
+Plesk (sw-cp-serverd)
++++++++++++++++++++++
+
+*** Access Log
+==============
+#  /usr/local/psa/admin/logs/httpsd_access_log
+
+*** Backups Log
+===============
+#  /var/lib/dumps/domain.tld/backup_restore.log
+#  /var/lib/dumps/domain.tld/backup_restore.err_log
+							
+*** Error Log
+=============
+#  /var/log/sw-cp-server/error_log
+
+***  Watchdog
+=============
+
+***  Migration Log
+==================
+#  /usr/local/psa/PMM/logs/migration.log
+
+***  Mailman Log
+================
+#  /var/log/mailman/error
+
+***  Horde Webmail
+==================
+#  /var/local/psa-horde/psa-horde.log
+
+***  FTP (Pro-FTPD)
+===================
+
+** Login Attempts & General Info
+================================
+#  /var/log/messages
+
+***  FTP Transaction Log
+========================
+#  /usr/local/psa/var/log/xferlog
+
+***  Mail Retrieval & Spam Protection
+=====================================
+
+*** IMAP, POP Login Attempts, Transactions, Fatal Errors & Spam Scoring
+=======================================================================
+#  /usr/local/psa/var/log/maillog/var/log/messages
+
+***  Mail Delivery (Qmail)
+==========================
+
+***  Transactions, Errors
+=========================
+#  /usr/local/psa/var/log/maillog
+
+***  Queued Mail
+================
+#  /usr/local/pas/var/log/smtp_pendings.log
+
+***  SSHD
+=========
+#  /var/log/messages
+
+***	 Named (BIND)
+=================
+#  /var/log/messages
+
+***  Web Server (Apache / httpd)
+================================
+
+***  Access & Error Logs
+========================
+#  /var/log/httpd/access_log
+AND
+#  /var/log/httpd/error_log
+
+***  Domain Access & Error Logs
+===============================
+#  /var/www/vhosts/domain.tld/statistics/logs/access.log
+AND
+#  /var/www/vhosts/domain.tld/statistics/logs/error_log
+
+***  MySQL
+==========
+
+***  General Information & Errors
+==================================
+#  /var/log/mysqld.log
+
+
+
+

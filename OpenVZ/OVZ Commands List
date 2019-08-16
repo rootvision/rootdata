@@ -1,0 +1,482 @@
+# OpenVZ
+
+https://wiki.openvz.org/User_Guide/Installation_and_Preliminary_Operations    --->>   Installation and Preliminary Operations 
+
+https://wiki.openvz.org/User_Guide/Operations_on_Containers     --->>  Operations on Containers
+
+https://wiki.openvz.org/User_Guide/Managing_Resources       --->>  Managing Resources
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+
+# vzlist		-->>  Command to list the running VPSs in a node
+
+# vzlist -a		-->>  Command to list running and stopped VPSs in an node
+
+# vzctl start,stop,restart <VZID>		-->>  Start, Stop and Restart
+
+# vzlist -a		-->> To list the VPS and its current status 
+
+# vzctl enter ID  -->> To enter the VPS
+
+# arch		-->> To check OS bits 
+
+# cat /usr/local/cpanel/version  -->> To check the current version of cPanel      
+
+# screen   -->> To enter the screen
+
+# /scripts/upcp --force  -->> To update the cPanel force-fully
+
+# screen Press fastly   ctl+ "a" "d"  -->> To enter the screen again
+
+# ps -aufx | grep upcp  -->>  To check either the update process as finish or not 
+
+# screen -x		-->>   To enter the screen again 
+
+# vzlist -o hostname,laverage,veid    -->> To check the VPS which high load
+
+# cat /proc/vz/veinfo		-->>  Getting the Container status is checking the /proc/vz/veinfo file
+
+
+** Suspend and delete a container
+=================================
+
+# vzctl destroy <VZID>   	-->>  Delete a container
+
+# vzctl suspend <VZID>		-->>  Suspending a container
+
+**  Other operations
+=====================
+
+# vzctl set <VZID> --hostname New_hostname --save 		-->>  Set hostname for a Server
+
+# vzctl set <VZID> --ipadd xx.xx.xx.xx --save		-->>  Add new IP to VPS
+
+# vzctl set <VZID> --ipdel xx.xx.xx.xx --save		-->>  Delete IP from VPS
+
+# vzctl set <VZID> --userpasswd root:new_password --save		-->>  Reset root password of a VPS
+
+# vzctl set <VZID> --nameserver xx.xx.xx.xx --save		-->>   To add NameServer IPs to VPS
+
+# vzctl exec <VZID> <command>		-->>  Executes commands for a container from node
+# vzctl exec 110 df -h		-->> Example
+
+# vzcalc -v <VZID>		-->>   To check the resource usages
+
+
+**  Operations on Containers
+=============================
+
+# vzlist -a 101		-->>  Choosing Container ID
+
+**  Choosing OS Template
+=========================
+
+# ls /vz/template/cache/
+centos-4-x86.tar.gz       fedora-7-x86.tar.gz     suse-10.3-x86.tar.gz
+centos-4-x86_64.tar.gz    fedora-7-x86_64.tar.gz  suse-10.3-x86_64.tar.gz
+centos-5-x86.tar.gz       fedora-8-x86.tar.gz     ubuntu-7.10-x86.tar.gz
+centos-5-x86_64.tar.gz 
+
+
+** Note: You have to remove the .tar.gz suffix from the name to make it a valid OS template name. For example, 
+   centos-4-x86 is a valid OS template name.
+
+
+**  Creating Container
+=======================
+
+# cd /vz/private/CTID/   -->> Path
+
+# vzctl create 101 --ostemplate centos-5-x86 -–config basic
+Creating container private area (centos-5-x86)
+Performing postcreate actions
+Container private area was created
+
+
+** Global OpenVZ configuration file
+====================================
+# cat  /etc/vz/vz.conf
+
+Example
+=======
+
+DEF_OSTEMPLATE="centos-5-x86"
+CONFIGFILE="basic"
+
+
+**  create a Container with ID 101 with the following command
+==============================================================
+
+# vzctl create 101
+Creating container private area (centos-5-x86)
+Performing postcreate actions
+Container private area was created
+
+**  Configuring Container
+=========================
+
+** Setting Container startup parameters;
+** Setting Container network parameters;
+** Setting Container user passwords;
+** Configuring Quality of Service (Service Level) parameters
+
+**  Setting Startup Parameters
+==============================
+
+# vzctl set 101 --onboot yes --save
+Saved parameters for CT 101
+
+
+**  Setting Network Parameters
+==============================
+
+# vzctl set 101 --hostname server101.mydomain.com --save
+Set hostname: server101.mydomain.com
+Saved parameters for CT 1010101
+# vzctl set 101 --ipadd 10.0.186.1 --save
+Adding IP address(es): 10.0.186.1
+Saved parameters for CT 1010101
+# vzctl set 101 --nameserver 192.168.1.165 --save
+File resolv.conf was modified
+Saved parameters for CT 1010101
+
+
+***  To check whether SSH is running inside the Container, use vzctl exec, which allows executing any commands in the Container context.
+=========================================================================================================================================
+
+# vzctl start 101
+[This command starts Container 101, if it is not started yet]
+# vzctl exec 101 service sshd status
+sshd is stopped
+# vzctl exec 101 service sshd start
+Starting sshd: [ OK ]
+# vzctl exec 101 service sshd status
+sshd (pid 3801) is running...
+
+
+**  Setting root Password for Container
+=======================================
+
+# vzctl set 101 --userpasswd root:test
+
+
+**  Setting Name for Container
+==============================
+
+**  You can assign names to your Containers using the --name option of the vzctl set command. For example, 
+    to set the computer1 name for Container 101, you should execute the following command:
+
+# vzctl set 101 --name computer1 --save
+Name computer1 assigned
+Saved parameters for Container 101
+
+
+
+**  You can also set a name for Container 101 by editing its configuration file. In this case you should proceed as follows:
+============================================================================================================================
+
+1. Open the configuration file of Container 101 (/etc/vz/conf/101.conf) for editing and add the following string to the file:
+
+NAME="computer1"
+
+
+2. In the /etc/vz/names directory on the Hardware Node, create a symbolic link with the name of computer1 pointing to the Container
+   configuration file. For example:
+
+# ln --symbolic /etc/vz/conf/101.conf /etc/vz/names/computer1
+
+
+**  When specifying names for Containers, please keep in mind the following:
+============================================================================
+
+Names may contain the following symbols: a-z, A-Z, 0-9, underscores (_), dashes (-), spaces, 
+the symbols from the ASCII character table with their code in the 128–255 range, and all the national alphabets included in the 
+Unicode code space. Container names cannot consist of digits only; otherwise, there would be no way to distinguish them from Container 
+IDs. If it contains one or more spaces, the Container name should be put in single or double quotes, 
+or the spaces have to be escaped by preceding them with a backslashes (\)
+
+
+**  Storing Extended Information on Container
+==============================================
+
+**  Note: This feature is available since vzctl-3.0.23
+=======================================================
+
+Sometimes, it may be difficult to remember the information on certain Containers. 
+The probability of this increases together with the number of Containers and with the time elapsed since the Container creation. 
+The OpenVZ software allows you to set the description of any Container on the Hardware Node and view it later on, 
+if required. The description can be any text containing any Container-related information; for example, 
+you can include the following in the Container description:
+
+
+the owner of the Container;
+the purpose of the Container;
+the summary description of the Container;
+etc.
+
+
+**  Let us assume that you are asked to create a Container for a Mr. Johnson who is going to use it for hosting the MySQL server. So, you create Container 101 and, after that, execute the following command on the Hardware Node
+=====================================================================================================================================================================================================================================
+
+# vzctl set 101 --description "Container 101
+> owner - Mr. Johnson
+> purpose - hosting the MySQL server" --save
+Saved parameters for CT 101
+
+
+**  This command saves the following information related to the Container: its ID, owner, and the purpose of its creation. At any time, you can display this information by issuing the following command:
+====================================================================================================================================================================================================================
+
+# vzlist -o description 101
+DESCRIPTION
+Container 101
+owner - Mr. Johnson
+purpose - hosting the MySQL server
+
+
+**  Migrating Container
+========================
+
+***   Standard (offline) migration
+===================================
+
+The standard migration procedure allows you to move both stopped and running Containers. 
+Migrating a stopped Container includes copying all Container private files from one Node to another and does not differ from copying 
+a number of files from one server to another over the network. In its turn, the migration procedure of a running Container is a bit more
+complicated and may be described as follows:
+
+After initiating the migration process, all Container private data are copied to the Destination Node. During this time, 
+the Container on the Source Node continues running.
+The Container on the Source Node is stopped.
+The Container private data copied to the Destination Node are compared with those on the Source Node and, 
+if any files were changed during the first migration step, they are copied to the Destination Node again and rewrite the outdated versions.
+The Container on the Destination Node is started.
+
+**  WARNING: By default, after the migration process is completed, the Container private area and configuration file are deleted on 
+the Source Node! However, if you wish the Container private area on the Source Node to not be removed after the successful Container 
+migration, you can override the default vzmigrate behavior by using the –r no switch. There is a short downtime needed to stop the 
+Container on the Source Node, copy the Container private data changes to the Destination Node, and start the Container on the 
+Destination Node. However, this time is very short and does not usually exceed one minute
+
+
+**  The following session moves Container 101 from the current Hardware Node to a new one named ts7.mydomain.com:
+=================================================================================================================
+
+# vzmigrate ts7.mydomain.com 101
+Starting migration of container 101 on ts7.mydomain.com
+Preparing remote node
+Initializing remote quota
+Syncing private
+Syncing 2nd level quota
+Turning quota off
+Cleanup
+
+
+***  Note: For the command to be successful, a direct SSH connection (on port 22) should be allowed between the Source and Destination 
+     Nodes
+
+
+**  Zero-downtime (online) migration
+=====================================
+
+OpenVZ allows you to migrate your Containers from one Hardware Node to another with zero downtime. The zero downtime migration technology has the following main advantages as compared with the standard one:
+
+The process of migrating a Container to another Node is transparent for you and the Container applications and network connections, 
+i.e., on the Source and Destination Nodes, no modifications of system characteristics and operational procedures inside the Container 
+are performed. The Container migration time is greatly reduced. In fact, the migration eliminates the service outage or interruption for
+Container end users. The Container is restored on the Destination Node in the same state as it was at the beginning of the migration.
+You can move the Containers running a number of applications which you do not want to be rebooted during the migration for some reason
+or another.
+
+
+***   Note: Zero-downtime migration cannot be performed on Containers having one or several opened sessions established with 
+      the vzctl enter CTID command.
+
+
+Before performing zero-downtime migration, it is recommended to synchronize the system time on the Source and Destination Nodes, e.g. 
+by means of NTP (http://www.ntp.org). The reason for this recommendation is that some processes running in the Container might rely on 
+the system time being monotonic and thus might behave unpredictably if they see an abrupt step forward or backward in the time once 
+they find themselves on the new Node with different system clock parameters.
+
+To migrate a Container by using the zero downtime migration technology, you should pass the --online option to the vzmigrate utility. 
+In this case a Container is 'dumped' at the beginning of the migration, i.e. all Container private data including the state of all 
+running processes are saved to an image file. This image file is then transferred to the Destination Node where it is 'undumped'.
+
+
+**  For example, you can migrate Container 101 from the current Hardware Node to the Destination Node named my_node.com by executing the following command:
+============================================================================================================================================================
+
+# vzmigrate --online my_node.com 101
+
+*** Deleting Container
+======================
+
+You can delete a Container that is not needed anymore with the vzctl destroy CTID command. 
+This command removes the Container private area completely and renames the Container configuration file and action scripts by appending 
+the .destroyed suffix to them.
+
+***  Note: Since vzctl-3.0.24, you can also use the vzctl delete command introduced in Virtuozzo Containers 4.0 to remove Containers 
+from your Hardware Node. This command has the syntax identical to vzctl destroy and is meant to replace the latter in the future.
+
+
+*** A running Container cannot be destroyed with the vzctl destroy command. The example below illustrates destroying Container 101:
+====================================================================================================================================
+
+# vzctl destroy 101
+Container is currently running. Stop it first.
+# vzctl stop 101
+Stopping container ...
+Container was stopped
+Container is unmounted
+
+
+# vzctl destroy 101
+Destroying container private area: /vz/private/101
+Container private area was destroyed
+
+
+# ls /etc/vz/conf/101.*
+/etc/vz/conf/101.conf.destroyed
+
+
+# vzctl status 101
+CTID 102 deleted unmounted down
+
+
+***  If you do not need the backup copy of the Container configuration files (with the .destroyed suffix), you may delete them manually
+
+
+*** Disabling Container
+=======================
+
+There may appear situations when you wish to forbid Container owners to use their Containers. For example, 
+it may happen in case the Container owner uses it for unallowed purposes: intruding into computers of other users, 
+participating in DoS attacks, etc.
+
+In such cases, the OpenVZ software allows you to disable a Container, thus, making it impossible to start the Container once 
+it was stopped. For example, you can execute the following command to disable Container 101 residing on your Hardware Node:
+
+
+# vzctl set 101 --disabled yes --save
+
+
+***  Note: This option makes no sense without the --save flag, so you have to supply it.
+
+
+*** After the Container stopping, the Container user will not be able to start it again until you enable this Container again by passing the --disabled no option to vzctl set. You can also use the --force option to start any disabled Container. For example:
+===================================================================================================================================================================================================================================================================
+
+
+# vzctl start 103
+Container start disabled
+# vzctl start 103 --force
+Starting container ...
+Container is mounted
+Adding IP address(es): 192.168.16.3
+Setting CPU units: 1000
+Configure meminfo: 65536
+Container start in progress...
+
+
+***  Suspending Container
+=========================
+
+OpenVZ allows you to suspend any running Container on the Hardware Node by saving its current state to a special dump file. Later on, 
+you can resume the Container and get it in the same state the Container was at the time of its suspending.
+
+
+In OpenVZ-based systems, you can use the vzctl chkpnt command to save the current state of a Container. For example, you can issue the following command to suspend Container 101:
+====================================================================================================================================================================================
+
+# vzctl chkpnt 101
+Setting up checkpoint...
+	suspend...
+	dump...
+	kill...
+Container is unmounted
+Checkpointing completed succesfully
+
+
+During the command execution, the /vz/dump/Dump.101 file containing the entire state of Container 101 is created and the Container 
+itself is stopped.
+
+Note: You can set another directory to store dump files for your Containers by changing the value of the DUMPDIR parameter in the 
+OpenVZ global file. Detailed information on the OpenVZ global file and the parameters you can specify in it is provided in the vz.conf(5).
+
+
+***   At any time, you can resume Container 101 by executing the following command:
+===================================================================================
+
+# vzctl restore 101
+Restoring container ...
+Starting container ...
+Container is mounted
+	undump...
+Adding IP address(es): 192.168.16.3
+Setting CPU units: 1000
+Configure meminfo: 65536
+	resume...
+Container start in progress...
+Restoring completed succesfully
+
+
+The Container state is restored from the /vz/dump/Dump.101 file on the Node. Upon the restoration completion, 
+any applications that were running inside Container 101 at the time of its suspending will be running and the information content will
+be the same as it was when the Container was suspended
+
+
+**  While working with dump files, please keep in mind the following:
+
+* You can restore the Container dump file on the Source Node, i.e. on the Node where this Container was running before its dumping, or transfer the dump file to another Node and restore it there.
+
+***  Note: Before restoring a Container from its dump file, please make sure that the file system on the Destination Node is identical to that at the moment of the Container dumping; otherwise, the Container restoration may fail.
+
+* You cannot change settings of the suspended Container.
+
+
+*** Running Commands in Container
+==================================
+
+Usually, a Container administrator logs in to the Container via network and executes any commands in the Container as on any other Linux box. However, you might need to execute commands inside Containers bypassing the normal login sequence. This can be helpful if:
+
+**  You do not know the Container login information, and you need to run some diagnosis commands inside the Container in order to verify that it is operational.
+**  Network access is absent for a Container. For example, the Container administrator might have accidentally applied incorrect firewalling rules or stopped the SSH daemon.
+
+
+**  The OpenVZ software allows you to execute commands in a Container in these cases. Use the vzctl exec command for running a command inside the Container with the given ID. The session below illustrates the situation when the SSH daemon is not started:
+================================================================================================================================================================================================================================================================
+
+# vzctl exec 103 /etc/init.d/sshd status
+openssh-daemon is stopped
+# vzctl exec 103 /etc/init.d/sshd start
+Starting sshd: [  OK  ]
+# vzctl exec 103 /etc/init.d/sshd status
+openssh-daemon (pid  9899) is running...
+
+
+Now Container users can log in to the Container via SSH (assuming that networking and firewall are not misconfigured).
+
+When executing commands inside a Container from shell scripts, use the vzctl exec2 command. It has the same syntax as vzctl exec but returns the exit code of the command being executed instead of the exit code of vzctl itself. You can check the exit code to find out whether the command has completed successfully.
+
+
+
+**  If you wish to execute a command in all running Containers, you can use the following script:
+===================================================================================================
+
+# for CT in $(vzlist -H -o ctid); do echo "== CT $CT =="; vzctl exec $CT command; done
+
+
+** where command is the command to be executed in all the running Containers. For example:
+==========================================================================================
+
+# for CT in $(vzlist -H -o ctid); do echo "== CT $CT =="; vzctl exec $CT uptime; done
+== CT 103 ==
+ 15:17:19 up 13 min,  0 users,  load average: 0.00, 0.00, 0.00
+== CT 123123123 ==
+ 15:17:19 up 22:00,  0 users,  load average: 0.00, 0.00, 0.00
+ 
+ 
+
+
+
+

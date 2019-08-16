@@ -1,0 +1,88 @@
+
+
+Command	Extended Command	Description	Example
+================================================
+
+
+# csf -h	–help	    Show this message	root@server[~]#csf -h
+
+# csf -r	–restart	   Restart firewall rules	root@server[~]#csf -r
+
+# csf -d [IP.add.re.ss] [comment]	 –deny ip	Deny an IP and add to /etc/csf.deny	root@server[~]#csf -d 11.22.33.44 Blocked This Guy
+
+# csf -dr [IP.add.re.ss]	 –denyrm ip	Unblock an IP and remove from /etc/csf.deny	root@server[~]#csf -dr 22.33.44.55
+
+# csf -df	–denyf	 Remove and unblock all entries in /etc/csf.deny	root@server[~]#csf -df
+
+# csf -tr [IP.add.re.ss]	 –temprm ip	Remove an IP from the temporary IP ban or allow list.	root@server[~]#csf -tr 55.66.77.88
+
+#csf -td	 –tempdeny ip ttl [-p port] [-d direction]	Add an IP to the temp IP ban list. ttl is how long to blocks for (default:seconds, can use one suffix of h/m/d).	root@server[~]#csf -t
+
+# csf -a   [IP.add.re.ss] [comment]	–add ip	Allow an IP and add to /etc/csf.allow	root@server[~]#csf -a 33.44.55.66 Home IP Address
+
+# csf -tf	–tempf	 Flush all IPs from the temporary IP entries	root@server[~]#csf -tf
+
+# csf -g  [IP.add.re.ss]	–grep ip	Search the iptables rules for an IP match (incl. CIDR)	root@server[~]#csf -g 44.55.66.77
+
+# csf -v	–version	 Show csf version	root@server[~]#csf -v
+
+# csf -u	–update	Check for updates to csf and upgrade if available	root@server[~]#csf -u
+
+# csf -l	–status	List/Show iptables configuration	
+
+# csf -l6	–status6	List/Show ip6tables configuration	
+
+# csf -s	–start	Start firewall rules	
+
+# csf -f	–stop	Flush/Stop firewall rules (Note: lfd may restart csf)	
+
+# csf -q	–startq	Quick restart (csf restarted by lfd)	
+
+# csf -sf	–startf	Force CLI restart regardless of LFDSTART setting	
+
+# csf -ar	–addrm ip	Remove an IP from /etc/csf.allow and delete rule	
+
+# csf -t	–temp	Displays the current list of temp IP entries and their TTLOptional port. Optional direction of block can be one of: in, out or inout (default:in)	
+
+# csf -ta	–tempallow ip, ttl [-p port] [-d direction]	Add an IP to the temp IP allow list (default:inout)	
+
+# csf -cp	–cping	PING all members in an lfd Cluster	
+
+# csf -cd	–cdeny ip	Deny an IP in a Cluster and add to /etc/csf.deny	
+
+# csf -ca	–callow ip	Allow an IP in a Cluster and add to /etc/csf.allow	
+
+# csf -cr	–crm ip	Unblock an IP in a Cluster and remove from /etc/csf.deny	
+
+# csf -cc	–cconfig [name] [value]	Change configuration option [name] to [value] in a Cluster
+
+# csf -cf	–cfile [file]	Send [file] in a Cluster to /etc/csf/	
+
+# csf -crs	–crestart	Cluster restart csf and lfd	
+
+# csf -w	–watch ip	Log SYN packets for an IP across iptables chains	
+
+# csf -m	–mail [addr}	Display Server Check in HTML or email to [addr] if present	
+
+# csf -lr	–logrun	Initiate Log Scanner report via lfd	
+
+# csf -c	–check	Check for updates to csf but do not upgrade	
+
+# csf -uf		Force an update of csf	
+
+# csf -x	–disable	Disable csf and lfd	
+
+# csf -e	–enable	Enable csf and lfd if previously disabled
+
+
+==============================================================================================
+***  CSF configuration Command (Score)
+==============================================================================================
+
+# cd /opt/cpanel grep -lr "disable_functions =" * | xargs sed -i 's/disable_functions =/disable_functions = show_source, system, shell_exec, passthru, exec, phpinfo, popen, proc_open, ini_set/g'
+
+#  cd  /opt/alt =grep -lr "enable_dl = On" * | xargs sed -i 's/enable_dl = On/enable_dl = Off/g'
+
+==============================================================================================
+
+

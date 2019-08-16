@@ -1,0 +1,246 @@
+https://forums.cpanel.net/threads/reading-and-understanding-the-exim-main_log.445812/
+
+Link for reading -->>  https://forums.cpanel.net/threads/email-connection-timing-out.590439/
+
+
+***  Log line flags – details
+=============================
+
+<=     message arrival 
+=>     normal message delivery
+->     additional address in same delivery
+*>     delivery suppressed by -N
+**     delivery failed; address bounced
+==     delivery deferred; temporary problem
+
+=============================
+
+***  A summary of the field identifiers that are used in log lines is shown in the following table:
+=========================================================================
+
+A           authenticator name (and optional id)
+C           SMTP confirmation on delivery
+            command list for “no mail in SMTP session”
+CV          certificate verification status
+D           duration of “no mail in SMTP session”
+DN          distinguished name from peer certificate
+DT          on => lines: time taken for a delivery
+F           sender address (on delivery lines)
+H           host name and IP address
+I           local interface used
+id          message id for incoming message
+P           on <= lines: protocol used                          on => and ** lines: return path
+QT          on => lines: time spent on queue so far
+            on “Completed” lines: time spent on queue
+R           on <= lines: reference for local bounce                          on =>  ** and == lines: router name
+S           size of message
+ST          shadow transport name
+T           on <= lines: message subject (topic)                          on => ** and == lines: transport name
+U           local user or RFC 1413 identity
+X           TLS cipher suite
+
+
+=========================================================================
+
+
+***  To check spamming on server which has Exim as MTA
+=======================================================
+
+** Count emails in queue
+-------------------------
+
+# exim -bpc
+52
+
+** List emails with more details
+-------------------------
+
+# exim -bp
+44h 763 1VGaIo-0002ec-RM <sender@sender.com>
+recipient@gmail.com
+
+10h 5.9K 1VH6AW-0001Um-Rz <> *** frozen ***
+no-reply@facebook.com
+
+-------------------------
+# 1st field: Age (Eg : 44h)
+# 2nd field: Size (Eg : 5.9K)
+# 3rd field: Message ID (Eg : 1VGaIo-0002ec-RM)
+# 4th field: Sender (Eg : sender@sender.com)
+# 5th field: Recipient (Eg : recipient@gmail.com)
+-------------------------
+
+*** Print a summary of messages in the queue (count, volume, oldest, newest, domain, and totals)
+==================
+# exim -bp | exiqsumm
+
+*** Test how exim will route a given address:
+==================
+root@localhost# exim -bt alias@localdomain.com
+user@thishost.com
+<-- alias@localdomain.com
+router = localuser, transport = local_delivery
+root@localhost# exim -bt user@thishost.com
+user@thishost.com
+router = localuser, transport = local_delivery
+root@localhost# exim -bt user@remotehost.com
+router = lookuphost, transport = remote_smtp
+host mail.remotehost.com [1.2.3.4] MX=0
+
+
+*** To trace path:
+==================== 
+# exim -d -bt nicola@lindosdestiny.com
+
+
+***  By using the ID we can analyse the header, body and the log informations of emails in the queue
+=====================================================================================================
+
+# exim -Mvh <Message-ID>
+
+
+***  Displays the message body
+===============================
+
+# exim -Mvb ID
+
+
+***  Displays the log of email. From this log get the original user details logged in for sending email and so
+===============================================================================================================
+
+# exim -Mvl ID
+
+
+***  Analysing email count with sender  ( We can analyse which email address is send large number of mails)
+===========================================================================================================
+#  grep "=> .*@.*@.*" /var/log/exim_mainlog | awk '{print $6,$5}' | sort | uniq -c | sort -n
+
+#  exim -bpr|grep "<"|awk {'print $4'}|cut -d"<" -f2|cut -d">" -f1|sort -n|uniq -c|sort -n
+
+Output
+======
+      2 erdmuth_ilma@fbads.co.place
+      2 theinte1@forever002.mysecureservers.com
+      6 tconradc@forever002.mysecureservers.com
+      9 sally_fisher@audio-books4u.com
+======
+
+
+***  To remove all frozen emails from the mail queue
+====================================================
+
+# exim -bp|grep frozen|awk '{print $3}' |xargs exim -Mrm
+
+# exiqgrep -zi|xargs exim -Mrm
+
+
+***  To delete all emails from queue for a particular sender
+=============================================================================
+
+#  exim -bpr| grep sendername| awk '{print $3}'|xargs exim -Mrm
+
+
+***  To force another queue run again
+=====================================
+
+#  /usr/sbin/exim -qf 
+
+#  exim -qf
+
+***  To force another queue run and attempt to flush the frozen message
+========================================================================
+
+#  /usr/sbin/exim -qff
+
+#  exim -qff
+
+
+***  The command below will find out scripts which are sending emails most recently!
+====================================================================================
+
+# grep cwd /var/log/exim_mainlog  | grep $(date +%Y-%m-%d) | grep sendmail | grep public_html | awk '{print $3}' | sort | uniq -c | sort -n
+
+Output
+======
+
+      8 cwd=/home2/emnvcjpr/public_html/GoodNewsLab.com
+     10 cwd=/home2/createw1/public_html
+     10 cwd=/home2/imxtalco/public_html
+     11 cwd=/home2/touchfoi/public_html
+     11 cwd=/home2/windowag/public_html
+     11 cwd=/home2/windowma/public_html
+     34 cwd=/home2/telesemi/public_html
+     38 cwd=/home2/tconradc/public_html
+   7686 cwd=/home2/fbadscop/public_html/billing/mmv-framework/vendor/phpspec
+   
+======
+
+***  From the email queue, we can analyse the log details of an email by using the command 
+======================================================================
+
+# exim -Mvl <Message-ID>
+
+Output Sample
+=============
+# exim -Mvl 1VlxUy-0001ka-9V
+
+2013-11-28 02:03:00 Received from sfsffsfr@cfsfost6.vfsfsflehfsfting.com U=swfsfcar P=local S=1349 T="Welcome to Swift Carders-The Carders' Home"
+2013-11-28 02:03:00 SMTP error from remote mail server after RCPT TO:<j.xd.9.4.3.7.yhn.uj.m.1.4.5.i.k1.1@gmail.com>: host gmail-smtp-in.l.google.com [17.xxx.xxx27]: 450-4.2.1 The user you are trying to contact is receiving mail too quickly.\n450-4.2.1 Please resend your message at a later time. If the user is able to\n450-4.2.1 receive mail at that time, your message will be delivered. For more\n450-4.2.1 information, please visit\n450 4.2.1 http://support.google.com/mail/bin/answer.py?answer=6592 sn7si36197219pab.341 - gsmtp
+=============
+
+
+
+http://bradthemad.org/tech/notes/exim_cheatsheet.php
+
+#/usr/sbin/exim   -M   email-id        									 => Force delivery of one message
+
+#/usr/sbin/exim -qf                  									 => Force another queue run
+
+#/usr/sbin/exim -qff                									 => Force another queue run and attempt to flush the frozen message
+
+#/usr/sbin/exim  -Mvl   messageID  										 => View the log for the message
+
+#/usr/sbin/exim  -Mvb   messageID  										 => View the body of the message
+
+#/usr/sbin/exim  -Mvh   messageID  										 => View the header of the message
+
+#/usr/sbin/exim -Mrm    messageID  										 =>  Remove message without sending any error message
+
+#/usr/sbin/exim  -Mg    messageID   									 =>  Giveup and fail message to bounce the message to the Sender
+
+#/usr/sbin/exim -bpr | grep “<” | wc -l    								 =>Number of emails in the que
+
+#/usr/sbin/exim -bpr | grep frozen | wc -l   							 => How many Frozen mails on the queue
+
+#/usr/sbin/exim -bpr | grep frozen | awk {‘print $3’} | xargs exim -Mrm  =>  Deleteing Frozen Messages
+
+#exim -qff		-->>  To flush the exim queue
+
+
+===========================================================================
+*** To remove all queue from pending (remove all messages from the queue)
+============================================================================
+
+# exim -bp | awk '/^ *[0-9]+[mhd]/{print "exim -Mrm " $3}' | bash
+
+
+===========================================================================
+http://www.inmotionhosting.com/support/email/exim/find-spam-script-location-with-exim
+===========================================================================
+grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
+===========================================================================
+
+*** To check the current status of Exim
+==================================
+# exiwhat
+... shows active connections being handled
+# ps -C exim wwwu
+... shows a list of all running exim processes
+# lsof -c exim
+... shows a list of files being accessed by exim
+
+# openssl s_client -connect 151.236.51.42:587
+... Manuallt testing IMAP/POP with Openssl
+
+
+

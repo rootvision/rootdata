@@ -1,0 +1,22 @@
+
+
+
+****************************************************
+
+***	Location of sample configuration to be used for your new virtual private server
+===================================================================================
+
+#	/etc/sysconfig/vz-scripts
+
+***	The globally virtuozzo configuration file
+=============================================
+
+#	/etc/sysconfig/vz
+
+
+
+
+
+
+
+****************************************************  To be contiune further  ****************************************************

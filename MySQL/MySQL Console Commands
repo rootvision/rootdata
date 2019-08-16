@@ -1,0 +1,162 @@
+
+https://www.pantz.org/software/mysql/mysqlcommands.html
+https://isabelcastillo.com/mysql-command-line-cheat-sheet
+
+
+
+***  MySQL Console Commands
+=======================
+
+
+**   Access monitor  -->>  mysql -u [username] -p; (will prompt for password)
+
+**   Show all databases  -->>  show databases;
+
+**   Access database  -->>  mysql -u [username] -p [database] (will prompt for password)
+
+**   Create new database  -->>  create database [database];
+
+**   Select database  -->>  use [database];
+
+**   Determine what database is in use  -->>  select database();
+
+**   Show all tables  -->>  show tables;
+
+**   Show table structure  -->>  describe [table];
+
+**   List all indexes on a table  -->>  show index from [table];
+
+**   Create new table with columns  -->>  CREATE TABLE [table] ([column] VARCHAR(120), [another-column] DATETIME);
+
+**   Adding a column  -->>  ALTER TABLE [table] ADD COLUMN [column] VARCHAR(120);
+
+**   Adding a column with an unique, auto-incrementing ID  -->>  ALTER TABLE [table] ADD COLUMN [column] int NOT NULL AUTO_INCREMENT PRIMARY KEY;
+
+**   Inserting a record  -->>  INSERT INTO [table] ([column], [column]) VALUES ('[value]', [value]');
+
+**   MySQL function for datetime input: NOW()
+
+**   Selecting records  -->>  SELECT * FROM [table];
+
+**   Explain records  -->>  EXPLAIN SELECT * FROM [table];
+
+**   Selecting parts of records: SELECT [column], [another-column] FROM [table];
+
+**   Counting records  -->>  SELECT COUNT([column]) FROM [table];
+
+**   Counting and selecting grouped records  -->>  SELECT *, (SELECT COUNT([column]) FROM [table]) AS count FROM [table] GROUP BY [column];
+
+**   Selecting specific records  -->>  SELECT * FROM [table] WHERE [column] = [value]; (Selectors: <, >, !=; combine multiple selectors with AND, OR)
+
+**   Select records containing [value]  -->>  SELECT * FROM [table] WHERE [column] LIKE '%[value]%';
+
+**   Select records starting with [value]  -->>  SELECT * FROM [table] WHERE [column] LIKE '[value]%';
+
+**   Select records starting with val and ending with ue  -->>  SELECT * FROM [table] WHERE [column] LIKE '[val_ue]';
+
+**   Select a range  -->>  SELECT * FROM [table] WHERE [column] BETWEEN [value1] and [value2];
+
+**   Select with custom order and only limit  -->>  SELECT * FROM [table] WHERE [column] ORDER BY [column] ASC LIMIT [value]; (Order: DESC, ASC)
+
+**   Updating records  -->>  UPDATE [table] SET [column] = '[updated-value]' WHERE [column] = [value];
+
+**   Deleting records  -->>  DELETE FROM [table] WHERE [column] = [value];
+
+**   Delete all records from a table (without dropping the table itself)  -->>  DELETE FROM [table]; (This also resets the incrementing counter for auto generated columns like an id column.)
+
+**   Delete all records in a table  -->>  truncate table [table];
+
+**   Removing table columns  -->>  ALTER TABLE [table] DROP COLUMN [column];
+
+**   Deleting tables  -->>  DROP TABLE [table];
+
+**   Deleting databases  -->>  DROP DATABASE [database];
+
+**   Custom column output names  -->>  SELECT [column] AS [custom-column] FROM [table];
+
+**   Export a database dump (more info here)  -->>  mysqldump -u [username] -p [database] > db_backup.sql
+
+Use --lock-tables=false option for locked tables (more info here).
+
+**   Import a database dump (more info here)  -->>  mysql -u [username] -p -h localhost [database] < db_backup.sql
+
+Logout: exit;
+
+
+
+*** To reset magento admin password via mysql console
+=====================================================
+mysql > UPDATE `admin_user` SET `password` = MD5('kent76essa'), `rp_token_created_at` = NULL WHERE `admin_user`.`user_id` = 2;
+
+*** Show process list (database activity)
+==========================================
+mysql> SHOW PROCESSLIST;
+
+*** Show the database status
+============================
+mysql> SHOW ENGINE INNODB STATUS\G
+
+
+*** MySQL root password recovery:
+==================================
+1. As Linux system root user stop the database process: /etc/init.d/mysql stop 
+(or: service mysql stop)
+
+2. Start MySQL in safe mode and skip the use of the "grant tables": /usr/bin/mysqld_safe --user=mysql --socket=/var/lib/mysql/mysql.sock --pid-file=/var/run/mysqld/mysqld.pid --datadir=/var/lib/mysql --skip-grant-tables --skip-networking &
+
+3. Reset the MySQL root password: mysqladmin -u root flush-privileges password newpassword
+
+4. Stop MySQL running in safe mode: kill `cat /var/run/mysqld/mysqld.pid`
+
+5. Start MySQL: /etc/init.d/mysql start
+
+6. The new MySQL root password can now be used: mysql -u root -p 
+Respond with the password: newpassword
+
+*** Command to reset from MySQL console
+========================================
+mysql> USE mysql;
+mysql> UPDATE user SET Password=PASSWORD('new-password') WHERE user='root';
+mysql> FLUSH PRIVILEGES;
+
+
+# mysql-tuning-primer  -->>  To check the variables are fine or need to optimize
+
+*** Changing the data directory
+===============================
+# mysqldump --opt --all-databases | gzip > /home/alldatabases.sql.gz
+# /usr/local/cpanel/scripts/restartsrv_myqsql --stop
+(Since you are creating a new partition, you will need to rename the data directory)
+# /var/lib/mysql /var/lib/mysql-backup
+(Then you will need to edit /etc/fstab so that the new partition is mounted when the server is rebooted. If sdc1 is your new partitin, the line should look like this)
+/dev/sdc1 /var/lib/mysql ext3 default,usrquota 0 1
+# mount -a
+(Once the partition is mounted, you will need to change the owership to mysql:mysql and has permissions of 0711)
+
+*** To enable slow query log
+=========================
+Enter the below line into the file /etc/my.cnf
+slow_query_log=1
+
+*** Some simple basis MySQL
+===========================
+=> % is the wildcard character for SQL
+=> You can use the % (wildcard character) in SHOW and SELECT statements.
+=> SHOW is used to get information regarding variables Or databases.
+=> SELECT is used to obtain information from databases.
+=> UPDATE, INSERT, and DELETE can be used to modify data inside a table.
+
+*** To get the list of the users using old passowrd hashes. (from MySQL database => in users table)
+=======================================
+mysql > select distinct user from user where length(password) < 41;
+
+*** Database Mapping location
+===========================
+# cd /var/cpanel/databases
+
+
+
+
+
+
+***

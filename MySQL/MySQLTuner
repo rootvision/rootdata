@@ -1,0 +1,13 @@
+*** MySQLTuner-perl *** recommendation and optimization
+-------------------------------------------------------
+MySQLTuner is a script written in Perl that allows you to review a MySQL installation quickly and make adjustments to increase performance and stability. The current configuration variables and status data is retrieved and presented in a brief format along with some basic performance suggestions.
+-------------------------------------------------------
+***  Steps
+---------
+1. Download the file MySQLTuner .txt file.
+2. Rename the .txt file to .pl
+3. Make sure perl is installed on the server.
+4. Then excute the below command as a root user.
+# perl mysqltuner.pl
+5. You will be listed with all the recommendation and optimization.
+

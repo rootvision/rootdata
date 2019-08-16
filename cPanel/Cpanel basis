@@ -1,0 +1,114 @@
+
+
+*** Cpanel Backend
+===================
+/etc/ips ==> ip address
+/etc/reservedips =====> reserved ips
+/etc/ipaddrpool ===> ip address pool
+/home/user/.accesshash OR /root/.acesshash ===>Access Hash (WHM remote access key)
+/etc/cpupdate.conf ==>cpanel update preferances
+/etc/wwwacct.conf ===> Basic/cpanel setup
+/etc/localaliases ===> system mail preferences
+/etc/alwaysrelay ===> Exim open relay list
+/etc/localdomains ===> Exim related file . all domain should be listed here to be able to send mails
+/etc/remotedomains ==> list doamin that have account on the server but send /receive mails through their own mail server
+/etc/userdomains ===> user and their domains
+/etc/domainusers ==> users and their main domains
+/etc/trueuserdomains ==> user and their main domains
+/etc/trueuserowners ==> users and their owners
+/etc/domainips ===> doamin with dedicated ip
+/etc/nameserverips == > nameserver ips
+/etc/valiases/domain.tld ==> catchall and forwarders are set here
+/var/cpanel/maxmailsperhour ==> server-wide mx mails per hour
+/var/cpanel/cpanel.config ==> tweak setting
+
+*** For update tweak setting run script:
+=========================================
+
+# /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings
+
+/var/cpanel/packages/ ===> cpanel packages
+/var/cpanel/features/ === cpanel features
+/var/cpanel/users/ and /var/cpanel/userdata/ ==>User data
+/var/cpanel/templates/apache(1,2) ==> apache templates
+/etc/exim.conf.localopts ==> exim config templates
+/etc/mailips ===> exim mail IP
+/etc/mail_reverse_dns ==> rDNS for mail IP
+/var/cpanel/cluster/root/config ==> clustering
+/etc/chkserv.d/ ===> service manager
+/etc/cpupdate.conf ===>update config
+/etc/cpbackup.conf ===> backup configuration
+/var/cpanel/mainip ===> cpanel main ip
+/usr/local/cpanel/version ===> cpanel version
+/var/cpanel/resellers ===> resellers
+/home/user/.accesshash or /root/.accesshash ===> Access hash (WHM remote access key
+/etc/localaliases ==>System mail preferences
+/etc/alwaysrelay ===> Exim open relay list
+/var/cpanel/cluster/root/config ==> Clusterring
+/var/cpanel/resellers-nameservers ===> resellers nameservers
+
+****common scripts are ****
+=============================
+/scripts/build_maxmails_config ==> sets limits on the amount of email that users can send from domains on your server
+/scripts/esyapache ==> upgrade and reinstalls apache.
+/scrtips/phpextensionmgr ===> manages php extensions
+
+*****UPDATE scripts ******
+/scripts/*up
+*****UPDATE scripts ******
+
+badminup==bandmin application
+
+courierup == courier mail server
+cpaddonsup== cpanels addon scripts
+dovecotup = dovecot mail server
+eximup == Exim mail exchanger
+ftpup == ftp server (pro and pureftp )
+
+imapup == Imap mail server
+mysqlup -mysql service
+nsdup == bind nameserver
+phpup == current version of php
+
+suphpup == suphp tool for hadling php requests
+/scripts/upcp == update cpanel and whm
+/scripts/updateuserdomains == update userdomain entries
+/scritps/portup ==update ports
+
+/scripts/runweblogs== update statistics for a user
+/scripts/runstatsonce = update statistics for all users
+/scripts/restartsrv_* == restart all services
+
+
+*** DNS Files location
+======================
+System
+* /etc/hosts
+* /etc/resolve.conf
+* /etc/nsswitch.conf
+
+Bnd/named
+* /var/named
+* /etc/named.conf
+* /etc/sysconfig/named
+* /etc/rndc.conf
+* /etc/rndc.key
+* /var/run/named
+
+Logs
+* /var/logs/messages
+* /var/logs/named/named.log
+
+MyDNS & NSD
+* /etc/mydns.conf
+* /etc/nsd.conf
+
+PowerDNS
+* /etc/pdns/pdns.conf
+* /etc/pdns/dnssec.db
+* /usr/bin/pdns
+* /var/logs/messages
+
+
+
+****

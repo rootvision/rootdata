@@ -1,0 +1,247 @@
+
+https://docs.plesk.com/en-US/onyx/advanced-administration-guide-linux/system-maintenance/managing-services-from-the-command-line-and-viewing-service-logs.68885/
+
+
+
+***  Managing Services from the Command Line ( start/stop/restart/status )
+==========================================================================
+
+#  service --status-all  
+
+
+
+*** Parallels Plesk Panel web interface 
+=======================================
+
+#   /etc/init.d/psa start
+
+#   /etc/init.d/psa stop
+      
+#   /etc/init.d/psa restart
+
+#   /etc/init.d/psa status
+
+
+
+
+***  DNS / Named / BIND
+=======================
+
+#   /etc/init.d/named start
+
+#   /etc/init.d/named stop
+
+#   /etc/init.d/named restart
+
+
+
+
+
+***  Courier-IMAP
+=================
+
+#   /etc/init.d/courier-imap start
+
+#   /etc/init.d/courier-imap stop
+
+#   /etc/init.d/courier-imap restart
+
+
+
+
+***  QMail service
+==================
+ 
+#   /etc/init.d/qmail start
+
+#   /etc/init.d/qmail stop
+
+#   /etc/init.d/qmail restart
+
+
+
+
+***  Postfix service
+====================
+
+#   /etc/init.d/postfix start
+
+#   /etc/init.d/postfix stop
+
+#   /etc/init.d/postfix restart
+
+
+
+
+***  SpamAssassin service
+=========================
+
+#   /etc/init.d/psa-spamassassin start
+
+#   /etc/init.d/psa-spamassassin stop
+
+#   /etc/init.d/psa-spamassassin restart
+
+
+
+***  Dr.Web antivirus
+=====================
+
+#   /etc/init.d/drwebd start
+
+#   /etc/init.d/drwebd stop
+
+#   /etc/init.d/drwebd restart
+
+
+
+***  Kaspersky antivirus
+========================
+
+#   /etc/init.d/aveserver start
+
+#   /etc/init.d/aveserver stop
+
+#   /etc/init.d/aveserver restart
+
+
+
+***  Tomcat service
+===================
+
+#   /etc/init.d/tomcat5 start
+
+#   /etc/init.d/tomcat5 stop
+
+#   /etc/init.d/tomcat5 restart
+
+
+
+***  MySQL service
+==================
+
+#   /etc/init.d/mysqld start
+
+#   /etc/init.d/mysqld stop
+
+#   /etc/init.d/mysqld restart
+
+
+
+***  Postgresql service
+=======================
+
+#   /etc/init.d/postgresql start
+
+#   /etc/init.d/postgresql stop
+
+#   /etc/init.d/postgresql restart
+
+
+
+
+***  xinetd srevice
+===================
+
+#   /etc/init.d/xinetd start
+
+#   /etc/init.d/xinetd stop
+
+#   /etc/init.d/xinetd restart
+
+
+
+
+***  Watchdog (monit) service
+=============================
+
+#   /usr/local/psa/admin/bin/modules/watchdog/wd --start
+
+#   /usr/local/psa/admin/bin/modules/watchdog/wd --stop
+
+#   /usr/local/psa/admin/bin/modules/watchdog/wd --restart
+
+
+
+
+***   Apache service
+====================
+
+#   /etc/init.d/httpd start
+
+#   /etc/init.d/httpd stop
+
+#   /etc/init.d/httpd restart
+
+
+
+
+***  Mailman service
+====================
+
+#   /etc/init.d/mailman start
+
+#   /etc/init.d/mailman stop
+
+#   /etc/init.d/mailman restart
+
+
+
+
+***  psa-logrotate service 
+==========================
+
+( start )
+
+#   /usr/local/psa/bin/sw-engine-pleskrun /usr/local/psa/admin/plib/DailyMaintainance/script.php
+
+
+
+
+
+***  Samba service
+==================
+
+#   /etc/init.d/smb start
+
+#   /etc/init.d/smb stop
+
+#   /etc/init.d/smb restart
+
+
+
+
+***  psa-firewall service
+=========================
+
+
+#   /etc/init.d/psa-firewall start
+
+#   /etc/init.d/psa-firewall stop
+
+#   /etc/init.d/psa-firewall restart
+
+
+
+
+***  psa-firewall (IP forwarding)
+=================================
+
+#   /etc/init.d/psa-firewall-forward start
+
+#   /etc/init.d/psa-firewall-forward stop
+ 
+#   /etc/init.d/psa-firewall-forward restart
+
+
+
+
+***  psa-vpn service
+====================
+
+#   /etc/init.d/smb start
+
+#   /etc/init.d/smb stop
+
+#   /etc/init.d/smb restart
+

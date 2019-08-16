@@ -1,0 +1,229 @@
+
+
+Plesk Commands
+==============
+
+One time plesk login link
+#  /usr/local/psa/bin/admin --get-login-link
+
+Check Mail Queue
+#  mailq
+
+*** To check spamming on the server
+====================================
+# grep "status=sent" /var/log/maillog |cut -d "=" -f 2 |cut -d ">" -f 1 |cut -d "<" -f 2 |sort -n |uniq -c
+# grep "dovecot" /var/log/maillog |grep "Aborted login" |cut -d "," -f 3 |cut -d ":" -f 4 |sort -n |uniq -c
+
+***  To check the webmail email addresses password
+===========================================
+# /usr/local/psa/admin/bin/mail_auth_view | grep example.com
+
+***  To generate backup
+=======================
+#  mysqldump -u admin -p`cat /etc/psa/.psa.shadow` Database > Database.sql
+
+
+***    To restore the database
+==============================
+#  mysql -u admin -p`cat /etc/psa/.psa.shadow` floydpo1_drup101 < floydpo1_drup101.sql
+
+*** To Adding IP into IP tables
+===============================
+# iptables -A INPUT -s <IP> -j ACCEPT
+
+*** To Removing IP from  IP tables
+==================================
+# iptables -I INPUT -s <IP> -j REJECT or DROP
+
+
+*** To set Defaults Permission
+==============================
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
+
+*** To check the large number of accessed domian on the server.
+===============================================================
+# for i in `grep access_log /etc/httpd/conf/plesk.conf.d/*/*.conf | awk '{print $3}'`;do cat $i | grep "$(date +'%d/%b/%Y')" | wc -l | xargs echo $i;done
+
+https://docs.plesk.com/en-US/onyx/cli-linux/plesk-utility.75661/
+
+***  To view Plesk version information:
+=======================================
+# plesk version
+
+***  To view the Plesk administrator’s personal information and preferences
+===========================================================================
+# plesk bin admin --info
+Or
+# plesk bin admin -i
+
+***  To display Plesk error log:
+================================
+# plesk log error_log
+
+error_log - Plesk errors
+access_log - Web server access log
+panel.log - Plesk events log
+maillog - Mail server log file
+--all - Monitor all available log files
+
+***  To view configuration information on the website example.com
+==================================================================
+# plesk bin site --info example.com
+or
+# plesk bin site -i example.com
+
+*** To enable nginx proxy server:
+=================================
+#  plesk sbin nginxmng -e
+
+***  To view information about anonymous FTP settings on the domain example.com
+================================================================================
+#  plesk bin anonftp --info gurdwara.guru
+or
+# plesk bin anonftp -i example.com
+
+***  To view information about autoresponder for the mail account JDoe@example.com
+==================================================================================
+# plesk bin autoresponder --info -mail JDoe@example.com
+or
+# plesk bin autoresponder -i -mail JDoe@example.com
+
+***  To view information about the customer account with the login John
+========================================================================
+# plesk bin customer --info John
+or
+# plesk bin customer -i John
+
+*** To enable the customer account with the login John:
+=======================================================
+# plesk bin customer --on John
+
+***  To disable the customer account with the login John:
+=========================================================
+# plesk bin customer --off John
+
+***  To display the list of customers
+=====================================
+#  plesk bin customer --list
+
+*** To view the list of resource records in the DNS zone for the domain example.com
+====================================================================================
+#  plesk bin dns --info gurdwara.guru
+
+***  To list event handlers
+===========================
+# plesk bin event_handler --list
+or
+# plesk bin event_handler -l
+
+***  To list users
+===================
+# plesk bin event_handler --list-users
+or
+# plesk bin event_handler -lu
+
+***  To see the list of email accounts
+======================================
+# plesk bin mail -l
+
+***  To view information about mail account JDoe@example.com:
+=============================================================
+# plesk bin mail --info admin@gidibet.com
+or
+# plesk bin mail -i JDoe@example.com
+
+***  To view the SPF settings:
+==============================
+#  plesk bin mailserver --info spf
+or
+# plesk bin mailserver -i spf
+
+***  To remove the messages in the mail queue
+=============================================
+# plesk bin mailserver --clean-mail-queue
+
+***  To view the list of available services:
+============================================
+# plesk bin service --list
+or
+# plesk bin service -l
+
+***  To start, stop, restart and status the DNS service:
+========================================================
+Start
+=====
+# plesk bin service --start dns
+or
+# plesk bin service -s dns
+
+Stop
+====
+# plesk bin service --stop dns
+or
+# plesk bin service -p dns
+
+Restart
+=======
+# plesk bin service --restart dns
+or
+# plesk bin service -r dns
+
+Status
+======
+# plesk bin service --status dns
+or
+# plesk bin service -t dns
+
+***  To suspend the domain example.com:
+=======================================
+# plesk bin site --suspend example.com
+
+***  To activate the website example.com
+=========================================
+# plesk bin site --on example.com
+
+***  To display the list of domains on the server
+==================================================
+#  plesk bin site --list
+
+***  To view the PHP configuration information for the website example.com
+===========================================================================
+# plesk bin site --show-php-settings example.com
+
+
+
+*** A WordPress website shows 404 Not Found on all pages except index.php
+=========================================================================
+https://support.plesk.com/hc/en-us/articles/213912945-A-WordPress-website-shows-404-Not-Found-on-all-pages-except-index-php
+1. WordPress pages do not load with the error except index.php:
+404 Not Found
+2. The Web statistics page shows the "404 Not Found" error for https://example.com/plesk-stat/webstat/
+3. The FPM application served by nginx option is set under Plesk > Domains > example.com > PHP Settings.
+Permalinks are used.
+
+1. WordPress permalinks are using .htaccess file to rewrite page URLs to http://example.com/page_name/.
+2. nginx does not support the .htaccess file, this file can be read only by Apache.
+3. When the FPM application served by nginx option is set under PHP Settings, Apache is not involved to the to process at all.
+
+Resolution
+==>> Add the content below to the Additional nginx directives field in Plesk at Domains > example.com > Apache & nginx Settings:
+
+if (!-e $request_filename) { 
+set $test P; 
+}
+if ($uri !~ ^/(plesk-stat|webstat|webstat-ssl|ftpstat|anon_ftpstat|awstats-icon|internal-nginx-static-location)) { 
+set $test "${test}C"; 
+} 
+if ($test = PC) { 
+rewrite ^/(.*)$ /index.php?$1; 
+}
+
+
+...
+
+
+
+
+
