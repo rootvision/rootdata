@@ -157,6 +157,22 @@ Restart apache after saving the config file.
 --------------------------------------------------------------------------
 
 
+*** How To Use Cookie-Free Domains WordPress
+=============================================
+$#$ The following steps outline how to use cookie-free domains in WordPress
+
+1. Create a subdomain such as static.yourwebsite.com which is where you will deliver all your static files from.
+
+2. Point your new subdomain to the /wp-content directory of your WordPress installation. For cPanel users, you will need to update the document root field from public_html/static to public_html/wp-content.
+
+3. Edit your wp-config.php file to reflect the following:
+  define("WP_CONTENT_URL", "http://static.yourwebsite.com");
+  define("COOKIE_DOMAIN", "www.yourwebsite.com");
+
+Note: Check each and evey syntax of the domain you are using.
+============================================================
+
+
 --------------------------------------------------------------------------
 **  Apache 2.4: Block access to xmlrpc.php of all domains
 --------------------------------------------------------------------------
