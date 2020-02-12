@@ -23,6 +23,10 @@ $ ps -axo pid,comm,nice --sort=-nice
 >>> Check output with curl
 while true; do curl -I -L https://github.com/; echo; done
 
+>> Command to check detail header via wget
+==========================================
+# wget -q --server-response http://google.com
+
 ***  To check traffic on the port
 =========================
 #  tcpdump -i eth0 -vvv -nn udp dst port 1414
@@ -52,7 +56,15 @@ imapsync --host1 p3plcpnl0111.prod.phx3.secureserver.net --user1 "alexandra@cali
 ==============================================
 #  mysqldump database_name  > /home/clientbackup/database_name_$(date "+%b-%d-%Y-%H-%M-%S").sql
 
-#  mysqldump yohwcouk_h3d7ck2aa  > /home/clientbackup/yohwcouk_h3d7ck2aa_$(date "+%b-%d-%Y-%H-%M-%S").sql
+#  mysqldump yoouk_h3d7ck2aa  > /home/clientbackup/yohwcouk_h3d7ck2aa_$(date "+%b-%d-%Y-%H-%M-%S").sql
+
+$ mysqldump -u [uname] -p[pass] --skip-lock-tables db_name > db_backup_$(date "+%b-%d-%Y-%H-%M-%S").sql
+
+$ mysqldump -u [uname] -p[pass] --skip-lock-tables db_name | gzip > db_backup_$(date "+%b-%d-%Y-%H-%M-%S").sql.gz
+
+$ mysqldump -P 3306 -h [ip_address] -u [uname] -p[pass] --skip-lock-tables db_name > db_backup_$(date "+%b-%d-%Y-%H-%M-%S").sql.gz
+
+$ mysqldump database_name --skip-lock-tables > database_name_$(date "+%b-%d-%Y-%H-%M-%S").sql
 
 *** ------------------------------------------------------- ***
 >>> Tell if Your PHP Site has been Hacked or Compromised <<<
