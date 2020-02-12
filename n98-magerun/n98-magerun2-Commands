@@ -1,0 +1,258 @@
+
+n98-magerun2 version 1.2.2 by netz98 new media GmbH
+  
+Usage:
+ command [options] [arguments]
+  
+Options:
+ --help (-h)           Display this help message
+ --quiet (-q)          Do not output any message
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+ --version (-V)        Display this application version
+ --ansi                Force ANSI output
+ --no-ansi             Disable ANSI output
+ --no-interaction (-n) Do not ask any interactive question
+ --root-dir            Force magento root dir. No auto detection
+ --skip-config         Do not load any custom config.
+ --skip-root-check     Do not check if n98-magerun runs as root
+ --skip-core-commands  Do not include Magento 2 core commands
+  
+Available commands:
+ help                                      Displays help for a command
+ install                                   Install magento
+ list                                      Lists commands
+ mysql-client                              Opens mysql client by database config from env.php
+ open-browser                              Open current project in browser (experimental)
+ script                                    Runs multiple n98-magerun commands
+ self-update                               Updates n98-magerun.phar to the latest version.
+ selfupdate                                Updates n98-magerun.phar to the latest version.
+ shell                                     Runs n98-magerun as shell
+admin
+ admin:user:change-password                Changes the password of a adminhtml user.
+ admin:user:create                         Creates an administrator
+ admin:user:delete                         Delete the account of a adminhtml user.
+ admin:user:list                           List admin users.
+ admin:user:unlock                         Unlock Admin Account
+cache
+ cache:clean                               Clean magento cache
+ cache:disable                             Disables Magento caches
+ cache:enable                              Enables Magento caches
+ cache:flush                               Flush magento cache storage
+ cache:list                                Lists all magento caches
+ cache:status                              Checks cache status
+catalog
+ catalog:images:resize                     Creates resized product images
+ catalog:product:attributes:cleanup        Removes unused product attributes.
+config
+ config:delete                             Deletes a store config item
+ config:get                                Get a core config item
+ config:set                                Set a core config item
+ config:data:acl                   
+ config:data:di                    
+ config:sensitive:set              
+ config:set                        
+ config:show                       
+ config:store:delete               
+ config:store:get                  
+ config:store:set
+cron
+ cron:run                                  Runs jobs by schedule
+customer
+ customer:create                           Creates a new customer/user for shop frontend.
+ customer:hash:upgrade                     Upgrade customer's hash according to the latest algorithm
+ customer:info                             Loads basic customer info by email address.
+ customer:list                             Lists all magento customers
+db
+ db:console                                Opens mysql client by database config from env.php
+ db:create                                 Create currently configured database
+ db:drop                                   Drop current database
+ db:dump                                   Dumps database with mysqldump cli client according to informations from env.php
+ db:import                                 Imports database with mysql cli client according to database defined in env.php
+ db:info                                   Dumps database informations
+ db:maintain:check-tables                  Check database tables
+ db:query                                  Executes an SQL query on the database defined in env.php
+ db:status                                 Shows important server status information or custom selected status values
+ db:variables                              Shows important variables or custom selected
+deploy
+ deploy:mode:set                           Set application mode.
+ deploy:mode:show                          Displays current application mode.
+dev
+ dev:console                               Opens PHP interactive shell with initialized Mage::app() (Experimental)
+ dev:module:create                         Create and register a new magento module.
+ dev:module:list                           List all installed modules
+ dev:module:observer:list                  Lists all registered observers
+ dev:report:count                          Get count of report files
+ dev:source-theme:deploy                   Collects and publishes source files for theme.
+ dev:symlinks                              Toggle allow symlinks setting
+ dev:template-hints                        Toggles template hints
+ dev:template-hints-blocks                 Toggles template hints block names
+ dev:tests:run                             Runs tests
+ dev:theme:list                            Lists all available themes
+ dev:urn-catalog:generate                  Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml.
+ dev:xml:convert                           Converts XML file using XSL style sheets
+eav
+ eav:attribute:view                        View information about an EAV attribute
+generation
+ generation:flush                          Flushs generated code like factories and proxies
+i18n
+ i18n:collect-phrases                      Discovers phrases in the codebase
+ i18n:pack                                 Saves language package
+ i18n:uninstall                            Uninstalls language packages
+index
+ index:list                                Lists all magento indexes
+indexer
+ indexer:info                              Shows allowed Indexers
+ indexer:reindex                           Reindexes Data
+ indexer:reset                             Resets indexer status to invalid
+ indexer:set-mode                          Sets index mode type
+ indexer:show-mode                         Shows Index Mode
+ indexer:status                            Shows status of Indexer
+info
+ info:adminuri                             Displays the Magento Admin URI
+ info:backups:list                         Prints list of available backup files
+ info:currency:list                        Displays the list of available currencies
+ info:dependencies:show-framework          Shows number of dependencies on Magento framework
+ info:dependencies:show-modules            Shows number of dependencies between modules
+ info:dependencies:show-modules-circular   Shows number of circular dependencies between modules
+ info:language:list                        Displays the list of available language locales
+ info:timezone:list                        Displays the list of available timezones
+maintenance
+ maintenance:allow-ips                     Sets maintenance mode exempt IPs
+ maintenance:disable                       Disables maintenance mode
+ maintenance:enable                        Enables maintenance mode
+ maintenance:status                        Displays maintenance mode status
+module
+ module:disable                            Disables specified modules
+ module:enable                             Enables specified modules
+ module:status                             Displays status of modules
+ module:uninstall                          Uninstalls modules installed by composer
+sampledata
+ sampledata:deploy                         Deploy sample data modules
+ sampledata:remove                         Remove all sample data packages from composer.json
+ sampledata:reset                          Reset all sample data modules for re-installation
+script
+ script:repo:list                          Lists all scripts in repository
+ script:repo:run                           Run script from repository
+setup
+ setup:backup                              Takes backup of Magento Application code base, media and database
+ setup:config:set                          Creates or modifies the deployment configuration
+ setup:cron:run                            Runs cron job scheduled for setup application
+ setup:db-data:upgrade                     Installs and upgrades data in the DB
+ setup:db-schema:upgrade                   Installs and upgrades the DB schema
+ setup:db:status                           Checks if DB schema or data requires upgrade
+ setup:di:compile                          Generates DI configuration and all missing classes that can be auto-generated
+ setup:install                             Installs the Magento application
+ setup:performance:generate-fixtures       Generates fixtures
+ setup:rollback                            Rolls back Magento Application codebase, media and database
+ setup:static-content:deploy               Deploys static view files
+ setup:store-config:set                    Installs the store configuration
+ setup:uninstall                           Uninstalls the Magento application
+ setup:upgrade                             Upgrades the Magento application, DB data, and schema
+sys
+ sys:check                                 Checks Magento System
+ sys:cron:history                          Last executed cronjobs with status.
+ sys:cron:list                             Lists all cronjobs
+ sys:cron:run                              Runs a cronjob by job code
+ sys:info                                  Prints infos about the current magento system.
+ sys:maintenance                           Toggles maintenance mode if --on or --off preferences are not set
+ sys:setup:change-version                  Change module resource version
+ sys:setup:compare-versions                Compare module version with setup_module table.
+ sys:setup:downgrade-versions              Automatically downgrade schema and module versions
+ sys:store:config:base-url:list            Lists all base urls
+ sys:store:list                            Lists all installed store-views
+ sys:url:list                              Get all urls.
+ sys:website:list                          Lists all websites
+theme
+ theme:uninstall                           Uninstalls theme
+ 
+ 
+==========================================================================================================================
+ Commands with example
+==========================================================================================================================
+
+>> To get baseurl of current Magento 2 store
+$ php -d memory_limit=-1 /usr/local/bin/n98-magerun2.phar config:store:get "%base%url%"
+
+ >> To set baseurl of current Magento 2 store
+ $ php -d memory_limit=-1 /usr/local/bin/n98-magerun2.phar config:store:set  web/secure/base_url http://192.168.1.8/magento_store/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
