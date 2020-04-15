@@ -402,6 +402,20 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 </IfModule>
 
+***  Solving 404 Errors When Using Htpasswd
+===========================================
+It problem ended up being an Apache update and the new Apache version wasn't compatible with legacy htaccess rules. It needed the following:
+
+ErrorDocument 401 "Authorisation Required"
+
+#####HTTP Password Authentication#####
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /path/to/file/.htpasswd
+Require valid-user
+Order allow,deny
+allow from 192.168.1.1 192.168.1.2 192.168.1.3
+satisfy any
 
 
 .htaccess (code to increase the value)
