@@ -1108,7 +1108,24 @@ Output
 # python -mjson.tool username.json
 
 
+***  Convert from dos/unix to unix
+===================================
+Link: https://vim.fandom.com/wiki/File_format
 
+=============================
+Convert from dos/unix to unix
+=============================
+
+A common problem is that you open a file and see ^M at the end of many lines. Entering :set ff? will probably show that the file was read as unix: the problem is that some lines actually end with CRLF while others end with LF. To fix this, you need to tell Vim to read the file again using dos file format. When reading as dos, all CRLF line endings, and all LF-only line endings, are removed. Then you need to change the file format for the buffer and save the file. The following procedures will easily handle this situation, but they only work reliably on reasonably recent versions of Vim (7.2.40 or higher).
+
+Convert from dos/unix to unix
+To convert the current file from any mixture of CRLF/LF-only line endings, so all lines end with LF only:
+:update	 		(Save any changes)
+:e ++ff=dos 		(Edit file again, using dos file format ('fileformats' is ignored))
+:setlocal ff=unix 	(This buffer will use LF-only line endings when written)
+:w 			(Write buffer using unix (LF-only) line endings)
+
+In the above, replacing :set ff=unix with :set ff=mac would write the file with mac (CR-only) line endings. Or, if it was a mac file to start with, you would use :e ++ff=mac to read the file correctly, so you could convert the line endings to unix or dos.
 
 
 
