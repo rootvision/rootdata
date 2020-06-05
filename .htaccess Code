@@ -417,6 +417,32 @@ Order allow,deny
 allow from 192.168.1.1 192.168.1.2 192.168.1.3
 satisfy any
 
+*** How to stop 301 redirect backlinks from negative SEO attacks and multiple ways to block IP's along with URL's so you can prevent negative attacks on your site.
+
+*** Note you can also find a walk through on adding to a Virtual Host if you manage a server , this way you can block any incoming issues to your server or site. If your using a CMS like WordPress accessing your HTA files is quite simple there are tons of tutorials on adding in conditions.
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www.badwebsite.com$ [NC]
+RewriteRule .* https://website to sendto.com [R,L]
+
+Require all granted
+Require not website or ip address
+
+order allow,deny
+deny from IP ADDRESS 
+allow from all
+
+SetEnvIfNoCase Referer "badsite.com"bad_referer
+Order Allow,Deny
+Allow From All
+Deny from env=bad_referer
+
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} badsite.com [NC,OR]
+RewriteRule .* - [F]
+
+*** Negative SEO attacks from competitors is a problem so hopefully this can help at least one person from it hurting there website or websites.
+
 
 .htaccess (code to increase the value)
 ================
