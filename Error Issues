@@ -1129,6 +1129,28 @@ In the above, replacing :set ff=unix with :set ff=mac would write the file with 
 
 
 
+Error “User unknown in virtual alias table” Error in Postfix and Virtualmin
+============================================================================
+
+I recently came accross a strange issue with Postfix and Virtualmin on every website hosted on my server when someone tried to send a mail using a contact form. The websites stated that the email had been sentcorrectly, but the email never reached the inbox.
+
+>> Error Logs: status=bounced (User unknown in virtual alias table)
+
+Cause and solution:
+Finally, I found out that if you send a mail from a website that’s hosted on Virtualmin, the server will always first look if the destination domain you’re sending the mail to exists in Virtualmin on the local server. If it does, it’ll try to send the domain to the specified account, which will probably not exist (unless you’re also using Virtualmin as mail server) and fail.
+
+Since I do not use Virtualmin as a mail server but only as a web server, it’s possible to fix the problem by disabling the following options in “Virtualmin > Domain > Edit Virtual Server > Enabled Features”:
+* Mail for Domain
+* Spam Filtering
+* Virus Filtering
+
+
+It’s important to disable all three options, because if not the mail functions for the domain will still partially be enabled and the error will continue to occur.
+
+Once the options are disabled and the configuration has been saved, it’s advisable to reload Postfix to make sure it applies the new configuration:
+
+# /etc/init.d/postfix reload
+
 
 
 
