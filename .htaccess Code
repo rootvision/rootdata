@@ -444,6 +444,13 @@ RewriteRule .* - [F]
 *** Negative SEO attacks from competitors is a problem so hopefully this can help at least one person from it hurting there website or websites.
 
 
+# Block xmlrpc.php
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+</Files>
+
+
 .htaccess (code to increase the value)
 ================
 
