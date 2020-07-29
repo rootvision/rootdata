@@ -27,4 +27,20 @@ Enter all the URLs you need to check and run the below commands
 
 
 
+===============================================================================
+
+
+vim httpstatus_checker.sh
+
+#!/bin/bash
+while read LINE; do
+  curl -o /dev/null --silent --head --write-out "%{http_code} $LINE\n" "$LINE"
+done < url-list.txt
+
+just make sure to put the url into the file url-list.txt
+
+
+$ curl -o /dev/null --silent --head --write-out '%{http_code}\n' <url>
+
+
 .
