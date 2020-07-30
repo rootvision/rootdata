@@ -23,6 +23,18 @@ mysql > UPDATE `admin_user` SET `password` = MD5('kent76essa'), `rp_token_create
 6. (type Control-D, to exit mysql client)
 ==================================================
 
+Error
+=====
+ERROR 1227 (42000) at line 1310: Access denied; you need (at least one of) the SUPER privilege(s) for this operation
+
+Fix: sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i db_backup-29july2020.sql
+
+Error
+=====
+ERROR 1005 (HY000): Can't create table `x`.`x` (errno: 140 "Wrong create options")
+
+Fix: sed -ie 's/ROW_FORMAT=FIXED//g' /Users/admin/Downloads/oma_dev29072020.sql
+
 
 ----------------------------------------------------------------------
 **  FTP window promths in wordpress
