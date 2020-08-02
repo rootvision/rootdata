@@ -1,0 +1,75 @@
+Outside Tmux
+
+To load tmux with unicode support
+$ tmux -u 
+
+To create named session
+$ tmux new -s <session_name>
+
+To list sessions
+$ tmux list-sessions
+$ tmux ls
+
+To reattach to a session
+$ tmux attach -t <session_name>
+$ tmux a -t <session_name>
+
+To kill sessions
+$ tmux kill-session -t <session_name>
+
+Inside Tmux
+
+To create new window
+$ Ctrl+b c
+
+To rename window
+$ Ctrl+b ,
+
+To switch to previous window
+$ Ctrl+b p
+
+To switch to next window
+$ Ctrl+b n
+
+To list windows
+$ Ctrl+b w
+
+To kill a window
+$ Ctrl+b &
+
+To split panes vertically
+$ Ctrl+b %
+
+To split horizontally
+$ Ctrl+b :  "split-window"
+$ Ctrl+b "
+
+To make a pane its own window
+$ Ctrl+b : "break-pane"
+$ Ctrl+b +
+
+To detach from a session
+$ Ctrl+b d
+
+To switch to next pane
+$ Ctrl+b o
+
+To Show pane numbers (when the numbers show up type the key to go to that pane)
+$ Ctrl+b q
+
+To move current pane to right
+$ Ctrl+b {
+
+To move current pane to left
+$ Ctrl+b }
+
+To zoom a pane
+$ Ctrl+b z
+
+Note
+Is used to give named commands
+$ Ctrl+b :
+
+To list bindings
+$ Ctrl+b ?
+
