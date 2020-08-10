@@ -1,1 +1,1 @@
-# "You don't have to be great to start, but you have to start to be great"
+# "YOU DON'T HAVE TO BE GREAT TO START, BUT YOU HAVE TO START TO BE GREAT"
