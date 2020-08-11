@@ -403,6 +403,16 @@ History
   
 --------------------------------------------------------------------------
 
+*** htaccess: Option FollowSymLinks
+===================================
+Error
+=====
+[Tue Aug 11 03:19:58.460095 2020] [core:alert] [pid 14208:tid 139834664380160] [client 112.198.51.58:36954] /home/user/public_html/.htaccess: Option FollowSymLinks not allowed here
+
+Solution
+========
+$ find . -name ".htaccess" -type f -exec sed -i 's/FollowSymLinks/SymLinksIfOwnerMatch/g' {} ";"
+
 
 
 *** To enable .eml extentsion
