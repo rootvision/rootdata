@@ -1,0 +1,8 @@
+
+- Fool vi editors old veriosn 
+Python pty module:
+One of my go-to commands for a long time after catching a dumb shell was to use Python to spawn a pty. The pty module let’s you spawn a psuedo-terminal that can fool commands like su into thinking they are being executed in a proper terminal. To upgrade a dumb shell, simply run the following command:
+
+:python -c 'import pty; pty.spawn("/bin/bash")'
+:python -c import pty; pty.spawn("/bin/bash")
+
