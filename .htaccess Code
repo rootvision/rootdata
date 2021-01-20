@@ -468,6 +468,13 @@ RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=302,L]
 
 RewriteEngine On
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=301,L]
+
+#.htaccess rule for forcing SSL
+RewriteEngine On
+RewriteBase /
+RewriteCond %{ENV:HTTPS} !on [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
 
 
 .
