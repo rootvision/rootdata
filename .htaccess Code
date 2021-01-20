@@ -460,4 +460,15 @@ php_value memory_limit 3000M
 php_value max_execution_time 180
 php_value max_input_time 180
 
+*** Redirect to HTTPS Using htaccess Behind Nginx Proxy
+========================================================
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=302,L]
+
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+
+
+.
 
