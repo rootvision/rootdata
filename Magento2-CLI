@@ -4,6 +4,10 @@
 
 Also refer a very useful technical note for using the shortcuts of  Magento2 SSH commands: Magento 2 Commands Shortcut
 
+To Install Magento via command line CLI (JUST MAKE SURE TO REPLACE THE DETAILS ACCORDINGLY BEFORE RUNNING)
+# php bin/magento setup:install --base-url="http://magento2.local.com" --db-host="localhost" --db-name="magentoee233" --db-user="magento_user" --db-password="magento@dev" --admin-firstname="Edward" --admin-lastname="Vision" --admin-email="root@example.com" --admin-user="admin" --admin-password="admin@123" --language="en_US" --currency="USD" --timezone="America/Chicago" --use-rewrites="1"
+
+
 Setup Upgrade Using Command Line
 # php bin/magento setup:upgrade
 
