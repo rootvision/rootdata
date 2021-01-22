@@ -1,0 +1,92 @@
+*********************************************
+Steps For Vhost Configuration
+
+********************************************
+
+sudo apt-get install dnsmasq
+
+My /etc/dnsmasq.d/local file:
+
+address=/.local.com/127.0.0.1
+
+Now restart dnsmasq:
+
+sudo service dnsmasq restart
+
+Enable the vhost_alias module:
+
+sudo a2enmod vhost_alias
+
+
+-----
+<VirtualHost *:80>
+ServerAdmin webmaster@localhost
+ 
+ServerName local.com
+ServerAlias *.local.com
+ 
+# This will be the wildcarded document root. Any folder you create in /var/www/test will be automatically a subdomain name.
+VirtualDocumentRoot /var/www/html/projects/%-3
+ 
+# For symlinking your projects and htaccesses to work
+<Directory />
+Options FollowSymLinks
+AllowOverride All
+</Directory>
+ 
+ErrorLog /var/log/apache2/vhosts-error.log
+ 
+# Possible values include: debug, info, notice, warn, error, crit,
+# alert, emerg.
+LogLevel warn
+ 
+CustomLog /var/log/apache2/vhosts-access.log combined
+</VirtualHost>
+----
+
+Disable the main vhost site (named default):
+
+sudo a2dissite default
+
+Enable your site (enter the right vhost filename)
+
+sudo a2ensite local.conf
+
+
+
+
+
+*** If facing issue with the contents not showing -- 404 error 
+The following workaround to disable static file signing, which has corrected the 404 for me:
+
+
+
+INSERT INTO `core_config_data` (`scope`, `scope_id`, `path`, `value`) VALUES ('default', 0, 'dev/static/sign', '0');
+
+
+You will need to clear cache after this, and also check for any entries with the same config path if you have previously modified this setting.
+
+This isn't a very good workaround as it would break cache-busting when using Varnish or any CDNs etc, but at least assets do not 404.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+....
