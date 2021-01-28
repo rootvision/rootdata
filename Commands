@@ -462,13 +462,17 @@ https://www.cyberciti.biz/faq/check-running-services-in-rhel-redhat-fedora-cento
 # firewall-cmd --list-all
 
 *** To check open ports on the remote server
-==================================
+==========================================
 # nc -zv server.workstation.com 25
 # nc -zv 151.236.51.42 20-25
 
 *** Un-tar a specific directory inside of a tar
-=================================
+================================================
 # tar -zxvf httpdocs.tar.gz --strip 1 httpdocs/wp-content/themes/gurdwara
+
+*** Shell command to tar directory excluding certain files/folders
+=================================================================
+# tar --exclude='./wp-content/uploads' --exclude='./wp-content/themes' --exclude='./wp-content/plugins' -zcvf backup-file.tgz .
 
 *** SpamAssassin
 ================
