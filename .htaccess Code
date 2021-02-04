@@ -476,6 +476,15 @@ RewriteBase /
 RewriteCond %{ENV:HTTPS} !on [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
 
+Working rule: to Redirect from HTTP to HTTPS with WWW For Ngnix
+###############################################################
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} =http
+RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+###############################################################
 
 .
 
