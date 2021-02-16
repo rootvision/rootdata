@@ -21,7 +21,12 @@ $ ps -axo pid,comm,nice --sort=-nice
 # ps -aux --sort=pcpu | tail -n 3 | awk '{print $3}'
 
 >>> Check output with curl
-while true; do curl -I -L https://github.com/; echo; done
+$ while true; do curl -I -L https://github.com/; echo; done
+$ curl -gkvLI -b '' -H 'User-Agent: google.com daemon 2.6' -H 'Accept: */*' -H 'Connection: Close' -H 'Accept-Language: en' -m 30 --connect-timeout 10 https://example.com/
+$ curl -ILs https://example.com/
+
+- For insecure or SSL warning
+$ curl -ILs https://example.com/
 
 >> Command to check detail header via wget
 ==========================================
