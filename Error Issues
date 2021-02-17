@@ -1207,6 +1207,27 @@ Once the options are disabled and the configuration has been saved, it’s advis
 # /etc/init.d/postfix reload
 
 
+** Magento redirect chain (stacks: Apache + Nginx)
+
+└──╼ $curl -ILs http://www.example.com.au/digital-cameras | egrep -i location
+Location: https://www.example.com.au/digital-cameras/
+location: https://www.example.com.au/digital-cameras
+
+
+The redirect issue was occurring when being handled by the magento application it appears.
+
+In the vhost, I have added the following:
+
+## ##
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{REQUEST_URI} !^(.*)/\.well\-known(.*) [NC]
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+## ##
+
+This will redirect using the apache service before hitting the application if a web request is not using https.
+
+
 
 
 
