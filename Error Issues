@@ -23,6 +23,15 @@ mysql > UPDATE `admin_user` SET `password` = MD5('kent76essa'), `rp_token_create
 6. (type Control-D, to exit mysql client)
 ==================================================
 
+*** MySQL query to update and replace the old url with the new in table-Magento 2
+=================================================================================
+UPDATE cms_block SET content = REPLACE(content, 'https://www.old.com', 'https://new.ie');
+UPDATE cms_block SET content = REPLACE(content, 'https://www.old.ie', 'https://new.ie');
+
+UPDATE cms_page SET content = REPLACE(content, 'https://www.old.com', 'https://new.ie');
+UPDATE cms_page SET content = REPLACE(content, 'https://www.old.ie', 'https://new.ie');
+
+
 Error
 =====
 ERROR 1227 (42000) at line 1310: Access denied; you need (at least one of) the SUPER privilege(s) for this operation
