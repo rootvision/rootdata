@@ -486,5 +486,33 @@ RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
 ###############################################################
 
+Redirects the SRC LINKS TO DES with ? Question mark
+====================================================
+SRC: https://www.example.co.uk/catalog/seo_sitemap/category/
+SRC: https://www.example.co.uk/catalog/seo_sitemap/product/
+SRC: https://www.example.co.uk/catalog/seo_sitemap/product/?p=1
+SRC: https://www.example.co.uk/catalog/seo_sitemap/product/?p=2
+SRC: https://www.example.co.uk/catalog/seo_sitemap/product/?p=3
+SRC: https://www.example.co.uk/catalog/seo_sitemap/product/?p=4
+
+DES: https://www.example.co.uk/seo-sitemap
+
+CODE: 
+-----
+<IfModule mod_rewrite.c>
+
+## Enable rewrites - Geetansh 
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^catalog/seo_sitemap/category/$ https://www.example.co.uk/seo-sitemap/ [QSD,R=301,L]
+RewriteRule ^catalog/seo_sitemap/product/$ https://www.example.co.uk/seo-sitemap/ [QSD,R=301,L]
+
+</IfModule>
+
+
+
+
 .
 
