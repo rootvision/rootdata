@@ -1237,6 +1237,26 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 This will redirect using the apache service before hitting the application if a web request is not using https.
 
 
+- How to fix Magento 2 in cluster_block_exception
+-------------------------------------------------
+How to solve cluster_block_exception [TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, the index has read-only-allow-delete block] in Magento 2?
+
+Step 1: Go to your root project in the command line
+
+Step 2: Run below mentioned command
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
+
+Step 3 : After running above command successfully, run another below mentioned command
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+
+After running the above codes, run below mentioned commands
+
+– php bin/magento setup:upgrade
+– php bin/magento setup:static-content:deploy
+– php bin/magento indexer:reindex
+– php bin/magento cache:clean
+
+
 
 
 
