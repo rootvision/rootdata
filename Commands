@@ -1,6 +1,37 @@
 *** Normally used command in daily tasks
 =========================================
 
+- To check public IP using CLI
+------------------------------
+curl checkip.amazonaws.com
+curl ifconfig.me
+curl icanhazip.com
+curl ipecho.net/plain
+curl ifconfig.co
+
+
+List All the Open Files Belonging to a Particular Directory
+- lsof +D /var/log/
+
+List All the Open Files Belonging to a Particular User
+- lsof –u username
+
+List All the Open Files Belonging to a Particular Internet Protocol
+- lsof –i 6
+- lsof –i 4
+
+List All the Open Files Belonging to a Particular File System
+- sudo lsof /proc
+
+To find NIC speed, issue the below command in Terminal
+- sudo ethtool <interfae_name>
+- sudo ethtool ens33 | grep -i speed
+
+Use dmesg command is used to display the kernel-related messages on the Linux system. We can also use this command to find the NIC card speed
+- dmesg | grep <interface_name> | grep up
+
+To find your NIC speed, use the mii-tool
+- sudo mii-tool -v <interface_name>
 *** To connect via sftp from the server
 ========================================
 # sftp -oPort=8973 admin@admin.com
