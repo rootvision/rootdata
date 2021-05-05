@@ -1257,10 +1257,96 @@ After running the above codes, run below mentioned commands
 – php bin/magento cache:clean
 
 
+Error
+=====
+Unable to connect mySql database. Error: Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client
+
+Fix
+ALTER USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'parrotxo@!#0604';
 
 
+CORS issue on Nginx server
+=========================
+add_header 'Access-Control-Allow-Origin' '*' 'always';
+
+if ($request_method = 'OPTIONS') {
+    add_header 'Access-Control-Allow-Origin' '*' 'always';
+    add_header 'Access-Control-Allow-Headers' 'x-requested-with' 'always';
+    add_header 'Access-Control-Max-Age' 86400 'always';
+    add_header 'Content-Length' 0 'always';
+    return 200;
+}
+     if ($request_method = 'POST') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS,PUT,HEAD';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+     }
+     if ($request_method = 'GET') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+       add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS,PUT,HEAD';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+    }
 
 
+[ERROR] Failed to open log (file './mysql-bin.000023', errno 2)
+---------------------------------------------------------------
+we have two types of workarounds to start MySQL again.
+
+1. Deleting the missed files in binlog .index file
+2. Disabling the binlog logging on my.cnf file
+
+1. Deleting the missed files in binlog.index file
+- in my case mysql-bin.000023
+
+Delete the mysql-bin.000023 from the above file and restart the mysqld.
+
+2. Disabling the binlog logging on my.cnf file 
+- In this step, open my.cnf and set the value of set_log_bin to 0 and purge all the existing binary logs
+
+$ vi my.cnf
+
+sql_log_bin = 0
+
+- Save the above file and restart the mysql service. Once after login to the server purge the bin logs.
+
+$ mysql -u root -p -A -v
+Enter Password:
+
+mysql> PURGE BINARY LOGS;
+
+- This will delete the existing logs from the server.
+After this step, Enable the Binary log again to write the changes to binlog files.
+
+To do that login to MySQL again and do below.
+$ mysql -u root -p -A -v
+Enter Password:
+
+mysql> SET sql_log_bin = 1;
+
+-Once after finishing this, edit the my.cnf file and set the sql_log_bin from 0 to 1and restart the service.
+
+Note: The second procedure is not the recommended way to apply in Production.
+
+
+Magento 2.4 installation steps using cli
+========================================
+php bin/magento setup:install --base-url=http://practice.example.co.in/ --db-host=localhost --db-name=practice --db-user=practice --db-password=5KJQkRcUcYKEjdt --admin-firstname=admin --admin-lastname=admin --admin-email=system@example.com --admin-user=admin --admin-password=admin123 --language=en_US --currency=USD --timezone=America/Chicago --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host="localhost"  --elasticsearch-port=9200
+
+
+Error
+=====
+{"0":"{\"error\":{\"root_cause\":[{\"type\":\"illegal_argument_exception\",\"reason\":\"Fielddata is disabled on text fields by default. Set fielddata=true on [%attribute_code%]] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory.\"}].
+
+Fix
+===
+UPDATE catalog_eav_attribute AS cea INNER JOIN eav_attribute AS ea ON ea.attribute_id = cea.attribute_id SET cea.is_filterable = 0, cea.is_filterable_in_search = 0 WHERE (cea.is_filterable = 1 OR cea.is_filterable_in_search = 1) AND frontend_input NOT IN ('boolean', 'multiselect', 'select', 'price')
+
+php bin/magento index:reindex
+php bin/magento cache:clean
 
 
 
