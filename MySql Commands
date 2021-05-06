@@ -307,6 +307,59 @@ Threads_connected 7
 Threads_running 2
 
 
+Database grant privileges cli
+- GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' 
+- GRANT ALL ON database.* TO 'admin'@'%';
+
+Create database using mysql cli
+- CREATE SCHEMA `database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+Create mysql user
+- CREATE USER IF NOT EXISTS 'admin'@'%' IDENTIFIED BY 'pexxo@!#0604';
+
+Alter user for native password
+- ALTER USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'pexmap@!#0604';
+
+Check buffer pool
+- innodb status \G;
+- show engine innodb status \G;
+
+Run the following SQL statement twice over a period of time to get the InnoDB buffer pool miss rate.
+- show global status where variable_name in ('Innodb_buffer_pool_reads','Uptime');
+
+You can KILL the processid
+- kill 1193777;
+
+
+- SHOW GLOBAL STATUS LIKE 'Created_tmp%';
+- SHOW VARIABLES LIKE 'query%';
+- show global status like 'Open_tables';
+- show global status like 'Opened_tables';
+- show variables like "%timeout%";
+- show global status like 'threads%';
+- show global variables like 'innodb_log_file_size';
+- show global variables like 'innodb_log_files_in_group';
+- show global variables like 'tmp_table_size';
+- show global variables like 'max_heap_table_size';
+- SHOW GLOBAL STATUS LIKE 'Created_tmp%';
+- SELECT @@innodb_buffer_pool_size/1024/1024/1024, @@innodb_buffer_pool_instances;
+- SELECT @@global.time_zone, @@session.time_zone, now(), current_timestamp();
+- SELECT @@sql_mode;
+- SELECT user, host, db,  command  FROM  information_schema.processlist;
+- show variables like 'max_connections';
+- SHOW VARIABLES LIKE 'innodb_log_file_size';
+- flush privileges;
+
+
+# To take sepecfic table backup without sechma 
+- mysqldump -u admin -p database table -c -t > symbol.sql
+- mysql -u admin -p
+- show databases;
+- use database;
+- source table.sql
+
+
+
 
 *********************************************************************************************************************************************************************
 
