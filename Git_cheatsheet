@@ -234,5 +234,21 @@ git fetch
 git pull origin master
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX      <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+== >> Steps to renaming local and remote branches
+* Renaming local branch to the new name
+- To rename the local branch to the new name, use the git branch command followed by the -m option:
+$ git branch -m <old-name> <new-name>
+
+- To delete the old branch on remote (suppose, the name of remote is origin, which is by default), use the following command:
+$ git push origin --delete <old-name>
+
+- Pushing the new branch to remote
+$ git push origin <new-name>
+
+
+
+
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
