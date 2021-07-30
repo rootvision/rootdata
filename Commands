@@ -1,6 +1,35 @@
 *** Normally used command in daily tasks
 =========================================
 
+##  Import only specific tables from .sql file
+------------------------------------------------
+- mysql -u your_username -p your_database_name --tables table1 table2 table3 < data_to_import.sql
+$ mysql -u root -p dbtemp --tables tb_name < db_name.sql
+
+To convert ppk to pem && pem to ppk
+-------------------------------------
+- sudo puttygen server.ppk -O private-openssh -o server.pem
+- sudo puttygen pemKey.pem -o ppkKey.ppk -O private
+
+
+To check cacheable pages in Magento 2
+---------------------------------------
+- egrep -rnwl 'app/' -e 'cacheable="false"' | wc -l
+
+
+To clear cache larvel
+----------------------
+- php artisan route:cache;
+- php artisan config:clear;
+- php artisan config:cache;
+- php artisan config:clear;
+
+
+To clear Magento 1 cache
+- php -r 'require "app/Mage.php"; Mage::app()->getCacheInstance()->flush();'
+- rm -rvf var/cache/*
+
+
 To add Timestamp into History Of server
 ---------------------------------------
 # echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bashrc
