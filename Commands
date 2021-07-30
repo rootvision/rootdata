@@ -1,6 +1,10 @@
 *** Normally used command in daily tasks
 =========================================
 
+To add Timestamp into History Of server
+---------------------------------------
+# echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bashrc
+
 - To check public IP using CLI
 ------------------------------
 curl checkip.amazonaws.com
