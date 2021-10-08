@@ -173,6 +173,17 @@ IPREMOVED - - [01/Mar/2013:06:12:58 -0600] "POST /public/style_images/master/pro
 # find /var/www/html/ -name \*.php -type f -print0 | xargs -0 grep c99
 # grep -RPn "(passthru|shell_exec|system|base64_decode|fopen|fclose|eval)" /var/www/html/
 
+###  Commands To Check Detailing Of Process ####
+lsof -p 13896
+ps -p 301866 -o pid,vsz=MEMORY -o user,group=GROUP -o comm,args=ARGS
+cat /proc/type_pid_here/status
+cat /proc/301866/cmdline
+pwdx 13896
+ps -Flww -p 301866
+ps ax|egrep "301866"
+pmap 301866 | head -1
+
+
 *** Find outdated versions of WordPress: (cPanel server)
 ========================================================
 #  find /home/*/public_html/ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "$wp_version =" {} \;
