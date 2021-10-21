@@ -785,7 +785,15 @@ while [$(atq | wc -l) -gt 0]; do sleep 1s; done
 # egrep 'High|Low' /proc/meminfo
 # vmstat -SM 45 10
 
-
+>>> To Create All Databases Backup
+---------------------------------
+1. Create a backup directory:
+# mkdir /backup/db_backup
+2. Export all databases name in mysql.txt file:
+# mysql -e 'show databases' > /root/mysql.txt
+It will generate all the hosted database name in mysql.txt. Open /root/mysql.txt and remove following ( Database, horde, mysql, roundcube, logohlic_DB, performance_schema & information_schema )
+3. Shoot the loop script to generate the backups:
+# for i in `cat /root/mysql.txt`; do mysqldump $i > /backup/db_backup/$i.sql; done
 
 
 
