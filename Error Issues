@@ -1348,6 +1348,45 @@ UPDATE catalog_eav_attribute AS cea INNER JOIN eav_attribute AS ea ON ea.attribu
 php bin/magento index:reindex
 php bin/magento cache:clean
 
+- IAM Inline Policy 
+-------------------
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::bucket_name"
+        }
+    ]
+}
+
+
+- To Make S3 Bucket Public
+---------------------------
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::bucket_name/*"
+        }
+    ]
+}
+
 
 
 ...
