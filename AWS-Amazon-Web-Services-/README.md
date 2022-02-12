@@ -4,6 +4,7 @@
 
 * aws https://aws.amazon.com/cli/
 * jq https://stedolan.github.io/jq/
+* AWS DevOPs https://github.com/awsdocs
 
 :warning: Disclaimer: All Resource, Account, ARN, Hostname etc are generated using [Faker](https://faker.readthedocs.io/en/master). They do not match any real user data.
 
