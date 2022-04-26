@@ -796,6 +796,38 @@ It will generate all the hosted database name in mysql.txt. Open /root/mysql.txt
 # for i in `cat /root/mysql.txt`; do mysqldump $i > /backup/db_backup/$i.sql; done
 
 
+To Switch PHP Verion Command line 
+----------------------------------
+SCL are designed for parallel installation so don't alter default version in base system
+
+Once the collection is enabled, the version will be used
+
+$ scl enable php72 bash
+$ php -v
+PHP 7.2.8 (cli) (built: Jul 17 2018 05:35:43) ( NTS )
+If you want 7.2 to be the default version (base system) you should install it, according to Wizard instructions for "Default / single version" (and keep 5.6 as secondary version)
+
+
+[root@server ~]# scl --help
+usage: scl enable|run [<collection>...] <command>
+       scl load|unload [<collection>...]
+       scl list-collections
+       scl list-packages|man|register|deregister <collection>
+       scl --help
+
+description:
+    enable|run            run given command from Software Collection 
+    load|unload           enable/disable collection in current shell
+    list-collections      list installed Software Collections
+    list-enabled          list Software Collections enabled in current shell
+    list-packages         list packages in Software Collection
+    man                   show manual page about Software Collection
+    register|deregister   register/deregister Software Collection
+    --help                show this help
+
+Use '-' as <command> to read the command from standard input.
+
+
 
  _     _                    _  __                    _          _            
 | |   (_)_ __  _   ___  __ | |/ /_ __   _____      _| | ___  __| | __ _  ___ 
