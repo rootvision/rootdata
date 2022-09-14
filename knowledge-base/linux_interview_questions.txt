@@ -1,0 +1,767 @@
+Jenkins Interview Questions and Answers
+=====================================
+1. What is Jenkins?
+Jenkins is an open-source free automation tool used to build and test software projects. The tool makes it painless for developers to integrate changes to the project. Jenkins' primary focus is to keep track of the version control system and initiate and monitor a build system if there are any changes. It keeps an eye on the entire process and provides reports and notifications to alert.
+
+Some typical reasons as to why Jenkins is so widely used are:
+
+Developers and testers use Jenkins to detect defects in the software development lifecycle and automate the testing of builds. 
+They use it to continuously monitor the code in real-time and integrate changes into the build.
+Jenkins as it turns out, is a great fit for building a CI/CD pipeline because of its plugin-capabilities, and simple-to-use nature.
+
+2. What are the features of Jenkins?
+Some of the crucial features of Jenkins are the following:
+
+It is a free and open-source automation tool
+Jenkins provides a vast number of plugins
+It is easy to set up and install on multiple operating systems
+Provides pipeline support
+Fast release cycles 
+Easy upgrades
+
+
+3. What is Groovy in Jenkins?
+Apache Groovy is a dynamic object-oriented programming language used as a scripting language for Java platforms. 
+Groovy is used to orchestrate the Jenkins pipeline and enables different teams to contribute to the work in different languages. 
+Groovy's syntax is very similar to that of Java, making it more seamless with the Java interface. 
+The language has several features like Java compatibility and Development support.
+
+4. How do you install Jenkins?
+Follow the steps mentioned below to install Jenkins:
+
+Install Java 
+Install Apache Tomcat Server
+Download Jenkins war File
+Deploy Jenkins war File
+
+5. Which commands can be used to begin Jenkins?
+Here are the commands used to start Jenkins:
+
+Open the command prompt
+After the command prompt opens, browse to the directory where Jenkins war is present
+Then run the following command:
+D:\>Java -jar Jenkins.war
+
+6. What is "Continuous Integration" with reference to Jenkins?
+Continuous Integration is a development practice where the codes can be integrated into a shared repository. 
+The practice uses automated verifications for the early detection of code problems. 
+Continuous Integration triggers the build to find and identify bugs present in the code.
+It adds consistency to the build process.
+It’s a means to build things faster and prevents broken code.
+
+7. What are the differences between Continuous Integration, Continuous Delivery, and Continuous Deployment?
+Continuous Integration (CI) is a DevOps software development practice that permits developers to combine/merge the changes to their code in the central repository to run automated builds and tests.
+Continuous Delivery (CD) refers to the building, testing, and delivering improvements to the software code. The most critical part of the CD is that the code is always in a deployable state.
+Continuous Deployment (CD) is the ultimate stage in the DevOps pipeline. It  refers to automatic release of any developer changes from the repository to the production stage.
+
+8. What is a CI/CD pipeline?
+CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. The pipeline is responsible for building codes, running tests, and deploying new software versions.
+
+9. What is a Jenkins pipeline?
+The pipeline represents the continuous delivery and continuous integration of all the jobs in the SDLC and DevOps life cycle. 
+The Jenkins pipeline is a set of plugins that support implementation and integration of continuous delivery pipelines into Jenkins. It connects this pipeline in a particular format by Jenkins.
+The Jenkins pipeline solves several problems like the maintenance of thousands of jobs and maintaining deployment with needing to resort to other powerful methods.
+
+10. Name the three different types of pipelines in Jenkins?
+The three different types of Jenkins pipelines are:
+
+CI/CD pipeline 
+Scripted pipeline
+Declarative pipeline
+
+11. How can you set up a Jenkins job?
+To set up a Jenkins job, you may follow these steps:
+
+Select New item from the menu
+Next, enter a name for the job and select a free-style job
+Click on OK to create a new job
+Hence, the next page that appears will allow you to configure your job.
+
+12. What are the requirements for using Jenkins?
+To use Jenkins, you require the following:
+
+A source code repository that can be accessed, for example, a Git repository.
+A build script, for example, a Maven script.
+
+13. Name the two components that Jenkins is mostly integrated with.
+Jenkins is typically integrated with these two components:
+
+Version Control systems like Git and SVN (Apache Subversion)
+Build tools like Maven 
+
+
+14. Name some of the useful plugins in Jenkins.
+Some of the plugins in Jenkins include:
+
+Maven 2 project
+Amazon EC2
+Copy artifact
+Join
+HTML publisher
+Green Balls
+
+15. How can you create a backup and copy files in Jenkins?
+Jenkins stores all the settings, builds scripts, and logs in the home directory. 
+Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
+The job directory may also be copied to clone a job or rename the directory.
+
+16. How can you deploy a custom build of a core plugin?
+If you wish to deploy a custom build of a core plugin, you follow the following steps:
+
+Stop Jenkins
+Then copy the custom HPI to $Jenkins_Home/plugins
+After that, delete the previously expanded plugin directory
+Next, make an empty file called <plugin>.hpi.pinned
+Finally, start Jenkins
+
+17. What could be the steps to move or copy Jenkins from one server to another?
+There are multiple ways to move or copy Jenkins from one server to another:
+
+You may move a job from one Jenkins installation to another just by copying the corresponding job directory.
+You may make a copy of an already existing job by making a clone of the job directory with an uncommon name.
+You may also just rename a current job by renaming a directory.
+
+18. Name some more continuous Integration tools other than Jenkins.
+Some of the top continuous integration tools other than Jenkins are:
+
+TeamCity
+Travis CI
+Go CD
+Bamboo
+GitLab CI
+CircleCI
+Codeship
+
+19. Assume that you have a pipeline. The first job that you performed was successful, but the second one failed.  What would you do now?
+You don't have to worry, and you just have to restart the pipeline from the point where it failed by doing 'restart from stage.'
+
+20. Explain the process in which Jenkins works?
+Here’s the process in which Jenkins works:
+
+Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, the code implements itself in the proper server so that testing begins.
+After the successful testing phase, Jenkins shares the results with the team using it.
+
+21. What is Jenkinsfile? 
+Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository. It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline.
+
+22. Differentiate between Maven, Ant, and Jenkins.
+Maven: 
+Build tool
+Perform build operations 
+
+ANT:
+Build tool
+Perform build operations
+
+Jenkins:
+Continuous Integration tool
+Jenkins may run unit tests and deploy applications
+
+25. Why is Jenkins used with Selenium?
+Using Selenium allows Jenkins’s testing whenever there are any software changes or any changes in the environment. When the Selenium test suite is integrated with Jenkins, the testing part is also automated as part of the build process.
+
+26. What is the process to integrate Git with Jenkins?
+To integrate Git with Jenkins, you can follow the following steps:
+
+First, create a new Jenkins job and open the Jenkins dashboard.
+Now, enter the desired project name and select the job type. 
+Click on OK.
+Then enter the project information. 
+After that, visit the 'Source Code Management' tab.
+If the Git plugin is pre-installed in Jenkins, there will be 'Git'.
+If it is not installed, you must reinstall the plugins (GitHub plugin, GitHub Branch Source plugin, GitHub API plugin, Git client plugin, etc.).
+After we install the plugins, restart Jenkins.
+To check if Git is installed, you can go to Command Prompt and type Git, and you would see various options like usage, version, help, etc.
+
+33. How to deploy a custom build of a core plugin?
+The steps to deploy a custom build of a core plugin are:
+
+First, copy the .hpi file to $JENKINS_HOME/plugins
+Then remove the plugin's development directory
+Next, create an empty file called <plugin>.hpi.pinned
+Finally, restart Jenkins and use your custom build of a core plugin
+
+
+Azure Interview Questions and Answers
+===================================
+2. Why Did You Choose Microsoft Azure and Not Aws?
+Your response to this question is based on your own background and experience. Maybe you come from a developer background, so Azure appealed to you. Maybe your first cloud computing role just happened to be with Azure. As with the question above, the key here is to be ready to give an intelligent answer to the question.
+
+3. How Does Microsoft Azure Compare to Aws?
+This might be a matter of opinion for you, so answer as you see fit. In general, people say Azure is a better choice because it’s a Microsoft product, making it easier for organizations already using Windows Server, SQL Server, and Exchange to move to the cloud. In addition, because of Microsoft’s deep knowledge of developer tools, Azure offers multiple app deployment options for developers, which makes it stand out against AWS.
+
+6. What is the difference between SaaS, PaaS, and IaaS?
+This is one of the most common Azure interview questions. Cloud Computing has three types of service models, that are IaaS, PaaS, and SaaS
+Infrastructure as a Service(IaaS): It provides users with components such as OS, networking capabilities, etc. This is a paid service, based on usage and can be used to host applications.
+Platform as a Service(PaaS): It enables developers to build and work with applications without having to worry about the infrastructure or management of the hosting environment.
+Software as a Service(SaaS): It involves applications being consumed and used by organizations. Usually, organizations pay for their use of the application
+
+
+7. What are the instance types offered by Azure?
+Azure offers a number of different instance types based on what needs they fulfill. 
+
+General Purpose - CPU to memory ratio is balanced. Provides low to medium traffic web servers, small to medium databases and is ideal for testing and development
+Largest instance size: Standard_D64_v3
+
+256 GB Memory and 1600 GB SSD Temp Storage
+
+Compute Optimized - High CPU to memory ratio. Best suited for medium traffic web servers, application servers, batch processes, and network appliances
+Largest instance size: Standard_F72s_V2
+
+144 GB Memory and 576 GB SSD Temp Storage
+
+Memory-Optimized - High memory to CPU ratio. Best suited for relational database servers, in-memory analytics, and medium to large caches
+Largest instance size: Standard_M128m
+
+3892 GB Memory and 14,336 GB SSD Temp Storage
+
+Storage Optimized - Provides high disk IO and throughput. Best suited for Big Data, NoSQL and SQL Databases
+Largest instance size: Standard_L32s
+
+256 GB Memory and 5630 GB SSD Temp Storage
+
+GPU - Virtual Machines that specialize in heavy graphic rendering and video editing. It also helps with model training and inferencing with deep learning
+Largest instance size: Standard_ND24rs
+
+448 GB Memory and 2948 GB SSD Temp Storage
+4 GPUs and 96 GB Memory
+
+High-Performance Compute - Provides Azure’s fastest and powerful CPU virtual machines with optional high throughput interfaces
+Largest instance size: Standard_L32s
+
+224 GB Memory and 2000 GB SSD Temp Storage
+
+
+8. What are the deployment environments offered by Azure?
+This is one of the most frequently asked Azure interview questions, and you must know the answer. Azure offers two deployment environments:
+
+Staging Environment:
+It provides a platform to validate changes to your application before it can be made live in the production environment
+In this stage, the app can be identified using the Azure’s Globally Unique Identifier (GUID) in URL form (GUID.cloudapp.net) 
+Production Environment:
+This environment is used to store the live application
+It can be differentiated from the staging environment with an URL that’s more DNS friendly (servicename.cloudapp.net)
+
+
+11. What are the advantages of Scaling in Azure?
+Azure performs scaling with the help of a feature known as Autoscaling. Autoscaling helps to deal with changing demands in Cloud Services, Mobile Services, Virtual Machines, and Websites. Below are a few of its advantages:
+
+Maximizes application performance
+Scale up or down based on demand
+Schedule scaling to particular time periods
+Highly cost-effective
+
+12. How is Windows Active Directory and Azure Active Directory different?
+Windows Active Directory
+It is a directory service that facilitates working with interconnected, complex and different network resources in a unified manner
+Uses 5 layers to store data, store user details, issue and manage certifications, etc.
+Works with an emphasis on on-premises units like applications, file services, printers, etc. 
+
+Azure Active Directory
+Azure Active Directory (Azure AD) is Microsoft’s multi-tenant, cloud-based directory and identity management service
+Uses 5 layers to store data, store user details, issue and manage certifications, etc.
+Emphasizes on web-based services that use RESTful interfaces
+
+13. What are the types of Queues offered by Azure?
+Azure offers two types of queues:
+
+Storage Queues:
+It is a part of Azure’s Storage infrastructure
+It provides messaging within and between services
+It is best suited when users need to store more than 80 GB of messages in queues 
+It can provide side logs of all transactions executed against the user’s queues
+Service Bus Queues:
+It is a part of Azure’s messaging infrastructure
+It integrates application or application components that span multiple communication protocols, network environments, etc.
+It provides a FIFO style of delivery
+The user’s queue size has to remain under 80 GB
+
+14. What are the advantages of the Azure Resource Manager?
+Azure Resource Manager enables users to manage their usage of application resources. Few of the advantages of Azure Resource Manager are:
+
+ARM helps deploy, manage and monitor all the resources for an application, a solution or a group
+Users can be granted access to resources they require
+It obtains comprehensive billing information for all the resources in the group
+Provisioning resources is made much easier with the help of templates
+
+16. How has integrating hybrid cloud been useful for Azure?
+The Hybrid Cloud boosts productivity by using Azure and the Azure stack for building and deploying applications for the cloud and on-premises applications. Integrating hybrid cloud been useful for Azure in the following ways:
+
+It obtains greater efficiency with a combination of Azure services and DevOps processes and tools
+Users can take advantage of constantly updated Azure services and other Azure Marketplace applications
+It enables it to be deployed regardless of its location, the cloud, or on-premises. 
+This enables applications to be created at a higher speed
+
+18. What are the different types of storage offered by Azure?
+Storage questions are very commonly asked during an Azure Interview. Azure has four different types of storage. They are:
+
+Azure Blob Storage 
+Blob Storage enables users to store unstructured data that can include pictures, music, video files, etc. along with their metadata. 
+
+When an object is changed, it is verified to ensure it is of the latest version. 
+It provides maximum flexibility to optimize the user’s storage needs. 
+Unstructured data is available to customers through REST-based object storage
+Azure Table Storage
+Table Storage enables users to perform deployment with semi-structured datasets and a NoSQL key-value store. 
+
+It is used to create applications requiring flexible data schema
+It follows a strong consistency model, focusing on enterprises 
+Azure File Storage
+File Storage provides file-sharing capabilities accessible by the SMB (Server Message Block) protocol
+
+The data is protected by SMB 3.0 and HTTPS
+Azure takes care of managing hardware and operating system deployments
+It improves on-premises performance and capabilities
+Azure Queue Storage
+Queue Storage provides message queueing for large workloads
+
+It enables users to build flexible applications and separate functions
+It ensures the application is scalable and less prone to individual components failing
+It enables queue monitoring which helps ensure customer demands are met
+
+21. What are the two kinds of Azure Web Service roles?
+A cloud service role is a set of managed and load-balanced virtual machines that work together to perform tasks. The two kinds of Azure Web Service roles are:
+
+Web Roles
+It is a cloud service role that is used to run web applications developed in programming languages supported by IIS (Internet Information Services) like ASP.NET, PHP, etc.
+It automatically deploys and hosts applications through the users IIS
+Worker Roles
+It runs applications and other tasks that don't require IIS. It performs supporting background tasks along with web roles
+It doesn’t use IIS and runs user applications standalone 
+
+26. With respect to Azure, what is public, private, and hybrid cloud?
+Public Cloud - Every component that the user is using in his/ her application are running only on Azure
+Private Cloud - Azure services are being run within an on-premises data center or on-premises data centers are used by the user to host systems or applications
+Hybrid Cloud - Combines features of both Public and Private cloud. Some of the user’s components are being run on Azure and others within an on-premises datacenter
+
+27. What kind of storage is best suited to handle unstructured data?
+Questions on Blob Storage can be seen in the list of Azure Interview Questions.
+
+Blob Storage provides storage capacity for data. It places data into different tiers based on how often they’re accessed.
+
+Any type of unstructured data can be stored
+Data integrity is maintained every time an object is changed
+It helps to increase app performance and reduces bandwidth consumption
+
+32. Which service in Azure is used to manage resources in Azure?
+a. Azure Resource Manager
+
+b. Application Insights
+
+c. Log Analytics
+
+d. Azure Portal
+
+Answer: a) Azure Resource Manager
+
+
+DevOps Interview Questions and Answers
+=====================================
+4. What are the different phases in DevOps?
+The various phases of the DevOps lifecycle are as follows:
+
+Plan - Initially, there should be a plan for the type of application that needs to be developed. Getting a rough picture of the development process is always a good idea.
+Code - The application is coded as per the end-user requirements. 
+Build - Build the application by integrating various codes formed in the previous steps.
+Test - This is the most crucial step of the application development. Test the application and rebuild, if necessary.
+Integrate - Multiple codes from different programmers are integrated into one.
+Deploy - Code is deployed into a cloud environment for further usage. It is ensured that any new changes do not affect the functioning of a high traffic website.
+Operate - Operations are performed on the code if required.
+Monitor - Application performance is monitored. Changes are made to meet the end-user requirements.
+
+5. Mention some of the core benefits of DevOps.
+The core benefits of DevOps are as follows:
+
+Technical benefits
+Continuous software delivery
+Less complex problems to manage
+Early detection and faster correction of defects
+Business benefits
+Faster delivery of features
+Stable operating environments
+Improved communication and collaboration between the teams
+
+6. How will you approach a project that needs to implement DevOps?
+The following standard approaches can be used to implement DevOps in a specific project:
+
+Stage 1
+An assessment of the existing process and implementation for about two to three weeks to identify areas of improvement so that the team can create a road map for the implementation.
+
+Stage 2
+Create a proof of concept (PoC). Once it is accepted and approved, the team can start on the actual implementation and roll-out of the project plan.
+
+Stage 3
+The project is now ready for implementing DevOps by using version control/integration/testing/deployment/delivery and monitoring followed step by step.
+By following the proper steps for version control, integration, testing, deployment, delivery, and monitoring, the project is now ready for DevOps implementation. 
+
+
+8. What is the role of configuration management in DevOps?
+Enables management of and changes to multiple systems.
+Standardizes resource configurations, which in turn, manage IT infrastructure.
+It helps with the administration and management of multiple servers and maintains the integrity of the entire infrastructure.
+
+9. How does continuous monitoring help you maintain the entire architecture of the system?
+Continuous monitoring in DevOps is a process of detecting, identifying, and reporting any faults or threats in the entire infrastructure of the system.
+
+Ensures that all services, applications, and resources are running on the servers properly.
+Monitors the status of servers and determines if applications are working correctly or not.
+Enables continuous audit, transaction inspection, and controlled monitoring.
+
+10. What is the role of AWS in DevOps?
+AWS has the following role in DevOps:
+
+Flexible services - Provides ready-to-use, flexible services without the need to install or set up the software.
+Built for scale - You can manage a single instance or scale to thousands using AWS services.
+Automation - AWS lets you automate tasks and processes, giving you more time to innovate
+Secure - Using AWS Identity and Access Management (IAM), you can set user permissions and policies.
+Large partner ecosystem - AWS supports a large ecosystem of partners that integrate with and extend AWS services.
+
+17. What are the benefits of using version control?
+Here are the benefits of using Version Control:
+
+All team members are free to work on any file at any time with the Version Control System (VCS). Later on, VCS will allow the team to integrate all of the modifications into a single version.
+The VCS asks to provide a brief summary of what was changed every time we save a new version of the project. We also get to examine exactly what was modified in the content of the file. As a result, we will be able to see who made what changes to the project.
+Inside the VCS, all the previous variants and versions are properly stored. We will be able to request any version at any moment, and we will be able to retrieve a snapshot of the entire project at our fingertips.
+A VCS that is distributed, such as Git, lets all the team members retrieve a complete history of the project. This allows developers or other stakeholders to use the local Git repositories of any of the teammates even if the main server goes down at any point in time.
+
+
+20. What is the Blue/Green Deployment Pattern?
+This is a method of continuous deployment that is commonly used to reduce downtime. This is where traffic is transferred from one instance to another. In order to include a fresh version of code, we must replace the old code with a new code version. 
+
+The new version exists in a green environment and the old version exists in a blue environment. After making changes to the previous version, we need a new instance from the old one to execute a newer version of the instance.
+
+22. What is Automation Testing?
+Test automation or manual testing Automation is the process of automating a manual procedure in order to test an application or system. Automation testing entails the use of independent testing tools that allow you to develop test scripts that can be run repeatedly without the need for human interaction.
+
+
+23. What are the benefits of Automation Testing?
+Some of the advantages of Automation Testing are -
+
+Helps to save money and time.
+Unattended execution can be easily done.
+Huge test matrices can be easily tested.
+Parallel execution is enabled.
+Reduced human-generated errors, which results in improved accuracy.
+Repeated test tasks execution is supported.
+
+
+Google Cloud Interview Questions and Answers
+==========================================
+4. What is Google Cloud Platform?
+Google Cloud Platform or GCP is a cloud platform that has been developed by Google. It offers access to its cloud systems and computing services. It includes a number of services under the compute, database, storage, networking, and migration domains of cloud computing.
+
+10. Describe the security aspects that the cloud offers?
+Some of the important security aspects that the cloud offers are as below:
+
+Access control: it offers control to the users who can control the access to other users who are entering the cloud ecosystem
+Identity management: this provides the authorization for the application services
+Authorization and authentication: this security feature lets only the authenticated and authorized users access the applications and data.
+
+12. What are the various components of the Google Cloud Platform?
+The various GCP components are:
+
+Google Compute Engine
+Google Cloud Container Engine
+Google Cloud Storage
+Google Cloud App Engine
+Google Cloud Dataflow
+Google Cloud Machine Learning Engine
+Google BigQuery Service
+Google Cloud Job Discovery
+Google Cloud Endpoints
+Google Cloud Test Lab
+
+13. What are the main advantages of using Google Cloud Platform?
+Google Cloud Platform is gaining popularity among cloud professionals as well as users for the advantages they offer over others :
+
+GCP offers competitive pricing 
+Google Cloud servers allow access to information from anywhere 
+GCP has an overall better performance and service compared to other hosting cloud services
+Google Cloud provides speedy and efficient server and security updates
+The security level of Google Cloud Platform is exemplary; the cloud platform and networks are secured and encrypted with various security measures.
+
+15. What are the various layers in the cloud architecture?
+Physical layer: This constitutes the physical servers, network, and other aspects
+Infrastructure layer: This layer includes storage, virtualized layers, and so on
+Platform layer: This includes the operating system, apps, and other aspects
+Application layer: This is the layer that the end-user directly interacts with.
+
+16. What are the libraries and tools for cloud storage on GCP?
+JSON API and XML API are at the core level for the cloud storage on Google Cloud Platform. But along with these, Google also provides the following to interact with the cloud storage.
+
+Google Cloud Platform Console to perform basic operations on objects and buckets
+Cloud Storage Client Libraries that provides programming support for various languages 
+Gsutil Command-line Tool provides a CLI for the cloud storage
+
+19. What are the different methods for the authentication of Google Compute Engine API?
+There are different methods for the authentication of Google Compute Engine API. They are:
+
+Through client library
+Using OAuth 2.0
+Directly using an access token
+
+21. What are some of the popular open-source cloud computing platforms?
+Some of the important open-source cloud computing platforms are as below
+
+OpenStack
+Cloud Foundry
+Docker
+Apache Mesos
+KVM
+
+24. Mention what is the difference between elasticity and scalability in cloud computing?
+Scalability in the cloud is the way in which you increase the ability to service additional workloads either by adding new servers or accommodating them within the existing servers. Elasticity is the process by which you can either add or remove virtual machines depending on the requirement in order to avoid wastage of resources and reduce costs.
+
+
+Module Commands
+* depmod - handle dependency descriptions for loadable kernel modules.
+* insmod - install loadable kernel module.
+* lsmod - list loaded modules.
+* modinfo - display information about a kernel module.
+* modprobe - high level handling of loadable modules.
+* rmmod - unload loadable modules.
+
+Using Module Commands
+Below the different kernel module commands are demonstrated
+
+# Show the module dependencies.
+depmod -n
+
+# Install some module
+insmod --autoclean [modnam]
+
+# This lists all currently loaded modules, lsmod takes no useful parameters
+lsmod
+
+# Display information about module eepro100
+modinfo --author --description --parameters eepro100
+
+# Removing a module (don't use the example)
+rmmod --all --stacks ip_tables
+
+
+Module Configuration Files
+The kernel modules can use two different methods of automatic loading. The first method (modules.conf) is my preferred method, but you can do as you please.
+
+- modules.conf - This method load the modules before the rest of the services, I think before your computer chooses which runlevel to use
+- rc.local - Using this method loads the modules after all other services are started
+
+Using 'modules.conf' will require you to say `man 5 modules.conf`. Using 'rc.local' requires you to place the necessary commands (see above) in the right order.
+
+
+Commands to Check Memory Use in Linux
+# cat /proc/meminfo
+# free
+# vmstat
+# top
+# htop 
+
+
+Linux Networking Commands
+# ifconfig 
+# ip
+# traceroute
+# tracepath
+# ping
+# netstat
+# ss
+# dig
+# nslookup
+# route
+# host
+# arp
+# iwconfig
+# hostname
+# curl or wget
+# mtr
+# whois
+# ifplugstatus
+# iftop
+# tcpdum
+
+
+6 Stages of Linux Boot Process (Startup Sequence)
+1. BIOS
+2. MBR
+3. GRUB
+4. Kernel
+5. Init
+6. Runlevel programs
+
+
+Linux Runlevels Explained
+0   | Halt | Shuts down system
+1   | Single-User Mode | Does not configure network interfaces, start daemons, or allow non-root logins
+2   | Multi-User Mode | Does not configure network interfaces or start daemons.
+3   | Multi-User Mode with Networking | Starts the system normally.
+4   | Undefined | Not used/User-definable
+5   | X11 |	As runlevel 3 + display manager(X)
+6   | Reboot |	Reboots the system
+
+
+Partition Types
+82 Linux swap
+83 Linux native partition
+8e Linux Logical Volume Manager partition
+fd Linux raid partition with autodetect using persistent superblock
+
+
+Types of Linux File Systems
+ext2, ext3, ext4
+- These are the progressive version of Extended Filesystem (ext), which primarily was developed for MINIX. The second extended version (ext2) was an improved version. Ext3 added performance improvement. Ext4 was a performance improvement besides additional providing additional features
+
+jfs
+- The Journaled File System (JFS) was developed by IBM for AIX UNIX which was used as an alternative to system ext. JFS is an alternative to ext4 currently and is used where stability is required with the use of very few resources. When CPU power is limited JFS comes handy.
+
+ReiserFS
+- It was introduced as an alternative to ext3 with improved performance and advanced features. There was a time when SuSE Linux‘s default file format was ReiserFS but later Reiser went out of business and SuSe had no option other than to return back to ext3. ReiserFS supports file System Extension dynamically which was relatively an advanced feature but the file system lacked certain area of performance.
+
+XFS
+- XFS was a high speed JFS which aimed at parallel I/O processing. NASA still usages this file system on their 300+ terabyte storage server.
+
+Btrfs
+- B-Tree File System (Btrfs) focus on fault tolerance, fun administration, repair System, large storage configuration and is still under development. Btrfs is not recommended for Production System.
+
+
+List Environment Variables in Linux
+env – The command allows you to run another program in a custom environment without modifying the current one. When used without an argument it will print a list of the current environment variables.
+printenv – The command prints all or the specified environment variables.
+set – The command sets or unsets shell variables. When used without an argument it will print a list of all variables including environment and shell variables, and shell functions.
+unset – The command deletes shell and environment variables.
+export – The command sets environment variables.
+
+
+Selinux
+Security-Enhanced Linux is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls. SELinux gives that extra layer of security to the resources in the system.
+
+To check the status
+getenforce
+sestatus
+
+If you decide to set the SELinux status to disabled, you'd issue the command:
+sudo setenforce disabled
+
+To set the status to permissive, the command would be:
+sudo setenforce permissive
+
+Finally, to set the status to enforcing, the command would be:
+sudo setenforce enforcing
+
+vi /etc/selinux/config
+
+To instruct SELinux to allow access to the /srv/www directory
+$ semanage fcontext -a -t httpd_sys_content_t '/srv/www(/.*)?'
+
+To use the restorecon on /srv/www, issue the command:
+$ sudo restorecon -Rv /srv/www
+
+
+
+Access Control Lists(ACL) in Linux
+What is ACL ?
+Access control list (ACL) provides an additional, more flexible permission mechanism for file systems. It is designed to assist with UNIX file permissions. ACL allows you to give permissions for any user or group to any disc resource.
+
+setfacl and getfacl are used for setting up ACL and showing ACL respectively.
+$ getfacl test/declarations.h
+
+List of commands for setting up ACL :
+1) To add permission for user
+setfacl -m "u:user:permissions" /path/to/file
+
+2) To add permissions for a group
+setfacl -m "g:group:permissions" /path/to/file 
+
+3) To allow all files or directories to inherit ACL entries from the directory it is within
+setfacl -dm "entry" /path/to/dir
+
+4) To remove a specific entry
+setfacl -x "entry" /path/to/file
+
+5) To remove all entries
+setfacl -b path/to/file
+
+Kdump on RHEL 7
+Kdump is a kernel feature which is used to capture crash dumps when the system or kernel crash. For enabling kdump we have to reserve some portion of physical RAM which will be used to execute kdump kernel in the event of kernel panic or crash.
+
+Step:1 Install ‘kexec-tools’ using yum command
+
+[root@cloud ~]# yum install kexec-tools
+
+Step:2 Update the GRUB2 file to Reserve Memory for Kdump kernel
+Edit the GRUB2 file (/etc/default/grub), add the parameter ‘crashkernel=<Reserved_size_of_RAM>‘ in the line beginning with ‘GRUB_CMDLINE_LINUX‘
+
+Execute the below command to regenerate grub2 configuration
+[root@cloud ~]# grub2-mkconfig -o /boot/grub2/grub.cfg
+
+In case of UEFI firmware, use the below command
+[root@cloud ~]# grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+
+Reboot the box now using below command :
+[root@cloud ~]# shutdown -r now
+
+Step:3 Update the dump location & default action in the file (/etc/kdump.conf)
+[root@cloud ~]# vi /etc/kdump.conf
+
+path /var/crash
+core_collector makedumpfile -c
+default reboot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
