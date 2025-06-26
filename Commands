@@ -329,6 +329,7 @@ rsync --progress -avz  -e "ssh -p 61609" root@server.hostname.com:<Source> <Dest
 ================================
 # rsync --progress -avz  -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* .
 # rsync --progress -avz  -e "ssh -p 49125" root@109.75.174.125:/home/chinatec/mail/autoblaze.co.uk/* /home/chinatec/mail/example.co.uk/
+# rsync --progress -vrplogDtH  -e "ssh -p 22" root@192.24.16.9:/var/www/html/backup/* .
 
 *** Run from source server
 ==========================
