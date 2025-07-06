@@ -1,0 +1,91 @@
+++----------------------------++
+|| Docker CheatSheet Commands ||
+++----------------------------++
+
+- To check Docker Version
+# docker version
+
+- To just pull Image
+# docker pull nginx
+
+- To run docker image
+# docker run nginx
+
+- To run docker container in background
+# docker run -d nginx
+
+- To attach container
+# docker attach <CONTAINER ID>
+
+- To access the bash terminal of the container
+# docker exec -it <CONTAINER ID> bash
+
+- To list running container
+# docker ps
+
+- To list running and stopped container
+# docker ps -a
+
+- To stop the container
+# docker stop <CONTAINER ID>
+
+- To remove the continer
+# docker rm <CONTAINER ID/NAME>
+
+- To list docker images on the host
+# docker images
+
+- To remove docker image from the host
+# docker rmi nginx  -->> This will remove all the dependency
+
+- To append any command while running the container
+# docker run ubuntu sleep 5
+# docker run nginx nginx -v 
+
+- To excecute any command on the running container
+# docker exec <CONTAINER NAME> <COMMAND>
+
+- Just to get the interaction shell
+# docker run -it nginx 
+
+- To Tag container
+# docker run mysql:wp
+
+- Port Mapping
+# docker run -p 8080:80 nginx
+# docker run -p 8080:80 httpd
+# docker run -p 3306:3306 mysql
+
+- Volume Mapping(host directory to the container)
+# docker run -v host_directory:container_directory mysql
+
+- To inspect container
+# docker inspect <CONTAINER NAME>
+
+- To check container logs
+# docker logs <CONTAINER NAME>
+
+- Networking
+# docker run ubuntu  -->> Will use default docker bridge network
+# docker run ubuntu --network=none  -->> Will run the container without any network
+# docker run ubuntu --network=host  -->> Will run the container using the host network
+
+- User defined network
+# docker network create \
+--driver bridge \
+--subnet 142.18.0.0/16
+custom-isolated-network
+
+- To list all the network on the host
+# docker network ls
+
+- To inspect network
+# docker inspect <NETWORK>  -->> It can be bridge, host, or the custom network
+
+- Some Example Command
+# docker run -dit -p 80:80 -v "/home/docker/apache":/usr/local/apache2/htdocs/ httpd:2.4
+# docker run -dit -v /home/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=admin123 -d mysql
+# docker run -dit -v /home/docker/php_apache:/var/www/html -p 80:80 php:7.2-apache
+
+
+.
