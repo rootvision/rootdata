@@ -87,5 +87,11 @@ custom-isolated-network
 # docker run -dit -v /home/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=admin123 -d mysql
 # docker run -dit -v /home/docker/php_apache:/var/www/html -p 80:80 php:7.2-apache
 
+- To check storage usage of containers
+# docker system df
+# docker system df -v
+
+
+
 
 .
