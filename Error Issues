@@ -88,6 +88,27 @@ On our end I just changed ownership of those files to the apache user
 </html>
 --------------------------------------------------------------------------
 
+++-------------------------------------------------------------------------------------++
++ Steps to check port connection of the server behind the firewall, If it's not listing +
+++-------------------------------------------------------------------------------------++
+
+### This steps has to be done on the server behind the firewall.
+
+1. Create a test directory and then create a test index.html file.
+$ mkdir -v /home/users/port_testing/
+# vi index.html
+
+---
+Test HTML CODE
+---
+
+2. You can use below 2 commands to make the port listing on the require port.
+$ printf 'HTTP/1.1 200 OK\n\n%s' "$(cat index.html)" | netcat -vl 80
+$ while true; do printf 'HTTP/1.1 200 OK\n\n%s' "$(cat index.html)" | netcat -vl 80; done
+
+3. Now you can access the server IP on the client browser or any of the Linux terminal.
+$ nc -zv 172.20.0.236 80
+$ curl -ILv 172.20.0.236
 
 ** Custom 503 Message for M1 Store
 ----------------------------------
