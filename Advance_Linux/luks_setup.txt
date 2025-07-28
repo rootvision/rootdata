@@ -1,0 +1,222 @@
+LUKS Encryption Setup
+---------------------
+LUKS encryption (and similar offerings such as Vormetric) protect data "at rest". Fundamentally, this means that the filesystem is "unlocked" when it is mounted and the contents can be freely read or modified as if there was no encryption in use. When the protected filesystem is unmounted (or the server is powered down), the filesystem is "locked" such that its contents cannot be read until the appropriate key (typically a passphrase of some kind) is provided. As data can be freely accessed once the filesystem is mounted (with the key), LUKS cannot prevent data access on a running system with the encrypted filesystem(s) mounted. It only protects data "at rest" such as a case where a hard disk is lost or stolen.
+
+NOTE: Setting up a LUKS encrypted partition that is not a root or boot partition.
+
+- Required packages
+
+Ubuntu 24
+# apt-get install cryptsetup
+
+- Create the new partition: Create a single full disk GPT partition using your preferred method, and ensure its visible to the OS.
+
+# parted /dev/xvdb 
+(parted) mklabel gpt
+(parted) mkpart primary ext4 0% 50%
+(parted) mkpart data ext4 50% 100%
+(parted) print
+(parted) quit
+
+root@******:~# fdisk -l /dev/xvdb
+Disk /dev/xvdb: 75 GiB, 80530636800 bytes, 157286400 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 70FCC832-6D12-4F42-ABEC-7EAC812133D3
+
+Device        Start       End  Sectors  Size Type
+/dev/xvdb1     2048  78643199 78641152 37.5G Linux filesystem
+/dev/xvdb2 78643200 157284351 78641152 37.5G Linux filesystem
+
+# ls /dev/xvdb*
+/dev/xvdb  /dev/xvdb1 /dev/xvdb2
+
+- Before proceeding with LUKS setup format the partition with LVM and preferable File System(ext{3,4}, or xfs).
+
+root@******-imp:~# pvcreate /dev/xvdb2
+  Physical volume "/dev/xvdb2" successfully created.
+
+root@******-imp:~# vgcreate vgluks_slave /dev/xvdb2
+  Volume group "vgluks_slave" successfully created
+
+root@******-imp:~# lvcreate -l 100%FREE -n lv_sluks vgluks_slave
+  Logical volume "lv_sluks" created.
+
+root@******-imp:~# mkfs.xfs /dev/mapper/vgluks_slave-lv_sluks
+meta-data=/dev/mapper/vgluks_slave-lv_sluks isize=512    agcount=4, agsize=2457344 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=9829376, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=4799, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+
+- Here, now we will proceed with actual LUKS setup on the server.
+
+- Create a strong password and keep it save as this will be used during the LUKS setup process few more times.
+root@******-imp:~# pwgen -cny 16 1
+
+root@******-imp:~# cryptsetup --verbose --verify-passphrase luksFormat /dev/mapper/vgluks_slave-lv_sluks
+WARNING: Device /dev/mapper/vgluks_slave-lv_sluks already contains a 'xfs' superblock signature.
+
+WARNING!
+========
+This will overwrite data on /dev/mapper/vgluks_slave-lv_sluks irrevocably.
+
+Are you sure? (Type uppercase yes): YES
+Enter passphrase for /dev/mapper/vgluks_slave-lv_sluks:
+Verify passphrase:
+Existing 'xfs' superblock signature (offset: 0 bytes) on device /dev/mapper/vgluks_slave-lv_sluks will be wiped.
+Key slot 0 created.
+Command successful.
+
+- Open LUKS volume to create the mapped device
+
+root@******-imp:~# cryptsetup luksOpen /dev/mapper/vgluks_slave-lv_sluks lv_sluks
+Enter passphrase for /dev/mapper/vgluks_slave-lv_sluks:
+
+root@******-imp:~# ls /dev/mapper/ | grep lv_sluks
+lv_sluks
+vgluks_slave-lv_sluks
+
+- Now format the new LUKS volume
+
+root@******-imp:~# mkfs.xfs /dev/mapper/lv_sluks
+meta-data=/dev/mapper/lv_sluks   isize=512    agcount=4, agsize=2456320 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1
+data     =                       bsize=4096   blocks=9825280, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=4797, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+
+- Mount it on the mount point
+root@******-imp:~# mount /dev/mapper/lv_sluks /luks2data/
+
+root@******-imp:~# lsblk /dev/xvdb
+NAME                       MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+xvdb                       202:16   0   75G  0 disk
+├─xvdb1                    202:17   0 37.5G  0 part
+│ └─vgluks_master-lv_mluks 253:0    0 37.5G  0 lvm
+│   └─lv_mluks             253:1    0 37.5G  0 crypt /luks1data
+└─xvdb2                    202:18   0 37.5G  0 part
+  └─vgluks_slave-lv_sluks  253:2    0 37.5G  0 lvm
+    └─lv_sluks             253:3    0 37.5G  0 crypt /luks2data
+
+
+- Lets now Mount a LUKS encrypted filesystem at boot
+
+root@******-imp:~# blkid | grep crypto_LUKS
+/dev/mapper/vgluks_master-lv_mluks: UUID="c1095c10-b3f5-4060-a6b0-7844325df95e" TYPE="crypto_LUKS"
+/dev/mapper/vgluks_slave-lv_sluks: UUID="7efa9560-6359-46bf-9e5b-78a4e01092aa" TYPE="crypto_LUKS"
+
+- Add device to /etc/crypttab (without key file)
+
+root@******-imp:~# vi /etc/crypttab
+
+root@******-imp:~# cat /etc/crypttab
+# <target name> <source device>         <key file>      <options>
+lv_mluks UUID="c1095c10-b3f5-4060-a6b0-7844325df95e"  /root/lukskey luks
+lv_sluks UUID="7efa9560-6359-46bf-9e5b-78a4e01092aa" /root/lukskeys luks
+
+- Creating lukskey
+root@******-imp:~# dd if=/dev/random bs=32 count=1 of=/root/lukskeys
+1+0 records in
+1+0 records out
+32 bytes copied, 0.000106115 s, 302 kB/s
+
+root@******-imp:~# cryptsetup luksAddKey /dev/mapper/vgluks_slave-lv_sluks /root/lukskeys
+Enter any existing passphrase:
+
+root@******-imp:~# vi /etc/fstab
+root@******-imp:~# mount -a
+root@******-imp:~# df -hT | egrep -v 'tmpfs|loop'
+Filesystem           Type      Size  Used Avail Use% Mounted on
+/dev/xvda1           ext4       39G  8.1G   31G  21% /
+/dev/xvda15          vfat      105M  5.2M  100M   5% /boot/efi
+/dev/mapper/lv_mluks xfs        38G  300M   38G   1% /luks1data
+/dev/mapper/lv_sluks xfs        38G  300M   38G   1% /luks2data
+root@******-imp:~# lsblk /dev/xvdb
+NAME                       MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+xvdb                       202:16   0   75G  0 disk
+├─xvdb1                    202:17   0 37.5G  0 part
+│ └─vgluks_master-lv_mluks 253:0    0 37.5G  0 lvm
+│   └─lv_mluks             253:1    0 37.5G  0 crypt /luks1data
+└─xvdb2                    202:18   0 37.5G  0 part
+  └─vgluks_slave-lv_sluks  253:2    0 37.5G  0 lvm
+    └─lv_sluks             253:3    0 37.5G  0 crypt /luks2data
+
+root@******-imp:~# cryptsetup luksDump /dev/mapper/vgluks_slave-lv_sluks
+LUKS header information
+Version:        2
+Epoch:          4
+Metadata area:  16384 [bytes]
+Keyslots area:  16744448 [bytes]
+UUID:           7efa9560-6359-46bf-9e5b-78a4e01092aa
+Label:          (no label)
+Subsystem:      (no subsystem)
+Flags:          (no flags)
+
+Data segments:
+  0: crypt
+        offset: 16777216 [bytes]
+        length: (whole device)
+        cipher: aes-xts-plain64
+        sector: 512 [bytes]
+
+Keyslots:
+  0: luks2
+        Key:        512 bits
+        Priority:   normal
+        Cipher:     aes-xts-plain64
+        Cipher key: 512 bits
+        PBKDF:      argon2i
+        Time cost:  4
+        Memory:     507936
+        Threads:    2
+        Salt:       c0 0a 81 38 38 62 f5 ac 4f e9 91 8b 8e 59 ed d9
+                    49 99 27 c3 84 45 5e 54 78 5b 19 b7 96 2d 92 84
+        AF stripes: 4000
+        AF hash:    sha256
+        Area offset:32768 [bytes]
+        Area length:258048 [bytes]
+        Digest ID:  0
+  1: luks2
+        Key:        512 bits
+        Priority:   normal
+        Cipher:     aes-xts-plain64
+        Cipher key: 512 bits
+        PBKDF:      argon2i
+        Time cost:  4
+        Memory:     507936
+        Threads:    2
+        Salt:       bb e4 ba 58 5d 08 19 1f 1d b3 a5 cd 40 69 82 ab
+                    40 c0 1c 80 ad 0f 9d 40 ff ce 16 23 3c 55 32 4b
+        AF stripes: 4000
+        AF hash:    sha256
+        Area offset:290816 [bytes]
+        Area length:258048 [bytes]
+        Digest ID:  0
+Tokens:
+Digests:
+  0: pbkdf2
+        Hash:       sha256
+        Iterations: 66331
+        Salt:       b9 36 14 ab 85 75 2b 23 e7 a0 a3 ef 99 58 00 8e
+                    36 ee 5a 3d fd 31 44 f9 e1 e1 8a f0 0d b0 4e 29
+        Digest:     5a ad ab c4 d6 4e d8 1f a2 95 63 cc da 09 45 ef
+                    e7 b4 de 2a 7f de 24 19 94 83 d8 c1 55 9a 6a 92
+root@******-imp:~#
+
+- Final test is to reboot the server and check the LUKS is remounted with correct TYPE crypt.
+
