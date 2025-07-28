@@ -218,5 +218,25 @@ Digests:
                     e7 b4 de 2a 7f de 24 19 94 83 d8 c1 55 9a 6a 92
 root@******-imp:~#
 
++++++++++++---------------------++++++++++++++++++++
+Note: Linux distros using systemd
+
+The crypttab file is read through a systemd targetcryptsetup.target. This target pulls in service units that are dynamically created based on the entries of crypttab.
+Each entry in the crypttab file generates dynamically a cryptsetup service during boot time or in a configuration reload (daemon-reload) of systemd. Those dynamically generated services are created under /run/systemd/generator/. Generators are executed before unit files are loaded.
+
+- To test restart systemd daemon
+systemd reload
+
+# systemctl daemon-reload
+
+This will place the service under /run/systemd/generator/ and will load the service, then verify the service succeeded and the LUKS fs has been created:
+
+Verification
+
+# systemctl status systemd-cryptsetup@<NAME_OF_LUKS_DEVICE>.service
+
+Successful test...
++++++++++++---------------------++++++++++++++++++++
+
 - Final test is to reboot the server and check the LUKS is remounted with correct TYPE crypt.
 
